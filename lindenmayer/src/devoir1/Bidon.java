@@ -34,16 +34,8 @@ public class Bidon implements Turtle {
 	}
 	private State state;
 	private double delta;
-	private boolean draw;
 	private double step;
 	private Stack<State> stack;
-	private static final double X_DEFAUT = 0;
-	private static final double Y_DEFAUT = 0;
-	private static final double THETA_DEFAUT = 90;
-
-	public Bidon() {
-		this(X_DEFAUT, Y_DEFAUT, THETA_DEFAUT);
-	}
 
 	public Bidon (double x, double y, double theta) {
 		state.x = x;
@@ -53,9 +45,9 @@ public class Bidon implements Turtle {
 	
 	@Override
 	public void draw() {
-		draw = true;
+		penDown();
 		move();
-		draw = false;
+		penUp();
 	}
 
 	@Override
@@ -115,6 +107,14 @@ public class Bidon implements Turtle {
 	public void setUnits(double step, double delta) {
 		this.step = step;
 		this.delta = delta;
+	}
+	
+	public void penUp() {
+		
+	}
+	
+	public void penDown() {
+		
 	}
 
 }
