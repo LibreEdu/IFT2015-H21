@@ -58,8 +58,8 @@ public class Bidon implements Turtle {
 
 	@Override
 	public void move() {
-		state.x = state.x + step * Math.cos(Math.toRadians(getAngle()));
-		state.y = state.y + step * Math.sin(Math.toRadians(getAngle()));
+		state.x = state.x + step * Math.cos(Math.toRadians(state.theta));
+		state.y = state.y + step * Math.sin(Math.toRadians(state.theta));
 	}
 
 	@Override
