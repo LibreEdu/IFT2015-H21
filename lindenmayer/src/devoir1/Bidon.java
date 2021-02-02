@@ -17,35 +17,17 @@ public class Bidon implements Turtle {
 			this.theta = theta;
 		}
 		public State(State state) {
-			this.x = state.getX();
-			this.y = state.getY();
-			this.theta = state.getTheta();
+			this.x = state.x;
+			this.y = state.y;
+			this.theta = state.theta;
 		}
-		public double getX() {
-			return x;
-		}
-		public void setX(double x) {
-			this.x = x;
-		}
-		public double getY() {
-			return y;
-		}
-		public void setY(double y) {
-			this.y = y;
-		}
-		public double getTheta() {
-			return theta;
-		}
-		public void setTheta(double theta) {
-			this.theta = theta;
-		}
-		public Object clone() {
-			return new State(this);
+		public Object clone() throws CloneNotSupportedException {
+			return (State) super.clone();
 		}
 		public void setState(State state) {
-			this.x = state.getX();
-			this.y = state.getY();
-			this.theta = state.getTheta();			
+			this.x = state.x;
+			this.y = state.y;
+			this.theta = state.theta;			
 		}
 	}
 	private State state;
@@ -53,11 +35,20 @@ public class Bidon implements Turtle {
 	private boolean draw;
 	private double step;
 	private Stack<State> stack;
+	private static final double X_DEFAUT = 0;
+	private static final double Y_DEFAUT = 0;
+	private static final double THETA_DEFAUT = 90;
 
 	public Bidon() {
-		// TODO Auto-generated constructor stub
+		this(X_DEFAUT, Y_DEFAUT, THETA_DEFAUT);
 	}
 
+	public Bidon (double x, double y, double theta) {
+		state.x = x;
+		state.y = y;
+		state.theta = theta;
+	}
+	
 	@Override
 	public void draw() {
 		draw = true;
@@ -67,23 +58,29 @@ public class Bidon implements Turtle {
 
 	@Override
 	public void move() {
-		state.setX(state.getX() + step * Math.cos(Math.toRadians(getAngle())));
-		state.setY(state.getY() + step * Math.sin(Math.toRadians(getAngle())));
+		state.x = state.x + step * Math.cos(Math.toRadians(getAngle()));
+		state.y = state.y + step * Math.sin(Math.toRadians(getAngle()));
 	}
 
 	@Override
 	public void turnR() {
-		state.setTheta(state.getTheta() - delta);
+		state.theta = state.theta - delta;
 	}
 
 	@Override
 	public void turnL() {
-		state.setTheta(state.getTheta() + delta);
+		state.theta = state.theta + delta;
 	}
 
 	@Override
 	public void push() {
-		State backup = new State((State)state.clone());
+		State backup = null;
+		try {
+			backup = new State((State)state.clone());
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		stack.push(backup);
 	}
 
@@ -104,12 +101,12 @@ public class Bidon implements Turtle {
 
 	@Override
 	public Point2D getPosition() {
-		return new Point2D.Double(state.getX(), state.getY());
+		return new Point2D.Double(state.x, state.y);
 	}
 
 	@Override
 	public double getAngle() {
-		return state.getTheta();
+		return state.theta;
 	}
 
 	@Override
