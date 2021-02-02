@@ -10,7 +10,18 @@ public class Bidon implements Turtle{
 	private class State{
 		private double x;
 		private double y;
+		private Point2D pos;
 		private double theta;
+		public State(double x, double y, double theta) {
+			this.x = x;
+			this.y = y;
+			this.theta = theta;
+		}
+		public State(State state) {
+			this.x = state.getX();
+			this.y = state.getY();
+			this.theta = state.getTheta();
+		}
 		public double getX() {
 			return x;
 		}
@@ -29,12 +40,20 @@ public class Bidon implements Turtle{
 		public void setTheta(double theta) {
 			this.theta = theta;
 		}
+		public State getState() {
+			return this;
+		}
+		public void setState(State state) {
+			this.x = state.getX();
+			this.y = state.getY();
+			this.theta = state.getTheta();			
+		}
 	}
-	private State etat;
+	private State state;
 	private double delta;
 	private boolean draw;
 	private double d;
-	private Stack<State> pile;
+	private Stack<State> stack;
 
 	public Bidon() {
 		// TODO Auto-generated constructor stub
@@ -49,30 +68,30 @@ public class Bidon implements Turtle{
 
 	@Override
 	public void move() {
-		etat.setX(etat.getX() + d * Math.cos(Math.toRadians(getAngle())));
-		etat.setY(etat.getY() + d * Math.sin(Math.toRadians(getAngle())));
+		state.setX(state.getX() + d * Math.cos(Math.toRadians(getAngle())));
+		state.setY(state.getY() + d * Math.sin(Math.toRadians(getAngle())));
 	}
 
 	@Override
 	public void turnR() {
-		etat.setTheta(etat.getTheta() - delta);
+		state.setTheta(state.getTheta() - delta);
 	}
 
 	@Override
 	public void turnL() {
-		etat.setTheta(etat.getTheta() + delta);
+		state.setTheta(state.getTheta() + delta);
 	}
 
 	@Override
 	public void push() {
-		// TODO Auto-generated method stub
-		
+		State backup = new State(state.getState());
+		stack.push(backup);
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-		
+		State backup = stack.pop();
+		state.setState(backup);
 	}
 
 	@Override
