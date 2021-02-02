@@ -8,31 +8,21 @@ import lindenmayer.Turtle;
 public class Bidon implements Turtle{
 	
 	private class State{
-		private double x;
-		private double y;
 		private Point2D pos;
 		private double theta;
-		public State(double x, double y, double theta) {
-			this.x = x;
-			this.y = y;
+		public State(Point2D pos, double theta) {
+			this.pos = pos;
 			this.theta = theta;
 		}
 		public State(State state) {
-			this.x = state.getX();
-			this.y = state.getY();
+			this.pos = state.getPos();
 			this.theta = state.getTheta();
 		}
-		public double getX() {
-			return x;
+		private Point2D getPos() {
+			return pos;
 		}
-		public void setX(double x) {
-			this.x = x;
-		}
-		public double getY() {
-			return y;
-		}
-		public void setY(double y) {
-			this.y = y;
+		public void setPos(Point2D pos) {
+			this.pos = pos;
 		}
 		public double getTheta() {
 			return theta;
@@ -44,8 +34,7 @@ public class Bidon implements Turtle{
 			return this;
 		}
 		public void setState(State state) {
-			this.x = state.getX();
-			this.y = state.getY();
+			this.pos = state.getPos();
 			this.theta = state.getTheta();			
 		}
 	}
@@ -68,8 +57,9 @@ public class Bidon implements Turtle{
 
 	@Override
 	public void move() {
-		state.setX(state.getX() + d * Math.cos(Math.toRadians(getAngle())));
-		state.setY(state.getY() + d * Math.sin(Math.toRadians(getAngle())));
+		state.pos.setLocation(
+				state.getPos().getX() + d * Math.cos(Math.toRadians(getAngle())),
+				state.getPos().getY() + d * Math.sin(Math.toRadians(getAngle())));
 	}
 
 	@Override
