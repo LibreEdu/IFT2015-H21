@@ -16,13 +16,15 @@ public class Bidon implements Turtle {
 			this.y = y;
 			this.theta = theta;
 		}
+		/*
 		public State(State state) {
 			this.x = state.x;
 			this.y = state.y;
 			this.theta = state.theta;
 		}
+		*/
 		public Object clone() throws CloneNotSupportedException {
-			return (State) super.clone();
+			return super.clone();
 		}
 		public void setState(State state) {
 			this.x = state.x;
@@ -76,7 +78,7 @@ public class Bidon implements Turtle {
 	public void push() {
 		State backup = null;
 		try {
-			backup = new State((State)state.clone());
+			backup = (State) state.clone();
 		} catch (CloneNotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
