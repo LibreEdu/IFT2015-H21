@@ -16,13 +16,6 @@ public class Bidon implements Turtle {
 			this.y = y;
 			this.theta = theta;
 		}
-		/*
-		public State(State state) {
-			this.x = state.x;
-			this.y = state.y;
-			this.theta = state.theta;
-		}
-		*/
 		public Object clone() throws CloneNotSupportedException {
 			return super.clone();
 		}
