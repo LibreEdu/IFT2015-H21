@@ -19,10 +19,10 @@ public class Bidon implements Turtle {
 		public Object clone() throws CloneNotSupportedException {
 			return super.clone();
 		}
-		public void setState(State state) {
-			this.x = state.x;
-			this.y = state.y;
-			this.theta = state.theta;			
+		public void setState(State s) {
+			x = s.x;
+			y = s.y;
+			theta = s.theta;			
 		}
 	}
 	private State state;
