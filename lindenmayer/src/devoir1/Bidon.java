@@ -74,7 +74,8 @@ public class Bidon implements Turtle {
 	}
 
 	@Override
-	public void stay() {	
+	public void stay() {
+		
 	}
 
 	@Override
