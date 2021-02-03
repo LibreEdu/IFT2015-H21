@@ -28,12 +28,10 @@ public class Bidon implements Turtle {
 	private State state;
 	private double delta;
 	private double step;
-	private Stack<State> stack;
+	private Stack<State> stack = new Stack<State>();
 
-	public Bidon (double x, double y, double theta) {
-		state.x = x;
-		state.y = y;
-		state.theta = theta;
+	public Bidon(double x, double y, double theta) {
+		state = new State(x, y, theta);
 	}
 	
 	@Override
@@ -45,36 +43,34 @@ public class Bidon implements Turtle {
 
 	@Override
 	public void move() {
-		state.x = state.x + step * Math.cos(Math.toRadians(state.theta));
-		state.y = state.y + step * Math.sin(Math.toRadians(state.theta));
+		state.x += step * Math.cos(Math.toRadians(state.theta));
+		state.y += step * Math.sin(Math.toRadians(state.theta));
 	}
 
 	@Override
 	public void turnR() {
-		state.theta = state.theta - delta;
+		state.theta -= delta;
 	}
 
 	@Override
 	public void turnL() {
-		state.theta = state.theta + delta;
+		state.theta += delta;
 	}
 
 	@Override
 	public void push() {
-		State backup = null;
 		try {
-			backup = (State) state.clone();
+			stack.push((State) state.clone());
 		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		stack.push(backup);
 	}
 
 	@Override
 	public void pop() {
-		State backup = stack.pop();
-		state.setState(backup);
+		if (!stack.empty()) {
+			state.setState(stack.pop());			
+		}
 	}
 
 	@Override
