@@ -11,7 +11,7 @@ public class Bidon implements Turtle {
 		private double x;
 		private double y;
 		private double theta;
-		public State(double x, double y, double theta) {
+		private State(double x, double y, double theta) {
 			this.x = x;
 			this.y = y;
 			this.theta = theta;
@@ -19,7 +19,7 @@ public class Bidon implements Turtle {
 		public Object clone() throws CloneNotSupportedException {
 			return super.clone();
 		}
-		public void setState(State s) {
+		private void setState(State s) {
 			x = s.x;
 			y = s.y;
 			theta = s.theta;			
