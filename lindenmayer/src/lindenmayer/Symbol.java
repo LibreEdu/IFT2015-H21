@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Symbol in an L-system's alphabet. 
  * 
- * @author Mikl&oacute;s Cs&#369;r&ouml;s
+ * @author Miklós Csűrös
  */
 public class Symbol 
 {
