@@ -1,5 +1,7 @@
 package lindenmayer;
 
+import java.util.ArrayList;
+
 /**
  * Symbol in an L-system's alphabet. 
  * 
@@ -8,6 +10,8 @@ package lindenmayer;
 public class Symbol 
 {
     private final char value;
+    private ArrayList<String> rules = new ArrayList<String>();
+    
     public Symbol(char c)
     {
         this.value = c;
@@ -24,5 +28,9 @@ public class Symbol
      * 
      */
     public interface Seq extends Iterable<Symbol>
-    {}    
+    {}
+    
+    public void addRule(String expansion) {
+    	rules.add(expansion);
+    }
 }
