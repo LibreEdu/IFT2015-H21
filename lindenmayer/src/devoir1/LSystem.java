@@ -18,7 +18,7 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public Symbol addSymbol(char sym) {
-		alphabet.putIfAbsent(sym, new Symbol(sym);
+		alphabet.putIfAbsent(sym, new Symbol(sym));
 		return alphabet.get(sym);
 	}
 
