@@ -5,7 +5,7 @@ import java.util.Stack;
 
 import lindenmayer.Turtle;
 
-public class Bidon implements Turtle {
+public class Tortue implements Turtle {
 	
 	private class State implements Cloneable {
 		private double x;
@@ -30,7 +30,7 @@ public class Bidon implements Turtle {
 	private double step;
 	private Stack<State> stack = new Stack<State>();
 
-	public Bidon(double x, double y, double theta) {
+	public Tortue(double x, double y, double theta) {
 		state = new State(x, y, theta);
 	}
 	

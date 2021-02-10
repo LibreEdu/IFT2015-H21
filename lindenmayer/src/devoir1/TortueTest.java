@@ -1,11 +1,11 @@
 package devoir1;
 
-public class BidonTest {
+public class TortueTest {
 	
 	Bidon b = new Bidon(0, 0, 90);
 	
-	public BidonTest() {
-		System.out.println("Test Bidon");
+	public TortueTest() {
+		System.out.println("Test Tortue");
 		System.out.print("\t");
 		position();
 		push();
@@ -17,7 +17,7 @@ public class BidonTest {
 		turnR();
 		pop();
 		pop();
-		System.out.println("Fin test Bidon");
+		System.out.println("Fin test Tortue");
 	}
 
 	private void position() {
