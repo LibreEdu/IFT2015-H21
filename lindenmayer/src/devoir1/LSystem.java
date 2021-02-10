@@ -24,13 +24,12 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public void addRule(Symbol sym, String expansion) {
-		// TODO Auto-generated method stub
+		sym.addRule(expansion);
 	}
 
 	@Override
 	public void setAction(Symbol sym, String action) {
-		// TODO Auto-generated method stub
-		
+		sym.setAction(action);
 	}
 
 	@Override

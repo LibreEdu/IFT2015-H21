@@ -11,6 +11,7 @@ public class Symbol
 {
     private final char value;
     private ArrayList<String> rules = new ArrayList<String>();
+    String action;
     
     public Symbol(char c)
     {
@@ -32,5 +33,9 @@ public class Symbol
     
     public void addRule(String expansion) {
     	rules.add(expansion);
+    }
+    
+    public void setAction(String action) {
+    	this.action = action;
     }
 }
