@@ -2,7 +2,7 @@ package devoir1;
 
 public class TortueTest {
 	
-	Bidon b = new Bidon(0, 0, 90);
+	Tortue b = new Tortue(0, 0, 90);
 	
 	public TortueTest() {
 		System.out.println("Test Tortue");
