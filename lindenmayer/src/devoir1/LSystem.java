@@ -10,15 +10,16 @@ import lindenmayer.Turtle;
 
 public class LSystem extends AbstractLSystem{
 	
-	private HashMap<Character, Symbol> alphabet = new HashMap<Character, Symbol>();
+	private HashMap<Character, Symbol> alphabet;
 
 	public LSystem() {
+		alphabet = new HashMap<Character, Symbol>();
 	}
 
 	@Override
 	public Symbol addSymbol(char sym) {
-		// TODO Auto-generated method stub
-		return null;
+		alphabet.putIfAbsent(sym, new Symbol(sym);
+		return alphabet.get(sym);
 	}
 
 	@Override
