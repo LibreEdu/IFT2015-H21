@@ -1,17 +1,16 @@
 package devoir1;
 
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import lindenmayer.Symbol;
 
-public class Seq implements Symbol.Seq{
+public class Sequence implements Symbol.Seq{
 	
 	private List<Symbol> list;
 
-	public Seq() {
+	public Sequence() {
 		list = new LinkedList<Symbol>();
 	}
 

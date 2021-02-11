@@ -71,14 +71,14 @@ public class LSystem extends AbstractLSystem{
 	@Override
 	public void tell(Turtle turtle, Symbol.Seq seq) {
 		// https://stackoverflow.com/questions/22419511/how-to-pass-method-name-dynamically-in-java
-		try {
+		/*try {
 			Method method = turtle.getClass().getMethod(sym.getAction());
 			method.invoke(turtle);
 		} catch (NoSuchMethodException | SecurityException | 
 				IllegalAccessException | IllegalArgumentException | 
 				InvocationTargetException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override
@@ -94,12 +94,12 @@ public class LSystem extends AbstractLSystem{
 	}
 	
 	private Seq strin2seq(String str) {
-		Seq seq = new Seq();
+		Sequence sequence = new Sequence();
 		for(int i = 0; i < str.length(); i++) {
 			// Add to the sequence the symbol corresponding to the character
-			seq.add(alphabet.get(str.charAt(i)));
+			sequence.add(alphabet.get(str.charAt(i)));
 		}
-		return seq;
+		return sequence;
 	}
 
 }
