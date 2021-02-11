@@ -49,9 +49,17 @@ public class LSystem extends AbstractLSystem{
 		sym.addRule(strin2seq(expansion));
 	}
 
+	public void addRule(char key, String expansion) {
+		addRule(alphabet.get(key), expansion);
+	}
+
 	@Override
 	public void setAction(Symbol sym, String action) {
 		sym.setAction(action);
+	}
+
+	public void setAction(char key, String action) {
+		setAction(alphabet.get(key), action);
 	}
 
 	@Override
