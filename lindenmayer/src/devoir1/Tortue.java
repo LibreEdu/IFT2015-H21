@@ -7,6 +7,10 @@ import lindenmayer.Turtle;
 
 public class Tortue implements Turtle {
 	
+	private static final double X_DEFAUT = 0;
+	private static final double Y_DEFAUT = 0;
+	private static final double THETA_DEFAUT = 90;
+	
 	private class State implements Cloneable {
 		private double x;
 		private double y;
@@ -26,12 +30,13 @@ public class Tortue implements Turtle {
 		}
 	}
 	private State state;
-	private double delta;
 	private double step;
-	private Stack<State> stack = new Stack<State>();
+	private double delta;
+	private Stack<State> stack;
 
-	public Tortue(Point2D pos, double theta) {
-		state = new State(pos, theta);
+	public Tortue() {
+		state = new State(new Point2D.Double(X_DEFAUT,Y_DEFAUT), THETA_DEFAUT);
+		stack = new Stack<State>();
 	}
 	
 	@Override
@@ -80,7 +85,10 @@ public class Tortue implements Turtle {
 
 	@Override
 	public void init(Point2D pos, double angle_deg) {
-		state = new State(pos, angle_deg);
+		state.x = pos.getX();
+		state.y = pos.getY();
+		state.theta = angle_deg;
+		stack.clear();
 	}
 
 	@Override

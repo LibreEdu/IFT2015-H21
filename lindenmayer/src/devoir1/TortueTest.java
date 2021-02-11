@@ -9,7 +9,7 @@ public class TortueTest {
 	
 	public TortueTest() {
 		System.out.println("Test Tortue");
-		t = new Tortue(new Point2D.Double(0,0), 90);
+		t = new Tortue();
 		System.out.print("\t");
 		position();
 		push();
@@ -20,6 +20,9 @@ public class TortueTest {
 		move();
 		turnR();
 		pop();
+		pop();
+		push();
+		t.init(new Point2D.Double(10,10), 0);
 		pop();
 		System.out.println("Fin test Tortue");
 	}
