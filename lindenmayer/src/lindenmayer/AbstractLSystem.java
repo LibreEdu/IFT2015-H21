@@ -89,12 +89,12 @@ public abstract class AbstractLSystem
      */
     public abstract Symbol.Seq rewrite(Symbol sym);
     /**
-     * Executes the action corresponding to a symbol (specified by {@link #setAction}) on a given turtle.  
+     * Executes the action corresponding to a sequence (actions for Symbols specified by {@link #setAction}) on a given turtle.  
      * 
      * @param turtle used for executing the action
-     * @param sym symbol that needs to be executed 
+     * @param seq sequence that needs to be executed 
      */
-    public abstract void tell(Turtle turtle, Symbol sym);
+    public abstract void tell(Turtle turtle, Symbol.Seq seq);
 
     /**
      * Calculates the result of multiple rounds of rewriting. Symbols with no reriting rules are simply copied 

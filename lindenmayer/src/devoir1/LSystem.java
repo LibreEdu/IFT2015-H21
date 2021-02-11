@@ -69,7 +69,7 @@ public class LSystem extends AbstractLSystem{
 	}
 
 	@Override
-	public void tell(Turtle turtle, Symbol sym) {
+	public void tell(Turtle turtle, Symbol.Seq seq) {
 		// https://stackoverflow.com/questions/22419511/how-to-pass-method-name-dynamically-in-java
 		try {
 			Method method = turtle.getClass().getMethod(sym.getAction());
