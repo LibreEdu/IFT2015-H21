@@ -11,9 +11,9 @@ public class Tortue implements Turtle {
 		private double x;
 		private double y;
 		private double theta;
-		private State(double x, double y, double theta) {
-			this.x = x;
-			this.y = y;
+		private State(Point2D pos, double theta) {
+			x = pos.getX();
+			y = pos.getY();
 			this.theta = theta;
 		}
 		public Object clone() throws CloneNotSupportedException {
@@ -30,8 +30,8 @@ public class Tortue implements Turtle {
 	private double step;
 	private Stack<State> stack = new Stack<State>();
 
-	public Tortue(double x, double y, double theta) {
-		state = new State(x, y, theta);
+	public Tortue(Point2D pos, double theta) {
+		state = new State(pos, theta);
 	}
 	
 	@Override
@@ -80,7 +80,7 @@ public class Tortue implements Turtle {
 
 	@Override
 	public void init(Point2D pos, double angle_deg) {
-		state = new State(pos.getX(), pos.getY(), angle_deg);
+		state = new State(pos, angle_deg);
 	}
 
 	@Override

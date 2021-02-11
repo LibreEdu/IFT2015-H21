@@ -1,11 +1,15 @@
 package devoir1;
 
+import java.awt.geom.Point2D;
+
 public class TortueTest {
 	
-	Tortue t = new Tortue(0, 0, 90);
+	private Point2D pos;
+	private Tortue t;
 	
 	public TortueTest() {
 		System.out.println("Test Tortue");
+		t = new Tortue(new Point2D.Double(0,0), 90);
 		System.out.print("\t");
 		position();
 		push();

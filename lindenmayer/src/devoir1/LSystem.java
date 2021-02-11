@@ -1,5 +1,6 @@
 package devoir1;
 
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,6 +15,9 @@ public class LSystem extends AbstractLSystem{
 	
 	private HashMap<Character, Symbol> alphabet;
 	private Seq axiom = null;
+	private double step;
+	private double delta;
+	private Turtle turtle;
 
 	public LSystem() {
 		alphabet = new HashMap<Character, Symbol>();
@@ -38,6 +42,18 @@ public class LSystem extends AbstractLSystem{
 	@Override
 	public void setAxiom(String str) {
 		axiom = strin2seq(str);
+	}
+
+	public void setStep(double step) {
+		this.step = step;
+	}
+
+	public void setDelta(double delta) {
+		this.delta = delta;
+	}
+
+	public void setTurtle(double x, double y, double theta) {
+		this.turtle = new Tortue(new Point2D.Double(x,y), theta);
 	}
 
 	@Override
