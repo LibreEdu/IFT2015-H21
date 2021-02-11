@@ -31,6 +31,7 @@ public class Symbol
      */
     public interface Seq extends Iterable<Symbol> {
 		void add(Symbol symbol);
+		int size();
 	}
     
     public void addRule(Seq rule) {

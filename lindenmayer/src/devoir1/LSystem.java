@@ -5,6 +5,7 @@ import java.awt.geom.Rectangle2D;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import lindenmayer.AbstractLSystem;
 import lindenmayer.Symbol;
@@ -70,19 +71,23 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public void tell(Turtle turtle, Symbol.Seq seq) {
-		// https://stackoverflow.com/questions/22419511/how-to-pass-method-name-dynamically-in-java
-		/*try {
-			Method method = turtle.getClass().getMethod(sym.getAction());
-			method.invoke(turtle);
-		} catch (NoSuchMethodException | SecurityException | 
-				IllegalAccessException | IllegalArgumentException | 
-				InvocationTargetException e) {
-			e.printStackTrace();
-		}*/
+		Iterator<Symbol> it = seq.iterator();
+		for(int i = 0; i<seq.size(); i++) {
+			// https://stackoverflow.com/questions/22419511/how-to-pass-method-name-dynamically-in-java
+			try {
+				Method method = 
+						turtle.getClass().getMethod(it.next().getAction());
+				method.invoke(turtle);
+			} catch (NoSuchMethodException | SecurityException | 
+					IllegalAccessException | IllegalArgumentException | 
+					InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
-	public Seq applyRules(Seq seq, int n) {
+	public Seq applyRules(Symbol.Seq seq, int n) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -93,7 +98,7 @@ public class LSystem extends AbstractLSystem{
 		return null;
 	}
 	
-	private Seq strin2seq(String str) {
+	private Symbol.Seq strin2seq(String str) {
 		Sequence sequence = new Sequence();
 		for(int i = 0; i < str.length(); i++) {
 			// Add to the sequence the symbol corresponding to the character

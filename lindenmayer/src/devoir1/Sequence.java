@@ -27,5 +27,9 @@ public class Sequence implements Symbol.Seq{
     public void add(Symbol s) {
     	list.add(s);
     }
+    
+    public int size() {
+    	return list.size();
+    }
 
 }
