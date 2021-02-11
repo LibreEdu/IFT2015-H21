@@ -31,7 +31,7 @@ import java.awt.geom.Rectangle2D;
  * need to store an actual backing list or array for the iterator, but could calculate 
  * {@link java.util.Iterator#next() } on the fly.) 
  * 
- * @author Mikl&oacute;s Cs&#369;r&ouml;s
+ * @author Miklós Csűrös
  */
 public abstract class AbstractLSystem 
 {
