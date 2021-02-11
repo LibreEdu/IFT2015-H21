@@ -14,15 +14,29 @@ import lindenmayer.Turtle;
 public class LSystem extends AbstractLSystem{
 	
 	private HashMap<Character, Symbol> alphabet;
-	private Seq axiom = null;
+	private Seq axiom;
 	private double step;
 	private double delta;
 	private Turtle turtle;
 
 	public LSystem() {
 		alphabet = new HashMap<Character, Symbol>();
+		turtle = new Tortue();
 	}
 
+	public LSystem(double step, double delta, double x, double y,
+			double theta) {
+		this();
+		setParameters(step, delta, x, y, theta);
+	}
+
+	public void setParameters(double step, double delta, double x, double y, 
+			double theta) {
+		this.step = step;
+		this.delta = delta;
+		turtle.init(new Point2D.Double(x,y), theta);
+	}
+	
 	@Override
 	public Symbol addSymbol(char sym) {
 		alphabet.putIfAbsent(sym, new Symbol(sym));
@@ -42,18 +56,6 @@ public class LSystem extends AbstractLSystem{
 	@Override
 	public void setAxiom(String str) {
 		axiom = strin2seq(str);
-	}
-
-	public void setStep(double step) {
-		this.step = step;
-	}
-
-	public void setDelta(double delta) {
-		this.delta = delta;
-	}
-
-	public void setTurtle(double x, double y, double theta) {
-		this.turtle = new Tortue(new Point2D.Double(x,y), theta);
 	}
 
 	@Override
@@ -92,7 +94,7 @@ public class LSystem extends AbstractLSystem{
 	}
 	
 	private Seq strin2seq(String str) {
-		Seq seq = null ;
+		Seq seq = new Seq();
 		for(int i = 0; i < str.length(); i++) {
 			// Add to the sequence the symbol corresponding to the character
 			seq.add(alphabet.get(str.charAt(i)));
