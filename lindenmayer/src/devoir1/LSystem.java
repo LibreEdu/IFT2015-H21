@@ -10,7 +10,9 @@ import java.util.Iterator;
 import lindenmayer.AbstractLSystem;
 import lindenmayer.Symbol;
 import lindenmayer.Symbol.Seq;
+import tableau1.LSystem;
 import lindenmayer.Turtle;
+import org.json.JSONObject;
 
 public class LSystem extends AbstractLSystem{
 	
@@ -114,5 +116,15 @@ public class LSystem extends AbstractLSystem{
 		}
 		return sequence;
 	}
+	public static void readJSONFile(String file, LSystem S, Turtle T) throws java.io.IOException {
+	    JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(file))); // lecture de fichier JSON avec JSONTokener
+	    JSONArray alphabet = input.getJSONArray("alphabet");
+	    String axiom = input.getString("axiom");
+	    S.setAxiom(axiom);
+	    for (int i=0; i<alphabet.length(); i++){
+	        String letter = alphabet.getString(i);
+	        S.addSymbol(letter.charAt(0));
+	    }
+	    
 
 }
