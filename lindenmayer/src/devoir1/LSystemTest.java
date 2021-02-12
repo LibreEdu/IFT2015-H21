@@ -12,13 +12,17 @@ public class LSystemTest {
 		s.addSymbol(']');
 		s.addSymbol('+');
 		s.addSymbol('-');
-		s.addRule('F', "FF-[-F+F+F]+[+F-F-F]");
+		//s.addRule('F', "FF-[-F+F+F]+[+F-F-F]");
+		s.addRule('F', "FF-F");
 		s.setAction('F', "draw");
 		s.setAction('[', "push");
 		s.setAction(']', "pop");
 		s.setAction('+', "turnL");
 		s.setAction('-', "turnR");
 		s.setAxiom("F");
+		//s.toString(s.getAxiom());
+		//s.toString(s.addSymbol('F').getRules());
+		//s.toString(s.applyRules(s.getAxiom(), 1));
 	}
 
 }

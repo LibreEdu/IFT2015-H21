@@ -60,7 +60,7 @@ public class Symbol
 		case 0 :
 			return null;
 		case 1 :
-			return getRules(1);
+			return getRules(0);
 		default :
 			return getRules(new Random().nextInt(getSize()));
 		}

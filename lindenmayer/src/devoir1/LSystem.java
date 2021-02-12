@@ -46,7 +46,7 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public void addRule(Symbol sym, String expansion) {
-		sym.addRule(strin2seq(expansion));
+		sym.addRule(string2seq(expansion));
 	}
 
 	public void addRule(char key, String expansion) {
@@ -64,11 +64,11 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public void setAxiom(String str) {
-		axiom = strin2seq(str);
+		axiom = string2seq(str);
 	}
 
 	@Override
-	public Seq getAxiom() {
+	public Symbol.Seq getAxiom() {
 		return axiom;
 	}
 
@@ -80,7 +80,7 @@ public class LSystem extends AbstractLSystem{
 	@Override
 	public void tell(Turtle turtle, Symbol.Seq seq) {
 		Iterator<Symbol> it = seq.iterator();
-		for(int i = 0; i<seq.size(); i++) {
+		for(int i = 0; i < seq.size(); i++) {
 			// https://stackoverflow.com/questions/22419511/how-to-pass-method-name-dynamically-in-java
 			try {
 				Method method = 
@@ -95,9 +95,16 @@ public class LSystem extends AbstractLSystem{
 	}
 
 	@Override
-	public Seq applyRules(Symbol.Seq seq, int n) {
-		for(int i = 0 ; i<seq.size(); i++) {
-			seq.set(i, applyRules(seq.get(i).getRules(), n-1));
+	public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
+		if (n < 0) {
+			System.out.println("n < 0");
+			return seq;
+		}
+		for(int i = 0 ; i < seq.size(); i++) {
+			System.out.println("n = " + n + ", i = " + i);
+			Symbol.Seq sequence = applyRules(seq.get(i).getRules(), n-1);
+			toString(sequence);
+			seq.set(i, sequence);
 		}
 		return seq;
 	}
@@ -108,13 +115,20 @@ public class LSystem extends AbstractLSystem{
 		return null;
 	}
 	
-	private Symbol.Seq strin2seq(String str) {
+	private Symbol.Seq string2seq(String str) {
 		Sequence sequence = new Sequence();
 		for(int i = 0; i < str.length(); i++) {
 			// Add to the sequence the symbol corresponding to the character
 			sequence.add(alphabet.get(str.charAt(i)));
 		}
 		return sequence;
+	}
+	
+	public void toString(Symbol.Seq seq) {
+		for(int i =0; i < seq.size(); i++) {
+			System.out.print(seq.get(i).toString());
+		}
+		System.out.println();
 	}
 
 }
