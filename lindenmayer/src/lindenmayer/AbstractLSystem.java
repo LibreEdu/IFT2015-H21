@@ -23,7 +23,8 @@ import java.awt.geom.Rectangle2D;
  * 
  * <p><strong>Setting up the L-system. </strong>
  * The implementation builds its data structures 
- * by calling {@link #addSymbol}, {@link #addRule}, {@link #setAxiom} and {@link #setAction}. 
+ * by calling {@link #addSymbol}, {@link #addRule}, 
+ * {@link #setAxiom} and {@link #setAction}. 
  * 
  * <p><strong>Using the L-system. </strong>
  * The implementation provides access to symbols as instances of {@link Symbol}, and 
