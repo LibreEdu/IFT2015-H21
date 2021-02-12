@@ -5,7 +5,7 @@ public class LSystemTest {
 	private LSystem s;
 	
 	public LSystemTest() {
-		System.out.println("\n  Début test LSystem");
+		System.out.println("  Début test LSystem");
 		s = new LSystem(3, 22.5, 250, 0, 90);
 		s.addSymbol('F');
 		s.addSymbol('[');

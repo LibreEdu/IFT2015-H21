@@ -8,7 +8,7 @@ public class TortueTest {
 	private Tortue t;
 	
 	public TortueTest() {
-		System.out.println("\n  Début test Tortue");
+		System.out.println("  Début test Tortue");
 		t = new Tortue();
 		System.out.print("    ");
 		position();
