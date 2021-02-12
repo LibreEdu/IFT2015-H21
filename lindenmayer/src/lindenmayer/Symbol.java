@@ -12,7 +12,7 @@ import java.util.Random;
 public class Symbol 
 {
     private final char value;
-    private ArrayList<Seq> rules;
+    private ArrayList<Symbol.Seq> rules;
     private String action;
     
     public Symbol(char c) {
@@ -30,11 +30,10 @@ public class Symbol
      * 
      */
     public interface Seq extends Iterable<Symbol> {
-		void add(Symbol symbol);
 		int size();
 	}
     
-    public void addRule(Seq rule) {
+    public void addRule(Symbol.Seq rule) {
     	rules.add(rule);
     }
     
