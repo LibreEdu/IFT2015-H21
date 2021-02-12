@@ -124,11 +124,12 @@ public class LSystem extends AbstractLSystem{
 		return sequence;
 	}
 	
-	public void toString(Symbol.Seq seq) {
-		for(int i =0; i < seq.size(); i++) {
-			System.out.print(seq.get(i).toString());
+	public String toString(Symbol.Seq seq) {
+		String string = "";
+		for(int i = 0; i < seq.size(); i++) {
+			string += seq.get(i).toString();
 		}
-		System.out.println();
+		return string;
 	}
 
 }

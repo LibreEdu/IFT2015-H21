@@ -20,9 +20,8 @@ public class LSystemTest {
 		s.setAction('+', "turnL");
 		s.setAction('-', "turnR");
 		s.setAxiom("F");
-		//s.toString(s.getAxiom());
-		//s.toString(s.addSymbol('F').getRules());
-		//s.toString(s.applyRules(s.getAxiom(), 1));
+		System.out.println(s.toString(s.getAxiom()));
+		System.out.println(s.toString(s.addSymbol('F').getRules()));
 	}
 
 }
