@@ -6,13 +6,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
+import org.json.*;
 
 import lindenmayer.AbstractLSystem;
 import lindenmayer.Symbol;
 import lindenmayer.Symbol.Seq;
-import tableau1.LSystem;
 import lindenmayer.Turtle;
-import org.json.JSONObject;
 
 public class LSystem extends AbstractLSystem{
 	
