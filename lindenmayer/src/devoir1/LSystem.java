@@ -96,8 +96,10 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public Seq applyRules(Symbol.Seq seq, int n) {
-		// TODO Auto-generated method stub
-		return null;
+		for(int i = 0 ; i<seq.size(); i++) {
+			seq.set(i, applyRules(seq.get(i).getRules(), n-1));
+		}
+		return seq;
 	}
 
 	@Override

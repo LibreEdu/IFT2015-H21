@@ -31,6 +31,8 @@ public class Symbol
      */
     public interface Seq extends Iterable<Symbol> {
 		int size();
+		Symbol get(int index);
+		void set(int index, Seq subSeq);
 	}
     
     public void addRule(Symbol.Seq rule) {
@@ -49,7 +51,7 @@ public class Symbol
     	return rules.size();
     }
     
-    public Seq getRules(int rule) {
+    public Symbol.Seq getRules(int rule) {
     	return rules.get(rule);
     }
     
