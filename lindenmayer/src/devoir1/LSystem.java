@@ -74,7 +74,7 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public Seq rewrite(Symbol sym) {
-		return sym.getRules();
+		return sym.getRule();
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class LSystem extends AbstractLSystem{
 		}
 		for(int i = 0 ; i < seq.size(); i++) {
 			System.out.println("n = " + n + ", i = " + i);
-			Symbol.Seq sequence = applyRules(seq.get(i).getRules(), n-1);
+			Symbol.Seq sequence = applyRules(seq.get(i).getRule(), n-1);
 			toString(sequence);
 			seq.set(i, sequence);
 		}
@@ -124,6 +124,7 @@ public class LSystem extends AbstractLSystem{
 		return sequence;
 	}
 	
+	// For test purposes only
 	public String toString(Symbol.Seq seq) {
 		String string = "";
 		for(int i = 0; i < seq.size(); i++) {

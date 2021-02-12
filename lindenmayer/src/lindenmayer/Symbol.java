@@ -51,18 +51,18 @@ public class Symbol
     	return rules.size();
     }
     
-    public Symbol.Seq getRules(int rule) {
+    public Symbol.Seq getRule(int rule) {
     	return rules.get(rule);
     }
     
-    public Seq getRules() {
+    public Seq getRule() {
 		switch(getSize()) {
 		case 0 :
 			return null;
 		case 1 :
-			return getRules(0);
+			return getRule(0);
 		default :
-			return getRules(new Random().nextInt(getSize()));
+			return getRule(new Random().nextInt(getSize()));
 		}
     }
 
