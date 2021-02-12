@@ -48,7 +48,7 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public void addRule(Symbol sym, String expansion) {
-		sym.addRule(strin2seq(expansion));
+		sym.addRule(string2seq(expansion));
 	}
 
 	public void addRule(char key, String expansion) {
@@ -66,23 +66,23 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public void setAxiom(String str) {
-		axiom = strin2seq(str);
+		axiom = string2seq(str);
 	}
 
 	@Override
-	public Seq getAxiom() {
+	public Symbol.Seq getAxiom() {
 		return axiom;
 	}
 
 	@Override
 	public Seq rewrite(Symbol sym) {
-		return sym.getRules();
+		return sym.getRule();
 	}
 
 	@Override
 	public void tell(Turtle turtle, Symbol.Seq seq) {
 		Iterator<Symbol> it = seq.iterator();
-		for(int i = 0; i<seq.size(); i++) {
+		for(int i = 0; i < seq.size(); i++) {
 			// https://stackoverflow.com/questions/22419511/how-to-pass-method-name-dynamically-in-java
 			try {
 				Method method = 
@@ -97,9 +97,18 @@ public class LSystem extends AbstractLSystem{
 	}
 
 	@Override
-	public Seq applyRules(Symbol.Seq seq, int n) {
-		// TODO Auto-generated method stub
-		return null;
+	public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
+		if (n < 0) {
+			System.out.println("n < 0");
+			return seq;
+		}
+		for(int i = 0 ; i < seq.size(); i++) {
+			System.out.println("n = " + n + ", i = " + i);
+			Symbol.Seq sequence = applyRules(seq.get(i).getRule(), n-1);
+			toString(sequence);
+			seq.set(i, sequence);
+		}
+		return seq;
 	}
 
 	@Override
@@ -108,7 +117,7 @@ public class LSystem extends AbstractLSystem{
 		return null;
 	}
 	
-	private Symbol.Seq strin2seq(String str) {
+	private Symbol.Seq string2seq(String str) {
 		Sequence sequence = new Sequence();
 		for(int i = 0; i < str.length(); i++) {
 			// Add to the sequence the symbol corresponding to the character
@@ -126,5 +135,14 @@ public class LSystem extends AbstractLSystem{
 	        S.addSymbol(letter.charAt(0));
 	    }
 	    
+	
+	// For test purposes only
+	public String toString(Symbol.Seq seq) {
+		String string = "";
+		for(int i = 0; i < seq.size(); i++) {
+			string += seq.get(i).toString();
+		}
+		return string;
+	}
 
 }

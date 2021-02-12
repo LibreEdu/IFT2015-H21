@@ -8,9 +8,9 @@ public class TortueTest {
 	private Tortue t;
 	
 	public TortueTest() {
-		System.out.println("Test Tortue");
+		System.out.println("  Début test Tortue");
 		t = new Tortue();
-		System.out.print("\t");
+		System.out.print("    ");
 		position();
 		push();
 		setUnits(10,90);
@@ -24,7 +24,7 @@ public class TortueTest {
 		push();
 		t.init(new Point2D.Double(10,10), 0);
 		pop();
-		System.out.println("Fin test Tortue");
+		System.out.println("  Fin test Tortue");
 	}
 
 	private void position() {
@@ -34,35 +34,35 @@ public class TortueTest {
 	
 	private void setUnits(double step, double delta) {
 		t.setUnits(step, delta);
-		System.out.println("\tsetUnits(" + step + "," + delta + ")");
+		System.out.println("    setUnits(" + step + "," + delta + ")");
 	}
 	
 	private void move() {
 		t.move();
-		System.out.print("\tmove() => ");
+		System.out.print("    move() => ");
 		position();
 	}
 	
 	private void turnL() {
 		t.turnL();
-		System.out.print("\tturnL() => ");
+		System.out.print("    turnL() => ");
 		position();
 	}
 	
 	private void turnR() {
 		t.turnR();
-		System.out.print("\tturnR() => ");
+		System.out.print("    turnR() => ");
 		position();
 	}
 	
 	private void push() {
 		t.push();
-		System.out.print("\tpush => ");
+		System.out.print("    push => ");
 		position();	}
 	
 	private void pop() {
 		t.pop();
-		System.out.print("\tpop => ");
+		System.out.print("    pop => ");
 		position();
 	}
 }
