@@ -133,6 +133,7 @@ public class LSystem extends AbstractLSystem{
 	        String letter = alphabet.getString(i);
 	        S.addSymbol(letter.charAt(0));
 	    }
+	}
 	    
 	
 	// For test purposes only
