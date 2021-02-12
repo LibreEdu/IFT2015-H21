@@ -5,7 +5,7 @@ public class LSystemTest {
 	private LSystem s;
 	
 	public LSystemTest() {
-		System.out.println("Test LSystem");
+		System.out.println("\n  Début test LSystem");
 		s = new LSystem(3, 22.5, 250, 0, 90);
 		s.addSymbol('F');
 		s.addSymbol('[');
@@ -20,9 +20,9 @@ public class LSystemTest {
 		s.setAction('+', "turnL");
 		s.setAction('-', "turnR");
 		s.setAxiom("F");
-		System.out.println("\t Axiom : " + s.toString(s.getAxiom()));
-		System.out.println("\t Rule : " + s.toString(s.addSymbol('F').getRule()));
-		System.out.println("Fin test LSystem");
+		System.out.println("    Axiom : " + s.toString(s.getAxiom()));
+		System.out.println("    Rule : " + s.toString(s.addSymbol('F').getRule()));
+		System.out.println("  Fin test LSystem");
 	}
 
 }
