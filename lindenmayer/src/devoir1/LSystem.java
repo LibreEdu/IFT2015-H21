@@ -115,7 +115,7 @@ public class LSystem extends AbstractLSystem{
 	}
 
 	@Override
-	public Rectangle2D tell(Turtle turtle, Symbol sym, int rounds) {
+	public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int rounds) {
 		// TODO Auto-generated method stub
 		return null;
 	}
