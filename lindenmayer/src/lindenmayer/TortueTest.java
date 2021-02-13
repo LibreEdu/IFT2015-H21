@@ -1,4 +1,4 @@
-package devoir1;
+package lindenmayer;
 
 import java.awt.geom.Point2D;
 

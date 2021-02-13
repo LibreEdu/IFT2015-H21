@@ -1,10 +1,8 @@
-package devoir1;
+package lindenmayer;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import lindenmayer.Symbol;
 
 /**
  * Class managing a sequence of symbols

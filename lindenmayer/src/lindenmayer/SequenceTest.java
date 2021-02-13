@@ -1,6 +1,4 @@
-package devoir1;
-
-import lindenmayer.Symbol;
+package lindenmayer;
 
 public class SequenceTest {
 	

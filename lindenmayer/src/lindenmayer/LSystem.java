@@ -1,4 +1,4 @@
-package devoir1;
+package lindenmayer;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -8,10 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import org.json.*;
 
-import lindenmayer.AbstractLSystem;
-import lindenmayer.Symbol;
 import lindenmayer.Symbol.Seq;
-import lindenmayer.Turtle;
 
 public class LSystem extends AbstractLSystem{
 	

@@ -1,4 +1,4 @@
-package devoir1;
+package lindenmayer;
 
 public class LSystemTest {
 

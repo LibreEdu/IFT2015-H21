@@ -1,10 +1,10 @@
-package devoir1;
+package lindenmayer;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		System.out.println("Début main");
-		/*
+		//*
 		TortueTest tortueTest = new TortueTest();
 		System.out.println();
 		SequenceTest sequenceTest = new SequenceTest();

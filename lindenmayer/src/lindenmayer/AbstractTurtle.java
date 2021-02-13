@@ -1,11 +1,11 @@
-package devoir1;
+package lindenmayer;
 
 import java.awt.geom.Point2D;
+
+import java.awt.Graphics;
 import java.util.Stack;
 
-import lindenmayer.Turtle;
-
-public class Tortue implements Turtle {
+public class AbstractTurtle implements Turtle{
 	
 	private static final double X_DEFAUT = 0;
 	private static final double Y_DEFAUT = 0;
@@ -33,17 +33,15 @@ public class Tortue implements Turtle {
 	private double step;
 	private double delta;
 	private Stack<State> stack;
+	private Graphics graphics;
 
-	public Tortue() {
+	public AbstractTurtle() {
 		state = new State(new Point2D.Double(X_DEFAUT,Y_DEFAUT), THETA_DEFAUT);
 		stack = new Stack<State>();
 	}
 	
 	@Override
 	public void draw() {
-		penDown();
-		move();
-		penUp();
 	}
 
 	@Override
@@ -105,14 +103,6 @@ public class Tortue implements Turtle {
 	public void setUnits(double step, double delta) {
 		this.step = step;
 		this.delta = delta;
-	}
-	
-	public void penUp() {
-		
-	}
-	
-	public void penDown() {
-		
 	}
 
 }
