@@ -74,8 +74,15 @@ public class LSystem extends AbstractLSystem{
 	}
 
 	@Override
-	public Seq rewrite(Symbol sym) {
-		return sym.getRule();
+	public Symbol.Seq rewrite(Symbol sym) {
+		Symbol.Seq seq = sym.getRule();
+		if (seq != null) {
+			return seq;
+		} else {
+			seq = new Sequence();
+			seq.add(sym);
+			return seq;
+		}
 	}
 
 	@Override
@@ -97,17 +104,14 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
-		if (n < 0) {
-			System.out.println("n < 0");
+		if (n < 1) {
 			return seq;
 		}
+		Symbol.Seq sequence = new Sequence();
 		for(int i = 0 ; i < seq.size(); i++) {
-			System.out.println("n = " + n + ", i = " + i);
-			Symbol.Seq sequence = applyRules(seq.get(i).getRule(), n-1);
-			toString(sequence);
-			seq.set(i, sequence);
+			sequence.add(rewrite(seq.get(i)));
 		}
-		return seq;
+		return applyRules(sequence, n-1);
 	}
 
 	@Override
@@ -124,6 +128,7 @@ public class LSystem extends AbstractLSystem{
 		}
 		return sequence;
 	}
+	
 	public static void readJSONFile(String file, LSystem S, Turtle T) throws java.io.IOException {
 	    JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(file))); // lecture de fichier JSON avec JSONTokener
 	    JSONArray alphabet = input.getJSONArray("alphabet");
@@ -135,14 +140,18 @@ public class LSystem extends AbstractLSystem{
 	    }
 	}
 	    
-	
 	// For test purposes only
 	public String toString(Symbol.Seq seq) {
-		String string = "";
+		String string = new String();
 		for(int i = 0; i < seq.size(); i++) {
 			string += seq.get(i).toString();
 		}
 		return string;
 	}
+	
+	public String toString(Symbol sym) {
+		return sym.toString();
+	}
+
 
 }

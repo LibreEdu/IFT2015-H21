@@ -32,7 +32,8 @@ public class Symbol
     public interface Seq extends Iterable<Symbol> {
 		int size();
 		Symbol get(int index);
-		void set(int index, Seq subSeq);
+		void add(Symbol sym);
+		void add(Symbol.Seq seq);
 	}
     
     public void addRule(Symbol.Seq rule) {

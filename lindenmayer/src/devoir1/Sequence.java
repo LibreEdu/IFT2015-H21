@@ -30,8 +30,20 @@ public class Sequence implements Symbol.Seq {
 	 * 
 	 * @param s symbol to be added
 	 */
-    public void add(Symbol s) {
-    	list.add(s);
+    public void add(Symbol sym) {
+    	list.add(sym);
+    }
+    
+	/**
+	 * Appends the sequence to the end of this list.
+	 * 
+	 * @param s symbol to be added
+	 */
+    public void add(Symbol.Seq seq) {
+		Iterator<Symbol> it = seq.iterator();
+		for(int i = 0; i < seq.size(); i++) {
+			list.add(it.next());
+		}
     }
     
     /**
@@ -46,19 +58,6 @@ public class Sequence implements Symbol.Seq {
      */
     public Symbol get(int index) {
     	return list.get(index);
-    }
-    
-    /**
-     * Replace the ith symbol by a sequence
-     */
-    public void set(int index, Symbol.Seq seq) {
-    	LSystem s = new LSystem();
-    	for(int i = 0; i < seq.size(); i++) {
-    		System.out.print("set(" + i + ", " + seq.size() + ", " + index + ", ");
-    		s.toString(seq);
-    		System.out.println(seq.get(i).toString());
-    		//list.set(index + i, seq.get(i));
-    	}
     }
 
 }
