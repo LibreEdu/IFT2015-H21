@@ -16,11 +16,11 @@ public class LSystem extends AbstractLSystem{
 	private Seq axiom;
 	private double step;
 	private double delta;
-	private Turtle turtle;
+	private TortueInvisible turtle;
 
 	public LSystem() {
 		alphabet = new HashMap<Character, Symbol>();
-		turtle = new Tortue();
+		turtle = new TortueInvisible();
 	}
 
 	public LSystem(double step, double delta, double x, double y,
