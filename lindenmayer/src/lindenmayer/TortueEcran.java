@@ -14,6 +14,7 @@ public class TortueEcran extends AbstractTurtle {
 		g2d = (Graphics2D) g;
 	}
 	
+	@Override
 	public void draw() {
 		Point2D pos = getPosition();
 		int x2 = (int) (pos.getX()
