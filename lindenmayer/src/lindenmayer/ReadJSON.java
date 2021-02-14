@@ -2,6 +2,7 @@ package lindenmayer;
 
 import java.awt.geom.Point2D;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Iterator;
 
 import org.json.JSONArray;
@@ -19,26 +20,23 @@ public class ReadJSON {
         JSONArray alphabet = input.getJSONArray("alphabet");
         JSONObject actions = input.getJSONObject("actions");
         JSONObject regles = input.getJSONObject("rules");
-       // JSONObject parameters = input.getJSONObject("parameters");
-       // int step = parameters.getInt("step");
-       // BigDecimal angle = parameters.getBigDecimal("angle");    
-       // JSONArray start = parameters.getJSONArray("start");
-        
-        // Register alphabet
-        /*
+        JSONObject parameters = input.getJSONObject("parameters");
+        int step = parameters.getInt("step");
+        double delta = parameters.getDouble("angle");
+        JSONArray start = parameters.getJSONArray("start");
+        double x = start.getDouble(0);
+        double y = start.getDouble(1);
+        double angle = start.getDouble(2);
+        t.setUnits(step, delta);
+        t.init(new Point2D.Double(x,y), angle);
+        ls.setAxiom(input.getString("axiom"));
+        // Ajoute l'alphabet
         for (int i = 0; i < alphabet.length(); i++) {
             String letter = alphabet.getString(i);
-            System.out.print(letter);
-            //S.addSymbol(letter.charAt(0));
+            ls.addSymbol(letter.charAt(0));
         }
-        */
-        
-        //System.out.print(actions.getString("F"));
-        
-        /*ls.addSymbol(sym);
-        t.setUnits(step, delta);
-        t.init(new Point2D.Double(x,y), angle_deg);*/
-//*
+       System.out.print(actions.get(0));
+    /*
         for (Iterator<String> it = regles.keys(); it.hasNext();) {
             String prochain = it.next();
             JSONArray valeur = (JSONArray) regles.get(prochain);
@@ -53,7 +51,7 @@ public class ReadJSON {
             System.out.println(valueAction);
             //S.setAction(S.getAssociations().get(value.charAt(0)), valueAction);
         }
-        //S.setAxiom(input.getString("axiom"));*/
+        //*/
     }
 
 }
