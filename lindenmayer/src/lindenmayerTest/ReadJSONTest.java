@@ -10,10 +10,13 @@ public class ReadJSONTest {
 	private TortueVirtuelle turtle;
 	private ReadJSON readJSON;
 	
-	public void test() throws IOException {
+	ReadJSONTest() {
         ls = new LSystemString();
         turtle = new TortueVirtuelle();
-        readJSON = new ReadJSON();
+        readJSON = new ReadJSON();	
+	}
+	
+	public void test() throws IOException {
         readJSON.readFile("./test/herbe.json", turtle, ls);
 	}
 	
