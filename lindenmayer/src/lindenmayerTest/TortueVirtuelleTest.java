@@ -2,8 +2,6 @@ package lindenmayerTest;
 
 import java.awt.geom.Point2D;
 
-import lindenmayer.TortueVirtuelle;
-
 public class TortueVirtuelleTest {
 	
 	private TortueVirtuelle t;
