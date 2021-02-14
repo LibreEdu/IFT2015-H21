@@ -10,7 +10,7 @@ import org.json.*;
 
 import lindenmayer.Symbol.Seq;
 
-public class LSystem extends AbstractLSystem{
+public class LSystem extends AbstractLSystem {
 	
 	private HashMap<Character, Symbol> alphabet;
 	private Seq axiom;

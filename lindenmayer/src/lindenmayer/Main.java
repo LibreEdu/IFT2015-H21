@@ -1,17 +1,19 @@
 package lindenmayer;
 
+import javax.swing.SwingUtilities;
+
 public class Main {
 	
 	public static void main(String[] args) {
-		System.out.println("Début main");
+		//MainTest mainTest = new MainTest();
 		/*
-		TortueInvisibleTest tortueInvisibleTest = new TortueInvisibleTest();
-		System.out.println();
-		SequenceTest sequenceTest = new SequenceTest();
-		System.out.println();
-		LSystemTest lSystemTest = new LSystemTest();
-		//*/
-		System.out.println("Fin main");
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                //new MainFrame().setVisible(true);
+            }
+        });
+        //*/
 	}
 
 }

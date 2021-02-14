@@ -13,23 +13,32 @@ public class TortueInvisibleTest {
 		System.out.print("    ");
 		position();
 		push();
-		setUnits(10,90);
-		move();
-		turnL();
-		setUnits(5,90);
+		init(new Point2D.Double(100,100), 90);
+		setUnits(100,90);
 		move();
 		turnR();
+		move();
+		turnR();
+		move();
+		turnR();
+		move();
 		pop();
 		pop();
-		push();
-		t.init(new Point2D.Double(10,10), 0);
-		pop();
+		move();
+		turnL();
 		System.out.println("  Fin test Tortue");
 	}
 
 	private void position() {
 		System.out.println("(" + t.getPosition().getX() + "," + 
 				t.getPosition().getY() + "," + t.getAngle() + ")");
+	}
+	
+	private void init(Point2D pos, double theta) {
+		t.init(pos, theta);
+		System.out.print("    init(" + pos.getX() + "," + pos.getY() + "," + 
+				theta + ") => ");
+		position();
 	}
 	
 	private void setUnits(double step, double delta) {
@@ -39,30 +48,30 @@ public class TortueInvisibleTest {
 	
 	private void move() {
 		t.move();
-		System.out.print("    move() => ");
+		System.out.print("    move()                 => ");
 		position();
 	}
 	
 	private void turnL() {
 		t.turnL();
-		System.out.print("    turnL() => ");
+		System.out.print("    turnL()                => ");
 		position();
 	}
 	
 	private void turnR() {
 		t.turnR();
-		System.out.print("    turnR() => ");
+		System.out.print("    turnR()                => ");
 		position();
 	}
 	
 	private void push() {
 		t.push();
-		System.out.print("    push => ");
+		System.out.print("    push                   => ");
 		position();	}
 	
 	private void pop() {
 		t.pop();
-		System.out.print("    pop => ");
+		System.out.print("    pop                    => ");
 		position();
 	}
 }

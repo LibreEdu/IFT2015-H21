@@ -2,7 +2,6 @@ package lindenmayer;
 
 import java.awt.geom.Point2D;
 
-import java.awt.Graphics;
 import java.util.Stack;
 
 public class AbstractTurtle implements Turtle {
@@ -12,20 +11,17 @@ public class AbstractTurtle implements Turtle {
 	private static final double THETA_DEFAUT = 90;
 	
 	private class State implements Cloneable {
-		private double x;
-		private double y;
+		private Point2D pos;
 		private double theta;
 		private State(Point2D pos, double theta) {
-			x = pos.getX();
-			y = pos.getY();
+			this.pos = pos;
 			this.theta = theta;
 		}
 		public Object clone() throws CloneNotSupportedException {
 			return super.clone();
 		}
 		private void setState(State s) {
-			x = s.x;
-			y = s.y;
+			pos = s.pos;
 			theta = s.theta;			
 		}
 	}
@@ -33,7 +29,6 @@ public class AbstractTurtle implements Turtle {
 	private double step;
 	private double delta;
 	private Stack<State> stack;
-	private Graphics graphics;
 
 	public AbstractTurtle() {
 		state = new State(new Point2D.Double(X_DEFAUT,Y_DEFAUT), THETA_DEFAUT);
@@ -46,8 +41,11 @@ public class AbstractTurtle implements Turtle {
 
 	@Override
 	public void move() {
-		state.x += step * Math.cos(Math.toRadians(state.theta));
-		state.y += step * Math.sin(Math.toRadians(state.theta));
+		double x = state.pos.getX() + 
+				step * Math.cos(Math.toRadians(state.theta));
+		double y = state.pos.getY() + 
+				step * Math.sin(Math.toRadians(state.theta));
+		state.pos.setLocation(x, y);
 	}
 
 	@Override
@@ -83,20 +81,23 @@ public class AbstractTurtle implements Turtle {
 
 	@Override
 	public void init(Point2D pos, double angle_deg) {
-		state.x = pos.getX();
-		state.y = pos.getY();
+		state.pos = pos;
 		state.theta = angle_deg;
 		stack.clear();
 	}
 
 	@Override
 	public Point2D getPosition() {
-		return new Point2D.Double(state.x, state.y);
+		return state.pos;
 	}
 
 	@Override
 	public double getAngle() {
 		return state.theta;
+	}
+
+	public double getStep() {
+		return step;
 	}
 
 	@Override
