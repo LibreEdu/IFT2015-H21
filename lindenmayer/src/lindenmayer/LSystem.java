@@ -1,16 +1,10 @@
 package lindenmayer;
 
 import java.awt.geom.Rectangle2D;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import lindenmayer.Symbol.Seq;
 
@@ -110,55 +104,6 @@ public class LSystem extends AbstractLSystem {
 			sequence.add(alphabet.get(str.charAt(i)));
 		}
 		return sequence;
-	}
-	public void appel(String file) throws IOException {
-		LSystem s = new LSystem(3, 22.5, 250, 0, 90);
-		Tortue t = new Tortue();
-		readJSONFile(file, s, t);
-	}
-	public static void readJSONFile(String file, LSystem S, Turtle T) throws IOException {
-        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(file)));
-        JSONArray alphabet = input.getJSONArray("alphabet");
-        JSONObject actions = input.getJSONObject("actions");
-        JSONObject regles = input.getJSONObject("rules");
-       // JSONObject parameters = input.getJSONObject("parameters");
-       // int step = parameters.getInt("step");
-       // BigDecimal angle = parameters.getBigDecimal("angle");    
-       // JSONArray start = parameters.getJSONArray("start");
-        
-        // Register alphabet
-        for (int i = 0; i < alphabet.length(); i++) {
-            String letter = alphabet.getString(i);
-            S.addSymbol(letter.charAt(0));
-        }
-        
-
-        for (Iterator<String> it = regles.keys(); it.hasNext();) {
-            String prochain = it.next();
-            //JSONArray valeur = (JSONArray) regles.get(value);
-            //System.out.println(valueRule);
-            //S.addRule(S.getAssociations().get(value.charAt(0)), valueRule.get(0).toString());
-        }
-        
-
-        for (Iterator<String> it = actions.keys(); it.hasNext();) {
-            String value = it.next();
-            String valueAction = (String) actions.get(value);
-            System.out.println(valueAction);
-            //S.setAction(S.getAssociations().get(value.charAt(0)), valueAction);
-        }
-        S.setAxiom(input.getString("axiom"));
-    }        
-	
-	    
-	
-	// For test purposes only
-	public String toString(Symbol.Seq seq) {
-		String string = "";
-		for(int i = 0; i < seq.size(); i++) {
-			string += seq.get(i).toString();
-		}
-		return string;
 	}
 
 }
