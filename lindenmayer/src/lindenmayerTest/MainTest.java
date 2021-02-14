@@ -13,7 +13,7 @@ public class MainTest {
 		SequenceTest sequence = new SequenceTest();
 		sequence.test();
 		System.out.println();
-		LSystemVirtuelTest lSystem = new LSystemVirtuelTest();
+		LSystemTest lSystem = new LSystemTest();
 		lSystem.test();
 		//*/
         SwingUtilities.invokeLater(new Runnable() {

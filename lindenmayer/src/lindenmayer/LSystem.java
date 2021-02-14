@@ -120,19 +120,5 @@ public class LSystem extends AbstractLSystem {
 	        S.addSymbol(letter.charAt(0));
 	    }
 	}
-	    
-	// For test purposes only
-	public String toString(Symbol.Seq seq) {
-		String string = new String();
-		for(int i = 0; i < seq.size(); i++) {
-			string += seq.get(i).toString();
-		}
-		return string;
-	}
-	
-	// For test purposes only
-	public String toString(Symbol sym) {
-		return sym.toString();
-	}
 
 }

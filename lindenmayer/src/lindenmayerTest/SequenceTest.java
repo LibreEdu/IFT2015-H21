@@ -1,6 +1,5 @@
 package lindenmayerTest;
 
-import lindenmayer.LSystem;
 import lindenmayer.Sequence;
 import lindenmayer.Symbol;
 
@@ -8,7 +7,7 @@ public class SequenceTest {
 	
 	public void test() {
 		System.out.println("  Début test Sequence");
-		LSystem ls = new LSystem();
+		LSystemString ls = new LSystemString();
 		ls.addSymbol('F');
 		ls.addSymbol('-');
 		ls.addRule('F', "FF-F");
