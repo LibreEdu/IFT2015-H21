@@ -7,6 +7,10 @@ public class LSystemEcran extends LSystem {
 
 	private TortueEcran turtle;
 	
+	LSystemEcran(TortueEcran turtle) {
+		this.turtle = turtle;
+	}
+	
 	public void paint(Graphics g) {
 		turtle = new TortueEcran(g);
 	}

@@ -13,7 +13,8 @@ public class ReadJSON {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void readJSONFile(String file, AbstractTurtle t) throws IOException {
+	public static void readFile(String file, AbstractTurtle t, LSystem ls) throws IOException {
+		 System.out.print("readFile");
         JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(file)));
         JSONArray alphabet = input.getJSONArray("alphabet");
         JSONObject actions = input.getJSONObject("actions");
@@ -26,10 +27,11 @@ public class ReadJSON {
         // Register alphabet
         for (int i = 0; i < alphabet.length(); i++) {
             String letter = alphabet.getString(i);
+            System.out.print(letter);
             //S.addSymbol(letter.charAt(0));
         }
         
-
+/*
         for (Iterator<String> it = regles.keys(); it.hasNext();) {
             String prochain = it.next();
             //JSONArray valeur = (JSONArray) regles.get(value);
@@ -44,7 +46,7 @@ public class ReadJSON {
             System.out.println(valueAction);
             //S.setAction(S.getAssociations().get(value.charAt(0)), valueAction);
         }
-        //S.setAxiom(input.getString("axiom"));
+        //S.setAxiom(input.getString("axiom"));*/
     }
 
 }
