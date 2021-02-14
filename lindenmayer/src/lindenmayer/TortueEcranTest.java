@@ -24,7 +24,7 @@ public class TortueEcranTest extends JFrame {
         t.setUnits(100, 90);
         for(int i = 0; i < 4; i++) {
         	t.draw();
-            t.turnL();
+        	t.turnL();
         }
     }
     
