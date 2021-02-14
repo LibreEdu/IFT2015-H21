@@ -1,10 +1,15 @@
-package lindenmayer;
+package lindenmayerTest;
+
+import lindenmayer.LSystem;
+import lindenmayer.LSystemVirtuel;
+import lindenmayer.Sequence;
+import lindenmayer.Symbol;
 
 public class SequenceTest {
 	
-	public SequenceTest() {
+	public void test() {
 		System.out.println("  Début test Sequence");
-		LSystem ls = new LSystemInvisible();
+		LSystem ls = new LSystemVirtuel();
 		ls.addSymbol('F');
 		ls.addSymbol('-');
 		ls.addRule('F', "FF-F");

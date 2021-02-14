@@ -1,17 +1,20 @@
-package lindenmayer;
+package lindenmayerTest;
 
 import javax.swing.SwingUtilities;
 
 public class MainTest {
 
-	public MainTest() {
+	public void run() {
 		System.out.println("Début main");
 		//*
-		TortueInvisibleTest tortueInvisibleTest = new TortueInvisibleTest();
+		TortueVirtuelleTest tortue = new TortueVirtuelleTest();
+		tortue.test();
 		System.out.println();
-		SequenceTest sequenceTest = new SequenceTest();
+		SequenceTest sequence = new SequenceTest();
+		sequence.test();
 		System.out.println();
-		LSystemInvisibleTest lSystemInvisibleTest = new LSystemInvisibleTest();
+		LSystemVirtuelTest lSystem = new LSystemVirtuelTest();
+		lSystem.test();
 		//*/
         SwingUtilities.invokeLater(new Runnable() {
             @Override

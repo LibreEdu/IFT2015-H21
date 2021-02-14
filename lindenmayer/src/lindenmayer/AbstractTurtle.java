@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 
 import java.util.Stack;
 
-public class AbstractTurtle implements Turtle {
+public abstract class AbstractTurtle implements Turtle {
 	
 	private static final double X_DEFAUT = 0;
 	private static final double Y_DEFAUT = 0;

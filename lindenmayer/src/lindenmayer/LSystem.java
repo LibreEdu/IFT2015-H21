@@ -5,25 +5,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Iterator;
-import org.json.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import lindenmayer.Symbol.Seq;
 
-public abstract class LSystem extends AbstractLSystem {
+public class LSystem extends AbstractLSystem {
 	
 	private HashMap<Character, Symbol> alphabet;
 	private Seq axiom;
-	private double step;
-	private double delta;
-	private Object turtle;
 
 	public LSystem() {
 		alphabet = new HashMap<Character, Symbol>();
-	}
-
-	public void setParameters(double step, double delta) {
-		this.step = step;
-		this.delta = delta;
 	}
 	
 	@Override
@@ -139,6 +134,5 @@ public abstract class LSystem extends AbstractLSystem {
 	public String toString(Symbol sym) {
 		return sym.toString();
 	}
-
 
 }

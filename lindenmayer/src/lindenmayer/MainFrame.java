@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private TortueEcran t;
 	private LSystemEcran ls;
 	
 	public MainFrame() {
@@ -19,7 +18,8 @@ public class MainFrame extends JFrame {
 
 	public void paint(Graphics g) {
         super.paint(g);
-        ls = new LSystemEcran(g);
+        ls = new LSystemEcran();
+        ls.paint(g);
     }
 	
 	

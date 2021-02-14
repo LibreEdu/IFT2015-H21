@@ -1,9 +1,11 @@
-package lindenmayer;
+package lindenmayerTest;
 
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 
 import javax.swing.JFrame;
+
+import lindenmayer.TortueEcran;
 
 public class TortueEcranTest extends JFrame {
 
@@ -14,7 +16,6 @@ public class TortueEcranTest extends JFrame {
 		super("TortueEcranTest");
         setSize(300, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
     }
 	
     public void paint(Graphics g) {

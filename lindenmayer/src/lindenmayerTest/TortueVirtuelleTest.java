@@ -1,15 +1,16 @@
-package lindenmayer;
+package lindenmayerTest;
 
 import java.awt.geom.Point2D;
 
-public class TortueInvisibleTest {
+import lindenmayer.TortueVirtuelle;
+
+public class TortueVirtuelleTest {
 	
-	private Point2D pos;
-	private TortueInvisible t;
+	private TortueVirtuelle t;
 	
-	public TortueInvisibleTest() {
+	public void test() {
 		System.out.println("  Début test Tortue");
-		t = new TortueInvisible();
+		t = new TortueVirtuelle();
 		System.out.print("    ");
 		position();
 		push();
