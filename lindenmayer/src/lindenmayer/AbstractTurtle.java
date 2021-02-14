@@ -76,7 +76,6 @@ public abstract class AbstractTurtle implements Turtle {
 
 	@Override
 	public void stay() {
-		
 	}
 
 	@Override
