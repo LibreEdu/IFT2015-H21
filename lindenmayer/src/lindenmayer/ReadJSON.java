@@ -3,7 +3,9 @@ package lindenmayer;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,6 +29,8 @@ public class ReadJSON {
         double x = start.getDouble(0);
         double y = start.getDouble(1);
         double angle = start.getDouble(2);
+        ArrayList<String> listA = new ArrayList<String>(actions.keySet());
+        ArrayList<String> listR = new ArrayList<String>(regles.keySet());
         t.setUnits(step, delta);
         t.init(new Point2D.Double(x,y), angle);
         ls.setAxiom(input.getString("axiom"));
@@ -34,24 +38,24 @@ public class ReadJSON {
         for (int i = 0; i < alphabet.length(); i++) {
             String letter = alphabet.getString(i);
             ls.addSymbol(letter.charAt(0));
+            System.out.println(letter.charAt(0));
         }
-       System.out.print(actions.get(0));
-    /*
-        for (Iterator<String> it = regles.keys(); it.hasNext();) {
-            String prochain = it.next();
-            JSONArray valeur = (JSONArray) regles.get(prochain);
-            System.out.println(valeur.get(0));
-            //S.addRule(S.getAssociations().get(value.charAt(0)), valueRule.get(0).toString());
+       
+        for (int i=0; i<listR.size() ; i++) {
+            String key = listR.get(i) ;
+            char clee= key.charAt(0);
+            JSONArray regle = regles.getJSONArray(key);
+            for (int j=0; j<regle.length();j++) {
+            	ls.addRule(clee, regle.getString(j));
+            	System.out.println(clee+" "+regle.getString(j));
+            }
         }
-        
-/*
-        for (Iterator<String> it = actions.keys(); it.hasNext();) {
-            String value = it.next();
-            String valueAction = (String) actions.get(value);
-            System.out.println(valueAction);
-            //S.setAction(S.getAssociations().get(value.charAt(0)), valueAction);
+        for(int i=0; i<listA.size();i++) {
+        	String key = listA.get(i);
+        	char clee = key.charAt(0);
+        	ls.setAction(clee, actions.getString(key));
+        	System.out.println(clee +" "+ actions.getString(key));
         }
-        //*/
-    }
+	}
 
 }
