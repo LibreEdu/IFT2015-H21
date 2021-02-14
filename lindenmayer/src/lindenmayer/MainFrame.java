@@ -25,13 +25,12 @@ public class MainFrame extends JFrame {
         ls = new LSystemEcran(turtle);
         readJSON = new ReadJSON();
         try {
-			readJSON.readFile("./test/buisson.json", turtle, ls);
+			readJSON.readFile("./test/herbe.json", turtle, ls);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-        System.out.println("paint");
+
         ls.paint(g);
     }
 	
