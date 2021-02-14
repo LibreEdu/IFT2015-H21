@@ -1,6 +1,5 @@
 package lindenmayer;
 
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,30 +9,21 @@ import org.json.*;
 
 import lindenmayer.Symbol.Seq;
 
-public class LSystem extends AbstractLSystem {
+public abstract class LSystem extends AbstractLSystem {
 	
 	private HashMap<Character, Symbol> alphabet;
 	private Seq axiom;
 	private double step;
 	private double delta;
-	private TortueInvisible turtle;
+	private Object turtle;
 
 	public LSystem() {
 		alphabet = new HashMap<Character, Symbol>();
-		turtle = new TortueInvisible();
 	}
 
-	public LSystem(double step, double delta, double x, double y,
-			double theta) {
-		this();
-		setParameters(step, delta, x, y, theta);
-	}
-
-	public void setParameters(double step, double delta, double x, double y, 
-			double theta) {
+	public void setParameters(double step, double delta) {
 		this.step = step;
 		this.delta = delta;
-		turtle.init(new Point2D.Double(x,y), theta);
 	}
 	
 	@Override
@@ -113,7 +103,6 @@ public class LSystem extends AbstractLSystem {
 
 	@Override
 	public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int rounds) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -146,6 +135,7 @@ public class LSystem extends AbstractLSystem {
 		return string;
 	}
 	
+	// For test purposes only
 	public String toString(Symbol sym) {
 		return sym.toString();
 	}

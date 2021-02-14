@@ -11,7 +11,8 @@ public class MainTest {
 		System.out.println();
 		SequenceTest sequenceTest = new SequenceTest();
 		System.out.println();
-		LSystemTest lSystemTest = new LSystemTest();
+		LSystemInvisibleTest lSystemInvisibleTest = new LSystemInvisibleTest();
+		//*/
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

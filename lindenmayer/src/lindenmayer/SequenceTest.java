@@ -4,7 +4,7 @@ public class SequenceTest {
 	
 	public SequenceTest() {
 		System.out.println("  Début test Sequence");
-		LSystem ls = new LSystem();
+		LSystem ls = new LSystemInvisible();
 		ls.addSymbol('F');
 		ls.addSymbol('-');
 		ls.addRule('F', "FF-F");

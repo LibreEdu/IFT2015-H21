@@ -1,12 +1,12 @@
 package lindenmayer;
 
-public class LSystemTest {
+public class LSystemInvisibleTest {
 
 	private LSystem ls;
 	
-	public LSystemTest() {
+	public LSystemInvisibleTest() {
 		System.out.println("  Début test LSystem");
-		ls = new LSystem();
+		ls = new LSystemInvisible();
 		ls.addSymbol('F');
 		ls.addSymbol('-');
 		ls.addRule('F', "FF-F");

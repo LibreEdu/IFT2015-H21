@@ -10,7 +10,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                //new MainFrame().setVisible(true);
+                new MainFrame().setVisible(true);
             }
         });
         //*/
