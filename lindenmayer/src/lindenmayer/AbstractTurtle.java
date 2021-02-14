@@ -1,31 +1,27 @@
-package devoir1;
+package lindenmayer;
 
 import java.awt.geom.Point2D;
+
 import java.util.Stack;
 
-import lindenmayer.Turtle;
-
-public class Tortue implements Turtle {
+public abstract class AbstractTurtle implements Turtle {
 	
 	private static final double X_DEFAUT = 0;
 	private static final double Y_DEFAUT = 0;
 	private static final double THETA_DEFAUT = 90;
 	
 	private class State implements Cloneable {
-		private double x;
-		private double y;
+		private Point2D pos;
 		private double theta;
 		private State(Point2D pos, double theta) {
-			x = pos.getX();
-			y = pos.getY();
+			this.pos = pos;
 			this.theta = theta;
 		}
 		public Object clone() throws CloneNotSupportedException {
 			return super.clone();
 		}
 		private void setState(State s) {
-			x = s.x;
-			y = s.y;
+			pos = s.pos;
 			theta = s.theta;			
 		}
 	}
@@ -34,22 +30,22 @@ public class Tortue implements Turtle {
 	private double delta;
 	private Stack<State> stack;
 
-	public Tortue() {
+	public AbstractTurtle() {
 		state = new State(new Point2D.Double(X_DEFAUT,Y_DEFAUT), THETA_DEFAUT);
 		stack = new Stack<State>();
 	}
 	
 	@Override
 	public void draw() {
-		penDown();
-		move();
-		penUp();
 	}
 
 	@Override
 	public void move() {
-		state.x += step * Math.cos(Math.toRadians(state.theta));
-		state.y += step * Math.sin(Math.toRadians(state.theta));
+		double x = state.pos.getX() + 
+				step * Math.cos(Math.toRadians(state.theta));
+		double y = state.pos.getY() + 
+				step * Math.sin(Math.toRadians(state.theta));
+		state.pos.setLocation(x, y);
 	}
 
 	@Override
@@ -80,20 +76,18 @@ public class Tortue implements Turtle {
 
 	@Override
 	public void stay() {
-		
 	}
 
 	@Override
 	public void init(Point2D pos, double angle_deg) {
-		state.x = pos.getX();
-		state.y = pos.getY();
+		state.pos = pos;
 		state.theta = angle_deg;
 		stack.clear();
 	}
 
 	@Override
 	public Point2D getPosition() {
-		return new Point2D.Double(state.x, state.y);
+		return state.pos;
 	}
 
 	@Override
@@ -101,18 +95,14 @@ public class Tortue implements Turtle {
 		return state.theta;
 	}
 
+	public double getStep() {
+		return step;
+	}
+
 	@Override
 	public void setUnits(double step, double delta) {
 		this.step = step;
 		this.delta = delta;
-	}
-	
-	public void penUp() {
-		
-	}
-	
-	public void penDown() {
-		
 	}
 
 }

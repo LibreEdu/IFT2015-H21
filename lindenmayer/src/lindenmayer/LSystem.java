@@ -1,6 +1,5 @@
-package devoir1;
+package lindenmayer;
 
-import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -8,37 +7,20 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
-import org.json.*;
 
-import lindenmayer.AbstractLSystem;
-import lindenmayer.Symbol;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import lindenmayer.Symbol.Seq;
-import lindenmayer.Turtle;
 
-public class LSystem extends AbstractLSystem{
+public class LSystem extends AbstractLSystem {
 	
 	private HashMap<Character, Symbol> alphabet;
 	private Seq axiom;
-	private double step;
-	private double delta;
-	private Turtle turtle;
 
 	public LSystem() {
 		alphabet = new HashMap<Character, Symbol>();
-		turtle = new Tortue();
-	}
-
-	public LSystem(double step, double delta, double x, double y,
-			double theta) {
-		this();
-		setParameters(step, delta, x, y, theta);
-	}
-
-	public void setParameters(double step, double delta, double x, double y, 
-			double theta) {
-		this.step = step;
-		this.delta = delta;
-		turtle.init(new Point2D.Double(x,y), theta);
 	}
 	
 	@Override
@@ -76,8 +58,15 @@ public class LSystem extends AbstractLSystem{
 	}
 
 	@Override
-	public Seq rewrite(Symbol sym) {
-		return sym.getRule();
+	public Symbol.Seq rewrite(Symbol sym) {
+		Symbol.Seq seq = sym.getRule();
+		if (seq != null) {
+			return seq;
+		} else {
+			seq = new Sequence();
+			seq.add(sym);
+			return seq;
+		}
 	}
 
 	@Override
@@ -99,22 +88,18 @@ public class LSystem extends AbstractLSystem{
 
 	@Override
 	public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
-		if (n < 0) {
-			System.out.println("n < 0");
+		if (n < 1) {
 			return seq;
 		}
+		Symbol.Seq sequence = new Sequence();
 		for(int i = 0 ; i < seq.size(); i++) {
-			System.out.println("n = " + n + ", i = " + i);
-			Symbol.Seq sequence = applyRules(seq.get(i).getRule(), n-1);
-			toString(sequence);
-			seq.set(i, sequence);
+			sequence.add(rewrite(seq.get(i)));
 		}
-		return seq;
+		return applyRules(sequence, n-1);
 	}
 
 	@Override
-	public Rectangle2D tell(Turtle turtle, Symbol sym, int rounds) {
-		// TODO Auto-generated method stub
+	public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int rounds) {
 		return null;
 	}
 	
