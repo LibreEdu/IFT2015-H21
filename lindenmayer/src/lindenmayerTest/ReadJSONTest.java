@@ -16,8 +16,13 @@ public class ReadJSONTest {
         readJSON = new ReadJSON();	
 	}
 	
-	public void test() throws IOException {
-        readJSON.readFile("./test/herbe.json", turtle, ls);
+	public void test() {
+        try {
+			readJSON.readFile("./test/herbe.json", turtle, ls);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
