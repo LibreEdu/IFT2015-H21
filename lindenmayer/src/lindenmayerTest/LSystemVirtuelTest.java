@@ -1,14 +1,14 @@
 package lindenmayerTest;
 
-import lindenmayer.LSystemVirtuel;
+import lindenmayer.LSystem;
 
 public class LSystemVirtuelTest {
 
-	private LSystemVirtuel ls;
+	private LSystem ls;
 	
 	public void test() {
 		System.out.println("  Début test LSystem");
-		ls = new LSystemVirtuel();
+		ls = new LSystem();
 		ls.addSymbol('F');
 		ls.addSymbol('-');
 		ls.addRule('F', "FF-F");
