@@ -2,23 +2,18 @@ package lindenmayer;
 
 import java.awt.geom.Point2D;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class ReadJSON {
-
-	public ReadJSON() {
-		// TODO Auto-generated constructor stub
-	}
 	
-	public static void readFile(String file, AbstractTurtle t, LSystem ls) throws IOException {
-        JSONObject input = new JSONObject(new JSONTokener(new java.io.FileReader(file)));
+	public void readFile(String file, AbstractTurtle t, LSystem ls)
+			throws IOException {
+        JSONObject input = new JSONObject(new JSONTokener(
+        		new java.io.FileReader(file)));
         JSONArray alphabet = input.getJSONArray("alphabet");
         JSONObject actions = input.getJSONObject("actions");
         JSONObject regles = input.getJSONObject("rules");

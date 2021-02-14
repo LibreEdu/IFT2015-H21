@@ -13,7 +13,7 @@ public class MainTest {
 		SequenceTest sequence = new SequenceTest();
 		sequence.test();
 		System.out.println();
-		//*/
+		//*
 		ReadJSONTest readJSONTest = new ReadJSONTest();
 		readJSONTest.test();
 		/*

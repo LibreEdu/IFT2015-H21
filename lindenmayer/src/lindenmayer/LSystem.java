@@ -67,19 +67,38 @@ public class LSystem extends AbstractLSystem {
 	public void tell(Turtle turtle, Symbol.Seq seq) {
 		Iterator<Symbol> it = seq.iterator();
 		for(int i = 0; i < seq.size(); i++) {
-			// https://stackoverflow.com/questions/22419511/how-to-pass-method-name-dynamically-in-java
-			try {
-				Method method = 
-						turtle.getClass().getMethod(it.next().getAction());
-				method.invoke(turtle);
-			} catch (NoSuchMethodException | SecurityException | 
-					IllegalAccessException | IllegalArgumentException | 
-					InvocationTargetException e) {
-				e.printStackTrace();
-			}
+			turtleAction(turtle, it.next().getAction());
+		}
+	}
+	
+	public void turtleAction(Turtle turtle, String action) {
+		// https://stackoverflow.com/questions/22419511/how-to-pass-method-name-dynamically-in-java
+		try {
+			Method method = 
+					turtle.getClass().getMethod(action);
+			method.invoke(turtle);
+		} catch (NoSuchMethodException | SecurityException | 
+				IllegalAccessException | IllegalArgumentException | 
+				InvocationTargetException e) {
+			e.printStackTrace();
 		}
 	}
 
+	public Rectangle2D tell2D(Turtle turtle, Symbol.Seq seq) {
+		Iterator<Symbol> it = seq.iterator();
+		for(int i = 0; i < seq.size(); i++) {
+			turtleAction2D(turtle, it.next().getAction());
+		}
+		return null;
+	}
+	
+	public Rectangle2D turtleAction2D(Turtle turtle, String action) {
+		
+		turtleAction(turtle, action);
+		
+		return null;
+	}
+	
 	@Override
 	public Symbol.Seq applyRules(Symbol.Seq seq, int n) {
 		if (n < 1) {
@@ -94,6 +113,9 @@ public class LSystem extends AbstractLSystem {
 
 	@Override
 	public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int rounds) {
+		if (rounds == 1) {
+			tell(turtle, seq);
+		}
 		return null;
 	}
 	
