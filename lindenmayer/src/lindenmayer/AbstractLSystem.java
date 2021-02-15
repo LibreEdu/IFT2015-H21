@@ -108,12 +108,13 @@ public abstract class AbstractLSystem
     public abstract Symbol.Seq applyRules(Symbol.Seq seq, int n);
     
     /**
-     * Draws the result after multiple rounds of rewriting, starting from a single symbol. 
+     * Draws the result after multiple rounds of rewriting, starting from an 
+     * arbitrary sequence (the axiom). 
      * Symbols with no rewriting rules are simply copied 
      * at each round. 
      * 
      * @param turtle turtle used for drawing
-     * @param sym the starting sequence in round 0: a single symbol
+     * @param seq the starting sequence in round 0
      * @param rounds number of rounds
      * @return bounding box (minimal rectangle covering all visited turtle positions)
      */

@@ -14,7 +14,6 @@ public class MainFrame extends JFrame {
 	private LSystem lsystem;
 	private TortueEcran turtle;
 	private ReadJSON readJSON;
-	private Graphics g;
 	
 	public MainFrame(String file, int rounds) {
 		this.file = file;
