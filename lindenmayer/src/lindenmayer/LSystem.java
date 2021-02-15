@@ -12,9 +12,11 @@ public class LSystem extends AbstractLSystem {
 	
 	private HashMap<Character, Symbol> alphabet;
 	private Seq axiom;
+	private Rectangle2D rectangle2D;
 
 	public LSystem() {
 		alphabet = new HashMap<Character, Symbol>();
+		rectangle2D = new Rectangle2D.Double();
 	}
 	
 	@Override
@@ -76,27 +78,13 @@ public class LSystem extends AbstractLSystem {
 		try {
 			Method method = 
 					turtle.getClass().getMethod(action);
+			rectangle2D.add(turtle.getPosition());
 			method.invoke(turtle);
 		} catch (NoSuchMethodException | SecurityException | 
 				IllegalAccessException | IllegalArgumentException | 
 				InvocationTargetException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public Rectangle2D tell2D(Turtle turtle, Symbol.Seq seq) {
-		Iterator<Symbol> it = seq.iterator();
-		for(int i = 0; i < seq.size(); i++) {
-			turtleAction2D(turtle, it.next().getAction());
-		}
-		return null;
-	}
-	
-	public Rectangle2D turtleAction2D(Turtle turtle, String action) {
-		
-		turtleAction(turtle, action);
-		
-		return null;
 	}
 	
 	@Override
@@ -113,10 +101,16 @@ public class LSystem extends AbstractLSystem {
 
 	@Override
 	public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int rounds) {
-		if (rounds == 1) {
+		if (rounds < 1) {
 			tell(turtle, seq);
+			rectangle2D.add(turtle.getPosition());
+		} else {
+			for(int i = 0 ; i < seq.size(); i++) {
+				tell(turtle, rewrite(seq.get(i)), rounds - 1);
+				rectangle2D.add(turtle.getPosition());
+			}
 		}
-		return null;
+		return rectangle2D;
 	}
 	
 	private Symbol.Seq string2seq(String str) {
