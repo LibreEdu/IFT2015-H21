@@ -6,11 +6,9 @@ import java.awt.geom.Point2D;
 
 public class TortueEcran extends AbstractTurtle {
 
-	Graphics g;
 	Graphics2D g2d;
 	
 	public TortueEcran(Graphics g) {
-		this.g = g;
 		g2d = (Graphics2D) g;
 	}
 	

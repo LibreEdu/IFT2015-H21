@@ -13,14 +13,12 @@ public class MainTest {
 		SequenceTest sequence = new SequenceTest();
 		sequence.test();
 		System.out.println();
-		//*
-		ReadJSONTest readJSONTest = new ReadJSONTest();
-		readJSONTest.test();
-		/*
-		System.out.println();
 		LSystemTest lSystem = new LSystemTest();
 		lSystem.test();
-		//*
+		System.out.println();
+		ReadJSONTest readJSONTest = new ReadJSONTest();
+		readJSONTest.test();
+		//*/
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
