@@ -7,19 +7,19 @@ import lindenmayer.ReadJSON;
 public class ReadJSONTest {
 
 	private LSystemString ls;
-	private TortueVirtuelle turtle;
+	private TortueVirtuelle t;
 	private ReadJSON readJSON;
 	
 	ReadJSONTest() {
         ls = new LSystemString();
-        turtle = new TortueVirtuelle();
+        t = new TortueVirtuelle();
         readJSON = new ReadJSON();	
 	}
 	
 	public void test() {
 		System.out.println("  Début test ReadJSON");
 		try {
-			readJSON.readFile("./test/herbe.json", turtle, ls);
+			readJSON.readFile("./test/herbe.json", t, ls);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -30,8 +30,11 @@ public class ReadJSONTest {
 		System.out.println("    S0     : " + ls.toString(ls.applyRules(ls.getAxiom(), 0)));
 		System.out.println("    S1     : " + ls.toString(ls.applyRules(ls.getAxiom(), 1)));
 		System.out.println("    S2     : " + ls.toString(ls.applyRules(ls.getAxiom(), 2)));
+		System.out.println("    init   : (" + t.getPosition().getX() + "," + 
+				t.getPosition().getY() + "," + t.getAngle() + ")");
+		System.out.println("    step   : " + t.getStep());
 		try {
-			readJSON.readFile("./test/sierpinski.json", turtle, ls);
+			readJSON.readFile("./test/sierpinski.json", t, ls);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
