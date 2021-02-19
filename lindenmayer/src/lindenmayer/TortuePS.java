@@ -10,4 +10,8 @@ public class TortuePS extends AbstractTurtle {
 	public void draw() {
 
 	}
+	
+	public void pop() {
+
+	}
 }

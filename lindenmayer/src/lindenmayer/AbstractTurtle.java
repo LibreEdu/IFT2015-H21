@@ -72,6 +72,7 @@ public abstract class AbstractTurtle implements Turtle {
 		if (!stack.empty()) {
 			state.setState(stack.pop());			
 		}
+		move();
 	}
 
 	@Override
