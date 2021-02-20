@@ -1,7 +1,7 @@
 {
 	"alphabet" : 	["F", "[", "]", "+", "-"],
 	"rules" : {
-		"F" : [	"F-F[+F-F]-F-F"]
+		"F" : [	"F[+F]F[-F]F","F[+F]F","F[+F]F[-F]F"]
 	},
 	"axiom":"F",
 	"actions": {
@@ -10,5 +10,5 @@
 		"]":"pop", 
 		"+":"turnL", 
 		"-":"turnR"},
-	"parameters" : {"step": 100, "angle":90, "start":[0,0,90]}
+	"parameters" : {"step": 2, "angle":22.5, "start":[250,0,90]}
 }

@@ -13,6 +13,7 @@ public abstract class AbstractTurtle implements Turtle {
 	private class State implements Cloneable {
 		private Point2D pos;
 		private double theta;
+		private String test;
 		private State(Point2D pos, double theta) {
 			this.pos = pos;
 			this.theta = theta;
@@ -37,7 +38,11 @@ public abstract class AbstractTurtle implements Turtle {
 	
 	@Override
 	public void draw() {
-	}
+/*		if (!stack.empty()) {
+			State sc = stack.peek();
+			System.out.println("draw = " + sc.pos.getX() + " " + sc.pos.getY());			
+		} 
+*/	}
 
 	@Override
 	public void move() {
@@ -60,19 +65,15 @@ public abstract class AbstractTurtle implements Turtle {
 
 	@Override
 	public void push() {
-		try {
-			stack.push((State) state.clone());
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
+			Point2D p = new Point2D.Double(state.pos.getX(), state.pos.getY());
+			stack.push(new State(p,state.theta));
 	}
 
 	@Override
 	public void pop() {
 		if (!stack.empty()) {
-			state.setState(stack.pop());			
+			state.setState(stack.pop());
 		}
-		move();
 	}
 
 	@Override

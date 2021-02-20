@@ -1,5 +1,6 @@
 package lindenmayer;
 
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -16,7 +17,11 @@ public class LSystem extends AbstractLSystem {
 
 	public LSystem() {
 		alphabet = new HashMap<Character, Symbol>();
-		rectangle2D = new Rectangle2D.Double();
+		rectangle2D = new Rectangle2D.Double();		
+	}
+	
+	public void init(Point2D pos) {
+		rectangle2D.setFrame(pos.getX(), pos.getY(), 0, 0);
 	}
 	
 	@Override
@@ -101,7 +106,7 @@ public class LSystem extends AbstractLSystem {
 
 	@Override
 	public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int rounds) {
-		if (rounds == 1) {
+		if (rounds == 0) {
 			tell(turtle, seq);
 			rectangle2D.add(turtle.getPosition());
 		} else {

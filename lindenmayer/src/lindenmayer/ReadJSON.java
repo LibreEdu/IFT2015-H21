@@ -46,6 +46,7 @@ public class ReadJSON {
         Point2D pos = new Point2D.Double(start.getDouble(0),start.getDouble(1));
         t.init(pos, start.getDouble(2));
         t.setUnits(parameters.getDouble("step"), parameters.getDouble("angle"));
+        ls.init(pos);
 	}
 
 }

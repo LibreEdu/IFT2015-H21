@@ -19,17 +19,17 @@ public class MainPS {
         try {
 			//readJSON.readFile(args[0], turtle, lsystem);
            	//readJSON.readFile("./test/test.json", turtle, lsystem);
-           	readJSON.readFile("./test/buisson.json", turtle, lsystem);
+           	//readJSON.readFile("./test/buisson.json", turtle, lsystem);
            	//readJSON.readFile("./test/herbe.json", turtle, lsystem);
-           	//readJSON.readFile("./test/hexamaze.json", turtle, lsystem);
+           	readJSON.readFile("./test/hexamaze.json", turtle, lsystem);
            	//readJSON.readFile("./test/sierpinski.json", turtle, lsystem);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
         
 		fileStart();
-		//int nbRounds = Integer.parseInt(args[1]);
-		int nbRounds = 2;
+		int nbRounds = Integer.parseInt(args[1]);
+		nbRounds = 6;
         Rectangle2D rectangle2D = lsystem.tell(turtle, lsystem.getAxiom(),
         		nbRounds);
         fileEnd(rectangle2D);
