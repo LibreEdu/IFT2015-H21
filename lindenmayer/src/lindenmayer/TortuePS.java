@@ -18,6 +18,7 @@ public class TortuePS extends AbstractTurtle {
 		System.out.println("stroke");
 		System.out.printf("%.1f %.1f newpath M", getPosition().getX(),
 				getPosition().getY());
+		System.out.println();
 	}
 
 }
