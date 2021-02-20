@@ -2,6 +2,7 @@ package lindenmayer;
 
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
+import java.util.Locale;
 
 public class MainPS {
 	private static LSystem lsystem;
@@ -12,6 +13,8 @@ public class MainPS {
         lsystem = new LSystem();
         readJSON = new ReadJSON();
         turtle = new TortuePS();
+        
+        Locale.setDefault(Locale.US);
 
         try {
 			//readJSON.readFile(args[0], turtle, lsystem);
