@@ -101,7 +101,7 @@ public class LSystem extends AbstractLSystem {
 
 	@Override
 	public Rectangle2D tell(Turtle turtle, Symbol.Seq seq, int rounds) {
-		if (rounds < 1) {
+		if (rounds == 1) {
 			tell(turtle, seq);
 			rectangle2D.add(turtle.getPosition());
 		} else {
