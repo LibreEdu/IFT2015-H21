@@ -9,7 +9,6 @@ public class TortuePS extends AbstractTurtle {
 	@Override
 	public void draw() {
 		super.move();
-		
 		System.out.printf("%.1f %.1f L", getPosition().getX(),
 				getPosition().getY());
 		System.out.println();
@@ -17,11 +16,8 @@ public class TortuePS extends AbstractTurtle {
 	
 	public void pop() {
 		System.out.println("stroke");
-		System.out.println( position() + "newpath M");
-	}
-	
-	String position() {
-		return getPosition().getX() + " " + getPosition().getY() + " ";
+		System.out.printf("%.1f %.1f newpath M", getPosition().getX(),
+				getPosition().getY());
 	}
 
 }
