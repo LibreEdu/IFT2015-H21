@@ -4,21 +4,25 @@ import java.awt.geom.Point2D;
 
 import java.util.Stack;
 
+/**
+ * Class containing the common methods of the different turtles (screen, 
+ * PostScript...)
+ * 
+ * @author Alexandre Pachot
+ * @author Dave Sanon-Abraham
+ */
 public abstract class AbstractTurtle implements Turtle {
 	
 	private static final double X_DEFAUT = 0;
 	private static final double Y_DEFAUT = 0;
 	private static final double THETA_DEFAUT = 90;
 	
-	private class State implements Cloneable {
+	private class State {
 		private Point2D pos;
 		private double theta;
 		private State(Point2D pos, double theta) {
 			this.pos = pos;
 			this.theta = theta;
-		}
-		public Object clone() throws CloneNotSupportedException {
-			return super.clone();
 		}
 		private void setState(State s) {
 			pos = s.pos;
@@ -37,11 +41,7 @@ public abstract class AbstractTurtle implements Turtle {
 	
 	@Override
 	public void draw() {
-/*		if (!stack.empty()) {
-			State sc = stack.peek();
-			System.out.println("draw = " + sc.pos.getX() + " " + sc.pos.getY());			
-		} 
-*/	}
+	}
 
 	@Override
 	public void move() {

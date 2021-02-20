@@ -9,6 +9,12 @@ import java.util.Iterator;
 
 import lindenmayer.Symbol.Seq;
 
+/**
+ * Implementation of the class AbstractLSystem
+ * 
+ * @author Alexandre Pachot
+ * @author Dave Sanon-Abraham
+ */
 public class LSystem extends AbstractLSystem {
 	
 	private HashMap<Character, Symbol> alphabet;
@@ -20,6 +26,10 @@ public class LSystem extends AbstractLSystem {
 		rectangle2D = new Rectangle2D.Double();		
 	}
 	
+	/**
+	 * In order to be able to initialize the rectangle with the starting point
+	 * specified in the JSON file.
+	 */
 	public void init(Point2D pos) {
 		rectangle2D.setFrame(pos.getX(), pos.getY(), 0, 0);
 	}
@@ -35,6 +45,10 @@ public class LSystem extends AbstractLSystem {
 		sym.addRule(string2seq(expansion));
 	}
 
+	/**
+	 * In order to be able to add a ruler by specifying the character related to
+	 * the symbol, rather than the symbol itself.
+	 */
 	public void addRule(char key, String expansion) {
 		addRule(alphabet.get(key), expansion);
 	}
@@ -44,6 +58,10 @@ public class LSystem extends AbstractLSystem {
 		sym.setAction(action);
 	}
 
+	/**
+	 * In order to be able to link the action to the symbol by specifying the
+	 * character linked to the symbol, rather than the symbol itself.
+	 */
 	public void setAction(char key, String action) {
 		setAction(alphabet.get(key), action);
 	}
@@ -78,6 +96,9 @@ public class LSystem extends AbstractLSystem {
 		}
 	}
 	
+	/**
+	 * Method for dynamically calling the turtle method.
+	 */
 	public void turtleAction(Turtle turtle, String action) {
 		// https://stackoverflow.com/questions/22419511/how-to-pass-method-name-dynamically-in-java
 		try {
@@ -118,10 +139,13 @@ public class LSystem extends AbstractLSystem {
 		return rectangle2D;
 	}
 	
+	/**
+	 * Allows you to transform a string into a sequence of symbols.
+	 */
 	private Symbol.Seq string2seq(String str) {
 		Sequence sequence = new Sequence();
 		for(int i = 0; i < str.length(); i++) {
-			// Add to the sequence the symbol corresponding to the character
+			// Add to the sequence, the symbol corresponding to the character
 			sequence.add(alphabet.get(str.charAt(i)));
 		}
 		return sequence;

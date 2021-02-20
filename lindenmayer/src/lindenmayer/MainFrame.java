@@ -35,8 +35,14 @@ public class MainFrame extends JFrame {
 		}
         Rectangle2D rectangle2D = lsystem.tell(turtle, lsystem.getAxiom(),
         		rounds);
-        setSize((int)rectangle2D.getWidth() + 10,
-        		(int)rectangle2D.getHeight() + 10);
+        try {
+			Thread.sleep(6000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        setSize((int)rectangle2D.getWidth() * 2,
+        		(int)rectangle2D.getHeight() * 2);
         System.out.println((int)rectangle2D.getWidth());
         System.out.println((int)rectangle2D.getHeight());
         setLocationRelativeTo(null);
