@@ -9,13 +9,15 @@ public class MainPS {
 	private TortuePS turtle;
 	private ReadJSON readJSON;
 	
-	public MainPS(String file, int nbRounds) {
+	public MainPS() {
         lsystem = new LSystem();
         readJSON = new ReadJSON();
         turtle = new TortuePS();
         
         Locale.setDefault(Locale.US);
-
+	}
+	
+	public void run(String file, int nbRounds) {
         try {
 			readJSON.readFile(file, turtle, lsystem);
            	//readJSON.readFile("./test/test.json", turtle, lsystem);
@@ -35,7 +37,7 @@ public class MainPS {
         fileEnd(rectangle2D);
 	}
 	
-	void fileStart() {
+	private void fileStart() {
 		print("%!PS-Adobe-3.0 EPSF-3.0");
 		print("%%Title: L-system");
 		print("%%Creator: lsystem.MainPS" );
@@ -48,11 +50,11 @@ public class MainPS {
 				" newpath moveto");
 	}
 	
-	void print(String message) {
+	private void print(String message) {
 		System.out.println(message);
 	}
 	
-	void fileEnd(Rectangle2D r) {
+	private void fileEnd(Rectangle2D r) {
 		print("stroke");
 		print("%%Trailer");
 		print("%%BoundingBox: " + (int) r.getX() + " " + (int) r.getY() + " " + 

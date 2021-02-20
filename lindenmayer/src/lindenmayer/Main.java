@@ -25,7 +25,8 @@ public class Main {
 	            }
 	        });			
 		} else {
-			MainPS mainPS = new MainPS(args[0], Integer.parseInt(args[2]));
+			MainPS mainPS = new MainPS();
+			mainPS.run(args[0], Integer.parseInt(args[2]));
 		}
         //*/
 	}

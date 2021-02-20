@@ -13,7 +13,6 @@ public abstract class AbstractTurtle implements Turtle {
 	private class State implements Cloneable {
 		private Point2D pos;
 		private double theta;
-		private String test;
 		private State(Point2D pos, double theta) {
 			this.pos = pos;
 			this.theta = theta;
