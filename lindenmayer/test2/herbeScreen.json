@@ -10,5 +10,5 @@
 		"]":"pop", 
 		"+":"turnL", 
 		"-":"turnR"},
-	"parameters" : {"step": 2, "angle":22.5, "start":[250,0,90]}
+	"parameters" : {"step": 2, "angle":22.5, "start":[250,950,-90]}
 }

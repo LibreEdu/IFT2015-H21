@@ -8,7 +8,7 @@ import java.util.List;
  * Class managing a sequence of symbols
  * 
  * @author Alexandre Pachot
- *
+ * @author Dave Sanon-Abraham
  */
 public class Sequence implements Symbol.Seq {
 	

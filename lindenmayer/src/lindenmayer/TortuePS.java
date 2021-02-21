@@ -19,10 +19,15 @@ public class TortuePS extends AbstractTurtle {
 		System.out.println();
 	}
 	
+	/**
+	 * In order to have a drawing (buisson,...) which is the same orientation as
+	 * the teacher's, we have inverted turnR and turnL. At the beginning, this 
+	 * inversion was planned for the tortueEcran because the axis of y is 
+	 * downwards rather than upwards !
+	 */
 	@Override
 	public void turnR() {
 		super.turnL();
-		
 	}
 
 	@Override

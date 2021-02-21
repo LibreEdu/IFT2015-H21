@@ -4,6 +4,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
+/**
+ * Turtle-specific methods that generate PostScript code
+ * 
+ * @author Alexandre Pachot
+ * @author Dave Sanon-Abraham
+ */
 public class TortueEcran extends AbstractTurtle {
 
 	Graphics2D g2d;
@@ -22,23 +28,5 @@ public class TortueEcran extends AbstractTurtle {
 		g2d.drawLine((int)pos.getX(), (int)pos.getY(), x2, y2);
 		move();
 	}
-
-	@Override
-	public void turnR() {
-		super.turnL();
-		
-	}
-
-	@Override
-	public void turnL() {
-		super.turnR();
-	}
 	
-	/*
-	@Override
-	public Point2D getPosition() {
-		Point2D pos = super.getPosition();
-		return new Point2D.Double(pos.getX(), -pos.getY());
-	}
-	*/
 }

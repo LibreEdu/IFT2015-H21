@@ -8,6 +8,7 @@ import java.util.Random;
  * 
  * @author Miklós Csűrös
  * @author Alexandre Pachot
+ * @author Dave Sanon-Abraham
  */
 public class Symbol 
 {
@@ -36,10 +37,19 @@ public class Symbol
 		void add(Symbol.Seq seq);
 	}
     
+    /**
+     * Adds a rule to the list of rules
+     * @param rule The rule to be added
+     */
     public void addRule(Symbol.Seq rule) {
     	rules.add(rule);
     }
     
+    /**
+     * Each symbol corresponds to an action. The name of the action must 
+     * correspond to the turtle method. 
+     * @param action Action corresponding to the symbol
+     */
     public void setAction(String action) {
     	this.action = action;
     }
@@ -56,6 +66,10 @@ public class Symbol
     	return rules.get(rule);
     }
     
+    /**
+     * Returns one of the rules that applies to the symbol
+     * @return rule
+     */
     public Seq getRule() {
 		switch(getSize()) {
 		case 0 :
