@@ -10,6 +10,6 @@
 		"]":"pop", 
 		"+":"turnL", 
 		"-":"turnR"},
-	"parameters" : {"step": 3, "angle":22.5, "start":[250,450,-90]}
+	"parameters" : {"step": 3, "angle":22.5, "start":[250,450,90]}
 }
 

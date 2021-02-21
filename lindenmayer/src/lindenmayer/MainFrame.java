@@ -37,6 +37,7 @@ public class MainFrame extends JFrame {
         turtle = new TortueEcran(g);
         try {
 			readJSON.readFile(file, turtle, lsystem);
+			turtle.init(turtle.getPosition(), -turtle.getAngle());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
