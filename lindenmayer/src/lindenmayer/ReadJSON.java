@@ -8,8 +8,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+/**
+ * Class to read the JSON file and initialize the system.
+ * 
+ * @author Alexandre Pachot
+ * @author Dave Sanon-Abraham
+ */
 public class ReadJSON {
-	
 	public void readFile(String file, AbstractTurtle t, LSystem ls)
 			throws IOException {
         JSONObject input = new JSONObject(new JSONTokener(

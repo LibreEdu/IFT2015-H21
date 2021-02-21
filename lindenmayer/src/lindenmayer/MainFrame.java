@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 /**
  * Class that allows to launch the graphical part of the program. The window 
  * displaying the result is visible for 6 seconds before being refreshed.
+ * 
  * @author Alexandre Pachot
  * @author Dave Sanon-Abraham
  */
