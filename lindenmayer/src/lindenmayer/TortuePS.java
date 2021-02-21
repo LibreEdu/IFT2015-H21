@@ -18,7 +18,7 @@ public class TortuePS extends AbstractTurtle {
 				getPosition().getY());
 		System.out.println();
 	}
-	//*
+	
 	@Override
 	public void turnR() {
 		super.turnL();
@@ -29,5 +29,5 @@ public class TortuePS extends AbstractTurtle {
 	public void turnL() {
 		super.turnR();
 	}
-//*/
+
 }

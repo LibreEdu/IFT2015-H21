@@ -33,4 +33,12 @@ public class TortueEcran extends AbstractTurtle {
 	public void turnL() {
 		super.turnR();
 	}
+	
+	/*
+	@Override
+	public Point2D getPosition() {
+		Point2D pos = super.getPosition();
+		return new Point2D.Double(pos.getX(), -pos.getY());
+	}
+	*/
 }

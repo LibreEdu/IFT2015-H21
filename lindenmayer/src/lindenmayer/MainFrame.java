@@ -6,6 +6,12 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+/**
+ * Class that allows to launch the graphical part of the program. The window 
+ * displaying the result is visible for 6 seconds before being refreshed.
+ * @author Alexandre Pachot
+ * @author Dave Sanon-Abraham
+ */
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -38,13 +44,10 @@ public class MainFrame extends JFrame {
         try {
 			Thread.sleep(6000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         setSize((int)rectangle2D.getWidth() * 2,
         		(int)rectangle2D.getHeight() * 2);
-        System.out.println((int)rectangle2D.getWidth());
-        System.out.println((int)rectangle2D.getHeight());
         setLocationRelativeTo(null);
     }
     
