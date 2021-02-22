@@ -1,5 +1,4 @@
-The executable file, lindenmayer, is located in the test2 directory. 
-Sample commands are in the lindenmayer.sh file.
+Sample commands are in the test2/lindenmayer.sh file.
 
 There are two versions of the program. A PostScript version :
 java -jar lindenmayer.jar buisson.json 5 > bush5.eps
