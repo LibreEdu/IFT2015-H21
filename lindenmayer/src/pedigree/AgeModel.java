@@ -168,11 +168,9 @@ public class AgeModel
         for (int r=0; r<smp_size; r++)
         {
             double d = randomAge(RND);
-            avg += d;
             lifespan[r] = d;
         }
-        avg /= smp_size;
         Arrays.sort(lifespan);
-        }
+    }
     
 }
