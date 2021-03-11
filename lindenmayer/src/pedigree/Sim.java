@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Mikl&oacute;s Cs&#369;r&ouml;s.
+ * Copyright 2021 Miklós Csűrös.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package pedigree;
 
 /**
  *
- * @author Mikl&oacute;s Cs&#369;r&ouml;s
+ * @author  Miklós Csűrös
  */
 public class Sim implements Comparable<Sim>
 {

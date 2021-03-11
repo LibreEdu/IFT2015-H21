@@ -27,34 +27,30 @@ import java.util.Random;
  *
  * @author Miklós Csűrös
  */
-public class AgeModel 
+public class AgeModelOld 
 {
     private final double death_rate;
     private final double accident_rate;
     private final double age_factor;
-    private final int smp_size; 
-    private final double[] lifespan;
     
     private static final double DEFAULT_ACCIDENT_RATE = 0.01; // 1% chance of dying per year
     private static final double DEFAULT_DEATH_RATE = 12.5;
     private static final double DEFAULT_SCALE = 100.0; // "maximum" age [with death rate 1]
-    private static final int DEFAULT_SMP_SIZE = 1000; // this many random values
     
-    public AgeModel(double accident_rate, double death_rate, double age_scale, int smp_size)
+    public AgeModelOld(double accident_rate, double death_rate, double age_scale)
     {
         this.death_rate = death_rate;
         this.age_factor = Math.exp(age_scale/death_rate);
         this.accident_rate = accident_rate;
-        this.smp_size = smp_size;
-        this.lifespan = new double[smp_size];
+        
     }
     
     /**
      * Instantiation with default values (human).
      */
-    public AgeModel()
+    public AgeModelOld()
     {
-        this(DEFAULT_ACCIDENT_RATE, DEFAULT_DEATH_RATE, DEFAULT_SCALE, DEFAULT_SMP_SIZE);
+        this(DEFAULT_ACCIDENT_RATE, DEFAULT_DEATH_RATE, DEFAULT_SCALE);
     }
     
     @Override
@@ -161,18 +157,42 @@ public class AgeModel
      * 
      * @param args accident-rate death-rate [scale]
      */
-    public void lifeSpan(String[] args)
+    public static void main(String[] args)
     {
-    	Random RND = new Random();
-    	
+        int arg_idx = 0;
+        double acc = Double.parseDouble(args[arg_idx++]);
+        double dth = Double.parseDouble(args[arg_idx++]);
+        double scale = DEFAULT_SCALE;
+        
+        if (arg_idx<args.length)
+            scale = Double.parseDouble(args[arg_idx++]);
+        
+        AgeModelOld M= new AgeModelOld(acc, dth, scale);
+
+        Random RND = new Random();
+        
+        int smp_size = 1000; // this many random values
+        
+        double[] lifespan = new double[smp_size];
+        
+        double avg = 0.0;
         for (int r=0; r<smp_size; r++)
         {
-            double d = randomAge(RND);
+            double d = M.randomAge(RND);
             avg += d;
             lifespan[r] = d;
         }
         avg /= smp_size;
         Arrays.sort(lifespan);
+        
+        // plot for distribution function - 1st and 3rd columns should match (empirical vs. theoretical cumulative distribution function)
+        for (int r = 0; r<smp_size; r++)
+        {
+            System.out.println((1+r)+"\t"+lifespan[r]+"\t"+smp_size*(1.0-M.getSurvival(lifespan[r])));
         }
+        double span = M.expectedParenthoodSpan(Sim.MIN_MATING_AGE_F, Sim.MAX_MATING_AGE_F);
+        double stable_rate = 2.0/span;
+        System.out.println("avg\t"+avg+"\tmating span(mother): "+span+"\tstable "+stable_rate+"\t// 1/"+span/2.0);
+    }
     
 }
