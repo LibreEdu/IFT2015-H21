@@ -32,21 +32,16 @@ public class AgeModel
     private final double death_rate;
     private final double accident_rate;
     private final double age_factor;
-    private final int smp_size; 
-    private final double[] lifespan;
     
     private static final double DEFAULT_ACCIDENT_RATE = 0.01; // 1% chance of dying per year
     private static final double DEFAULT_DEATH_RATE = 12.5;
     private static final double DEFAULT_SCALE = 100.0; // "maximum" age [with death rate 1]
-    private static final int DEFAULT_SMP_SIZE = 1000; // this many random values
     
     public AgeModel(double accident_rate, double death_rate, double age_scale, int smp_size)
     {
         this.death_rate = death_rate;
         this.age_factor = Math.exp(age_scale/death_rate);
         this.accident_rate = accident_rate;
-        this.smp_size = smp_size;
-        this.lifespan = new double[smp_size];
     }
     
     /**
@@ -157,12 +152,15 @@ public class AgeModel
     }
     
     /**
-     * Test for tabulating random lifespans from command line.
+     * Returns an array containing the lifetime of each individual in the 
+     * sample, sorted by ascending order.
      * 
-     * @param args accident-rate death-rate [scale]
+     * @param smp_size Sample size
+     * @return a table of life spans
      */
-    public void lifeSpan(String[] args)
+    public double[] lifeSpan(int smp_size)
     {
+        double[] lifespan = new double[smp_size];
     	Random RND = new Random();
     	
         for (int r=0; r<smp_size; r++)
@@ -171,6 +169,7 @@ public class AgeModel
             lifespan[r] = d;
         }
         Arrays.sort(lifespan);
+        return lifespan;
     }
     
 }
