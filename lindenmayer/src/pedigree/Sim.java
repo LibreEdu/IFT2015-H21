@@ -152,7 +152,11 @@ public class Sim implements Comparable<Sim>
         return mate;
     }
     
-    public void setMate(Sim mate){this.mate = mate;}
+    public int getSim_ident() {
+		return sim_ident;
+	}
+
+	public void setMate(Sim mate){this.mate = mate;}
     
     public boolean isFounder()
     {

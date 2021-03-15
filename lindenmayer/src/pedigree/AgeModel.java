@@ -37,7 +37,7 @@ public class AgeModel
     private static final double DEFAULT_DEATH_RATE = 12.5;
     private static final double DEFAULT_SCALE = 100.0; // "maximum" age [with death rate 1]
     
-    public AgeModel(double accident_rate, double death_rate, double age_scale, int smp_size)
+    public AgeModel(double accident_rate, double death_rate, double age_scale)
     {
         this.death_rate = death_rate;
         this.age_factor = Math.exp(age_scale/death_rate);
@@ -49,7 +49,7 @@ public class AgeModel
      */
     public AgeModel()
     {
-        this(DEFAULT_ACCIDENT_RATE, DEFAULT_DEATH_RATE, DEFAULT_SCALE, DEFAULT_SMP_SIZE);
+        this(DEFAULT_ACCIDENT_RATE, DEFAULT_DEATH_RATE, DEFAULT_SCALE);
     }
     
     @Override
