@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 public class Main {
 	
@@ -23,9 +24,13 @@ public class Main {
 		
 		for(int i = 0; i < SMP_SIZE; i++) {
 			Sim sim;
+			Random random=new Random();
 			
 			// Choix du sexe
-			if(Math.random() < 0.5) sim = new Sim(Sim.Sex.F);
+			if(Math.random() < 0.5) {
+				sim = new Sim(Sim.Sex.F);
+				//ageModel.randomWaitingTime(random, 2);
+			}
 			else sim = new Sim(Sim.Sex.M);
 
 			// Âge de mort
