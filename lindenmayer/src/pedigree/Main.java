@@ -20,16 +20,21 @@ public class Main {
 		
 		AgeModel ageModel = new AgeModel();
 		double[] lifespan = ageModel.lifeSpan(SMP_SIZE);
+		double span = ageModel.expectedParenthoodSpan(Sim.MIN_MATING_AGE_F, Sim.MAX_MATING_AGE_F);
+        double stable_rate = 2.0/span;
 		//System.out.println("test");
 		
 		for(int i = 0; i < SMP_SIZE; i++) {
 			Sim sim;
 			Random random=new Random();
+			double time;
 			
 			// Choix du sexe
 			if(Math.random() < 0.5) {
 				sim = new Sim(Sim.Sex.F);
-				//ageModel.randomWaitingTime(random, 2);
+				time = ageModel.randomWaitingTime(random, stable_rate);
+				Event event = new Event(time, sim, Event.Type.Mating);
+				evenements.add(event);
 			}
 			else sim = new Sim(Sim.Sex.M);
 
@@ -47,12 +52,12 @@ public class Main {
 			evenements.add(event);
 		}
 		
-		/*int i = 0;
+		int i = 0;
 		while(evenements.size()>0) {
 			Event event = evenements.poll();
 			//System.out.println(i++);
 			System.out.println(event.toString());
-		}*/
+		}
 		
 		/*for(int i = 0; i < population.size(); i++) {
 			System.out.println(i);
