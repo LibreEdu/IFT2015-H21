@@ -37,9 +37,15 @@ public class Event implements Comparable<Event> {
         sb.append(" : ");
         
         switch(type) {
-        case Birth: sb.append("Birth"); break;
-        case Death: sb.append("Death"); break;
-        case Mating: sb.append("Mating"); break;
+	        case Birth: 
+	        	sb.append("Birth");
+	        	break;
+	        case Death:
+	        	sb.append("Death");
+	        	break;
+	        case Mating:
+	        	sb.append("Mating");
+	        	break;
         }
         return sb.toString();
     }
