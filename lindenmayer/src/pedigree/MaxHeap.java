@@ -30,6 +30,10 @@ public class MaxHeap {
 		this(SMP_SIZE);
 	}
 	
+	public int size() {
+		return heapSize;
+	}
+	
 	/**
 	 * Add a sim to the heap.
 	 * 
@@ -57,7 +61,7 @@ public class MaxHeap {
 			Sim parent = heap.get(p);
 			
 			// If the parent is bigger (born after the sim) then we stop
-			if (parent.compareTo(sim) >= 0) {
+			if (parent.compareBirth(sim) >= 0) {
 				break;
 			}
 			
@@ -118,8 +122,9 @@ public class MaxHeap {
 		while (maxChildIndex != 0) {
 			maxChild = heap.get(maxChildIndex);
 			
-			// If the child is smaller than the parent, we stop the descent
-			if (maxChild.compareTo(sim)<=0) {
+			// If the child is smaller (born before) than the parent,
+			// we stop the descent
+			if (maxChild.compareBirth(sim)<=0) {
 				break;
 			}
 			
@@ -150,12 +155,20 @@ public class MaxHeap {
 		if (2 * p + 1 <= heapSize) {
 			Sim childLeft = heap.get(c);
 			Sim childRight = heap.get(2*p+1);
-			if (childRight.compareTo(childLeft) > 0) {
+			if (childRight.compareBirth(childLeft) > 0) {
 				c = 2 * p + 1;
 			}
 		}
 		
 		return c;
+	}
+	
+	public void print() {
+		for(int i=1; i<=heapSize; i++) {
+			System.out.print(heap.get(i).getBirthTime());
+			System.out.print(" ");
+		}
+		System.out.println();
 	}
 
 }

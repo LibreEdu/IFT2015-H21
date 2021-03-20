@@ -35,9 +35,14 @@ public class Sim implements Comparable<Sim>
      * @return 
      */
     @Override
-    public int compareTo(Sim o) 
+    public int compareTo(Sim sim) 
     {
-        return Double.compare(this.birthtime,o.birthtime);
+        return Double.compare(this.deathtime,sim.deathtime);
+    }
+    
+    public int compareBirth(Sim sim) 
+    {
+        return Double.compare(this.birthtime,sim.birthtime);
     }
     
     public enum Sex {F, M};

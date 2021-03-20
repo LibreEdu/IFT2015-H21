@@ -30,6 +30,10 @@ public class MinHeap {
 		this(SMP_SIZE);
 	}
 	
+	public int size() {
+		return heapSize;
+	}
+	
 	/**
 	 * Add a sim to the heap.
 	 * 
@@ -57,7 +61,7 @@ public class MinHeap {
 			//System.out.println("while");
 			Sim parent = heap.get(p);
 			
-			// If the parent is smaller (born before the sim) then we stop
+			// If the parent is smaller (dead before the sim) then we stop
 			if (parent.compareTo(sim) < 0) {
 				break;
 			}
@@ -119,7 +123,8 @@ public class MinHeap {
 		while (minChildIndex != 0) {
 			minChild = heap.get(minChildIndex);
 			
-			// If the child is bigger than the parent, we stop the descent
+			// If the child is bigger (dead after) than the parent
+			// we stop the descent
 			if (minChild.compareTo(sim)>=0) {
 				break;
 			}
@@ -159,14 +164,14 @@ public class MinHeap {
 		return c;
 	}
 	
-/*	public void print() {
+	public void print() {
 		for(int i=1; i<=heapSize; i++) {
-			System.out.print(heap.get(i).getBirthTime());
+			System.out.print(heap.get(i).getDeathTime());
 			System.out.print(" ");
 		}
 		System.out.println();
 	}
-*/
+
 	
 	public Sim getSim(int i) {
 		if (i < heap.size()) {
