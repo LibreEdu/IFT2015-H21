@@ -10,7 +10,8 @@ import java.util.Comparator;
  * @author Dave Sanon-Abraham
  * 
  */
-public class Heap<E extends Comparable<E>> {
+public class Heap<E extends Comparable<E>>
+{
 
 	private ArrayList<E> heap;
 	private static final int INITIAL_CAPACITY = 10;
@@ -21,7 +22,8 @@ public class Heap<E extends Comparable<E>> {
 	  */
 	Comparator<? super E> comparator;
 	
-	public Heap(int initialCapacity) {
+	public Heap(int initialCapacity)
+	{
 		// We start the array at index 1, not 0.
 		heap = new ArrayList<E>(initialCapacity + 1);
 		System.out.println("size = " + heap.size());
@@ -34,16 +36,19 @@ public class Heap<E extends Comparable<E>> {
 		heapSize = 0;
 	}
 	
-	public Heap() {
+	public Heap()
+	{
 		this(INITIAL_CAPACITY);
 	}
 	
-	public Heap(Comparator<E> comp) {
+	public Heap(Comparator<E> comp)
+	{
 		this.comparator=comp;
 	}
 
 	
-	public int size() {
+	public int size()
+	{
 		return heapSize;
 	}
 	
@@ -52,9 +57,50 @@ public class Heap<E extends Comparable<E>> {
 	 * 
 	 * @param sim The sim to add
 	 */
-	public void add(E e) {
+	public void add(E e)
+	{
 		swim(e);
 		heapSize++;		
+	}
+	
+	/**
+	 * Remove the first element of the heap.
+	 * 
+	 * @return The first element of the heap
+	 */
+	public E poll()
+	{
+		E min = heap.get(1);
+		
+		// Get the last element
+		E last = heap.get(heapSize);
+		
+		heap.set(heapSize, null);
+		heapSize--;
+		if (heapSize > 0) {
+			
+			// We bring down the last sim
+			sink(last, 1);
+		}
+		return min;
+	}
+	
+	public void print() {
+		for(int i=1; i<=heapSize; i++) {
+			System.out.print(heap.get(i).toString());
+			System.out.print(" ");
+		}
+		System.out.println();
+	}
+
+	
+	public E get(int i) {
+		if (i < heap.size()) {
+			return heap.get(i+1);
+		} else {
+			return null;
+		}
+		
 	}
 	
 	/**
@@ -62,7 +108,8 @@ public class Heap<E extends Comparable<E>> {
 	 * 
 	 * @param sim The sim to insert
 	 */
-	private void swim(E e) {
+	void swim(E e)
+	{
 		// Index of the new element
 		int i = heapSize + 1;
 		
@@ -104,33 +151,13 @@ public class Heap<E extends Comparable<E>> {
 	}
 	
 	/**
-	 * Remove the first element of the heap.
-	 * 
-	 * @return The first element of the heap
-	 */
-	public E poll() {
-		E min = heap.get(1);
-		
-		// Get the last element
-		E last = heap.get(heapSize);
-		
-		heap.set(heapSize, null);
-		heapSize--;
-		if (heapSize > 0) {
-			
-			// We bring down the last sim
-			sink(last, 1);
-		}
-		return min;
-	}
-	
-	/**
 	 * Insert a element at the top and bring it down to his position.
 	 * 
 	 * @param e The element to insert
 	 * @param i The starting position, the top
 	 */
-	private void sink(E e, int i) {
+	void sink(E e, int i)
+	{
 		assert(i < heap.size());
 		int minChildIndex = minChild(i);
 		E minChild;
@@ -155,7 +182,8 @@ public class Heap<E extends Comparable<E>> {
 	}
 	
 	// Returns the min child of the parent or 0 if no child
-	private int minChild(int p) {
+	int minChild(int p)
+	{
 		
 		// Default child
 		int c = 0;
@@ -175,24 +203,6 @@ public class Heap<E extends Comparable<E>> {
 		}
 		
 		return c;
-	}
-	
-	public void print() {
-		for(int i=1; i<=heapSize; i++) {
-			System.out.print(heap.get(i).toString());
-			System.out.print(" ");
-		}
-		System.out.println();
-	}
-
-	
-	public E get(int i) {
-		if (i < heap.size()) {
-			return heap.get(i+1);
-		} else {
-			return null;
-		}
-		
 	}
 
 }
