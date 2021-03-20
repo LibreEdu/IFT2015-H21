@@ -1,32 +1,35 @@
-package pedigree;
+package pedigreeOld;
 
 import java.util.ArrayList;
 
+import pedigree.Sim;
+import pedigree.Sim.Sex;
+
 /**
- * A max heap of sims
+ * A min heap of sims
  * 
  * @author Alexandre Pachot
  * @author Dave Sanon-Abraham
  * 
  */
-public class MaxHeap {
+public class MinHeap {
 
 	private static ArrayList<Sim> heap;
 	private static final int SMP_SIZE = 1000;
 	private static int heapSize;
 	
-	public MaxHeap(int smp_size) {
+	public MinHeap(int smp_size) {
 		// We start the array at index 1, not 0.
 		heap = new ArrayList<Sim>(smp_size + 1);
 		
 		// Just to fill the first entry in the list
-		heap.add(new Sim(Sim.Sex.M));
+		heap.add(null);
 
 		// Number of sims in the heap
 		heapSize = 0;
 	}
 	
-	public MaxHeap() {
+	public MinHeap() {
 		this(SMP_SIZE);
 	}
 	
@@ -58,10 +61,11 @@ public class MaxHeap {
 		
 		// As long as we are not at the root
 		while (p > 0) {
+			//System.out.println("while");
 			Sim parent = heap.get(p);
 			
-			// If the parent is bigger (born after the sim) then we stop
-			if (parent.compareBirth(sim) >= 0) {
+			// If the parent is smaller (dead before the sim) then we stop
+			if (parent.compareTo(sim) < 0) {
 				break;
 			}
 			
@@ -80,12 +84,12 @@ public class MaxHeap {
 		}
 		
 		// We insert the sim at his position
-		//heap.add(i, sim);
 		if(i<heap.size()) {
 			heap.set(i, sim);
 		} else {
 			heap.add(i, sim);
-		}		
+		}
+		
 	}
 	
 	/**
@@ -93,8 +97,8 @@ public class MaxHeap {
 	 * 
 	 * @return The youngest sim, the one with the biggest birth date.
 	 */
-	public Sim deleteMax() {
-		Sim max = heap.get(1);
+	public Sim deleteMin() {
+		Sim min = heap.get(1);
 		
 		// Get the last sim
 		Sim last = heap.get(heapSize);
@@ -106,7 +110,7 @@ public class MaxHeap {
 			// We bring down the last sim
 			sink(last, 1);
 		}
-		return max;
+		return min;
 	}
 	
 	/**
@@ -117,31 +121,31 @@ public class MaxHeap {
 	 */
 	private void sink(Sim sim, int i) {
 		assert(i < heap.size());
-		int maxChildIndex = maxChild(i);
-		Sim maxChild;
-		while (maxChildIndex != 0) {
-			maxChild = heap.get(maxChildIndex);
+		int minChildIndex = minChild(i);
+		Sim minChild;
+		while (minChildIndex != 0) {
+			minChild = heap.get(minChildIndex);
 			
-			// If the child is smaller (born before) than the parent,
+			// If the child is bigger (dead after) than the parent
 			// we stop the descent
-			if (maxChild.compareBirth(sim)<=0) {
+			if (minChild.compareTo(sim)>=0) {
 				break;
 			}
 			
 			// The child is moved up to the position of the parent
-			heap.set(i, maxChild);
+			heap.set(i, minChild);
 			
 			// Index of the next parent
-			i = maxChildIndex;
+			i = minChildIndex;
 			
 			// Getting the max child from the new parent
-			maxChildIndex = maxChild(i);
+			minChildIndex = minChild(i);
 		}
 		heap.set(i, sim);
 	}
 	
-	// Returns the max child of the parent or 0 if no child
-	private int maxChild(int p) {
+	// Returns the min child of the parent or 0 if no child
+	private int minChild(int p) {
 		
 		// Default child
 		int c = 0;
@@ -155,7 +159,7 @@ public class MaxHeap {
 		if (2 * p + 1 <= heapSize) {
 			Sim childLeft = heap.get(c);
 			Sim childRight = heap.get(2*p+1);
-			if (childRight.compareBirth(childLeft) > 0) {
+			if (childRight.compareTo(childLeft) < 0) {
 				c = 2 * p + 1;
 			}
 		}
@@ -165,10 +169,19 @@ public class MaxHeap {
 	
 	public void print() {
 		for(int i=1; i<=heapSize; i++) {
-			System.out.print(heap.get(i).getBirthTime());
+			System.out.print(heap.get(i).getDeathTime());
 			System.out.print(" ");
 		}
 		System.out.println();
 	}
 
+	
+	public Sim getSim(int i) {
+		if (i < heap.size()) {
+			return heap.get(i+1);
+		} else {
+			return null;
+		}
+		
+	}
 }

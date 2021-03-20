@@ -1,9 +1,15 @@
-package pedigree;
+package pedigreeOld;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Random;
+
+import pedigree.AgeModel;
+import pedigree.Event;
+import pedigree.Sim;
+import pedigree.Event.Type;
+import pedigree.Sim.Sex;
 
 public class MainOld {
 	
