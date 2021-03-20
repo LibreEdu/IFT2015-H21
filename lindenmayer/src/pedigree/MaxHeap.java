@@ -19,6 +19,9 @@ public class MaxHeap {
 		// We start the array at index 1, not 0.
 		heap = new ArrayList<Sim>(smp_size + 1);
 		
+		// Just to fill the first entry in the list
+		heap.add(new Sim(Sim.Sex.M));
+
 		// Number of sims in the heap
 		heapSize = 0;
 	}
@@ -32,7 +35,7 @@ public class MaxHeap {
 	 * 
 	 * @param sim The sim to add
 	 */
-	private void insert(Sim sim) {
+	public void insert(Sim sim) {
 		swim(sim);
 		heapSize++;		
 	}
@@ -59,7 +62,12 @@ public class MaxHeap {
 			}
 			
 			// Otherwise, we take down the parent
-			heap.set(i, parent);
+			if(i<heap.size()) {
+				heap.set(i, parent);
+			} else {
+				heap.add(i, parent);
+			}
+			
 			
 			// We bring up the empty bubble to the parent position
 			i =  p;
@@ -69,7 +77,7 @@ public class MaxHeap {
 		}
 		
 		// We insert the sim at his position
-		heap.set(i, sim);
+		heap.add(i, sim);
 		
 	}
 	
@@ -78,7 +86,7 @@ public class MaxHeap {
 	 * 
 	 * @return The youngest sim, the one with the biggest birth date.
 	 */
-	private Sim deleteMax() {
+	public Sim deleteMax() {
 		Sim max = heap.get(1);
 		
 		// Get the last sim
@@ -112,9 +120,13 @@ public class MaxHeap {
 				break;
 			}
 			
-			
+			// The child is moved up to the position of the parent
 			heap.set(i, maxChild);
+			
+			// Index of the next parent
 			i = maxChildIndex;
+			
+			// Getting the max child from the new parent
 			maxChildIndex = maxChild(i);
 		}
 		heap.set(i, sim);
@@ -128,7 +140,7 @@ public class MaxHeap {
 		
 		// Index of the left child
 		if (2 * p <= heapSize) {
-			c = 2 * p; 
+			c = 2 * p;
 		}
 		
 		// Index of the right child
