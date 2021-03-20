@@ -26,11 +26,9 @@ public class Heap<E extends Comparable<E>>
 	{
 		// We start the array at index 1, not 0.
 		heap = new ArrayList<E>(initialCapacity + 1);
-		//System.out.println("size = " + heap.size());
 		
 		// Just to fill the first entry in the list
 		heap.add(null);
-		//System.out.println("size = " + heap.size());
 
 		// Number of sims in the heap
 		heapSize = 0;
@@ -79,7 +77,7 @@ public class Heap<E extends Comparable<E>>
 		heapSize--;
 		if (heapSize > 0) {
 			
-			// We bring down the last sim
+			// We bring down the last element
 			sink(last, 1);
 		}
 		return min;

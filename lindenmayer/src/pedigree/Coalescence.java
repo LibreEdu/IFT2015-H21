@@ -9,7 +9,7 @@ public class Coalescence {
 	private static ArrayList<Sim> allSims = new ArrayList();
 	private static PriorityQueue<Event> events = new PriorityQueue<Event>();
 	private static PriorityQueue<Sim> living;
-	private static HashSet<Sim> forefathers ;
+	private static HashSet<Sim> forefathers;
 	private static ArrayList<int[]> paternalLineages = new ArrayList<int[]>();
 	
 
@@ -66,6 +66,8 @@ public class Coalescence {
 		allSims.add(f2);
 		
 		//System.out.println(f2.getSim_ident());
+		
+		
 		
 		
 	}
