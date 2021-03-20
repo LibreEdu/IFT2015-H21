@@ -23,7 +23,7 @@ public class MinHeap {
 		heap = new ArrayList<Sim>(smp_size + 1);
 		
 		// Just to fill the first entry in the list
-		heap.add(new Sim(Sim.Sex.M));
+		heap.add(null);
 
 		// Number of sims in the heap
 		heapSize = 0;
