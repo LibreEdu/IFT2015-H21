@@ -1,15 +1,14 @@
 package pedigree;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Random;
 
 public class Main {
 	
-	private static ArrayList<Sim> population;
-	private static HashMap<Integer, Integer> vivants;
+	private static ArrayList<Sim> all; // All sims since creation
+	private static MinHeap
 	private static PriorityQueue<Event> evenements;
 	private static final int SMP_SIZE = 1000;
 
