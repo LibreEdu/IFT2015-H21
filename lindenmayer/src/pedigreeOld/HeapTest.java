@@ -1,4 +1,8 @@
-package pedigree;
+package pedigreeOld;
+
+import pedigree.Heap;
+import pedigree.Sim;
+import pedigree.Sim.Sex;
 
 public class HeapTest {
 
