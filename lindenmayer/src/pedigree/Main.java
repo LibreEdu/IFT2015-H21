@@ -1,138 +1,176 @@
 package pedigree;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Random;
 
-import pedigree.Event.Type;
 import pedigree.Sim.Sex;
 
 public class Main {
+	
+	// Living male sims... for dating
+	private static Heap<Sim> males;
+	
+	// Living sims... for coalescence
+	private static PriorityQueue<Sim> population;
+	
+	// The ancestors... for coalescence
+	private static HashSet<Sim> forebear;
 
-	private static ArrayList<Sim> population;
-	private static ArrayList<Integer> popAnnee;
-	private static Heap<Sim> min = new Heap<Sim>(); 
-	private static HashMap<Integer, Integer> vivants;
-	private static PriorityQueue<Event> evenements;
-	private static final int SMP_SIZE = 1000;
-	private static final double  fidelity= 0.9;
-	private static AgeModel ageModel = new AgeModel();
-	private static double span = ageModel.expectedParenthoodSpan(Sim.MIN_MATING_AGE_F, Sim.MAX_MATING_AGE_F);
-    private static double rate = 2.0/span;
+	private static PriorityQueue<Event> events;
+	private static AgeModel ageModel;
+	private static double reproductionRate;
 	private static Random RDM = new Random();
-	private static int pop =0;
+	private static int populationSize = 0;
+	private static int year = 0; // Start date of the simulation
+	private static int maximumTime;
+	
+	private static final int DEFAULT_POPULATION_SIZE = 5000;
+	private static final int DEFAULT_MAXIMUM_TIME = 20000;
+    private static final double DEFAULT_ACCIDENT_RATE = 0.01; // 1% chance of dying per year
+    private static final double DEFAULT_DEATH_RATE = 12.5;
+    private static final double DEFAULT_SCALE = 100.0; // "maximum" age [with death rate 1]
+	private static final double  fidelity= 0.9;
+	private static final int TIME_SMP_SIZE = 100;
 
 	public static void main(String[] args) {
-		population = new ArrayList<Sim>(SMP_SIZE);
-		vivants = new HashMap<Integer, Integer>(SMP_SIZE);
-		evenements = new PriorityQueue<Event>(SMP_SIZE);
-		simulate(1000,2000);
-		//System.out.println(popAnnee.size());
-		for(int i=0; popAnnee.size()>i ;i++) {
-			System.out.println(100*i+"\t"+ popAnnee.get(i));
-		}
+		int arg_idx = 0;
+        int foundingPopulation = DEFAULT_POPULATION_SIZE;
+        maximumTime = DEFAULT_MAXIMUM_TIME;
+        double accident_rate = DEFAULT_ACCIDENT_RATE;
+        double death_rate = DEFAULT_DEATH_RATE;
+        double age_scale = DEFAULT_SCALE;
+        
+        if (arg_idx < args.length)
+        	foundingPopulation = Integer.parseInt(args[arg_idx++]);
+        if (arg_idx < args.length)
+        	maximumTime = Integer.parseInt(args[arg_idx++]);
+        if (arg_idx < args.length)
+        	accident_rate = Double.parseDouble(args[arg_idx++]);
+        if (arg_idx < args.length)
+        	death_rate = Double.parseDouble(args[arg_idx++]);
+        if (arg_idx < args.length)
+        	age_scale = Double.parseDouble(args[arg_idx++]);
+        
+        males = new Heap<Sim>();
+        population = new PriorityQueue<Sim>();
+        forebear = new HashSet<Sim>();
+		events = new PriorityQueue<Event>();
+		ageModel = new AgeModel(accident_rate, death_rate, age_scale);
+		reproductionRate = 2.0/ageModel.expectedParenthoodSpan(Sim.MIN_MATING_AGE_F, Sim.MAX_MATING_AGE_F);
 		
-	}        
-	 //System.out.println("test");
-       static void simulate(int n, double Tmax){
-    	   popAnnee=new ArrayList<Integer>();
-    	   Sim sim;
-    	   int tab =0;
-            /*sim = new Sim(Sim.Sex.M);
-     	   	Birth(sim,0.0);
-     	   	sim = new Sim(Sim.Sex.F);
-     	   	Birth(sim,0.0);*/
-		  
-           for (int i=0; i<n; i++){
-        	   sim = new Sim(sex());
-        	   Birth(sim,0.0);
-           }
-           while (!evenements.isEmpty()){
-              
-        	   Event E = evenements.poll(); // prochain événement
-        	   if (E.getYear()>tab) {
-        		   popAnnee.add(pop);
-        		   tab+=100;
-        	   }
-        	   if (E.getYear() > Tmax) break; // arrêter à Tmax
-        	   if (E.getType() == Event.Type.Death){//evenement de mort
-        		   
-        		   if(E.getSim().getSex()== Sim.Sex.M) min.poll(); // homme meurt on l'enleve du tas
-        		   pop--;
+		simulate(foundingPopulation, maximumTime);
+	}   
+	
+	static void simulate(int n, double Tmax){
+		founderPopulation(n);
+		Event event;
+		while (!events.isEmpty()){
+			event = events.poll(); // next event
+			if (printPopulationSize(event)) break;
+        	if (event.getType() == Event.Type.Death){
+        		updatePopulation(event);
+
         		   continue;
               } 
-              else if(E.getType() == Event.Type.Birth) { // evenement de naissance 
+              else if(event.getType() == Event.Type.Birth) { // evenement de naissance 
             	  
-            	  if(E.getSim().getSex()== Sim.Sex.M) min.add(E.getSim()); // homme nait on l'ajoute au tas 
-            	  else matingTime(E.getSim(),E.getYear());  // femme nait on lui donne un temps reproduction
-            	  death(E.getSim(),E.getYear()); // temps de mort a tous et ajout a la population
-            	  pop++;
+            	  if(event.getSim().getSex()== Sim.Sex.M) males.add(event.getSim()); // homme nait on l'ajoute au tas 
+            	  else matingTime(event.getSim(),event.getYear());  // femme nait on lui donne un temps reproduction
+            	  death(event.getSim(),event.getYear()); // temps de mort a tous et ajout a la population
+            	  populationSize++;
             	  continue;
               }
               else  { // evenement reproduction
             	  
-            	  if (E.getYear()>E.getSim().getDeathTime()) continue; // sim mort on ne fait rien
-            	  if (E.getSim().isMatingAge(E.getYear())) { // sim en age de reproduction
+            	  if (event.getYear()>event.getSim().getDeathTime()) continue; // sim mort on ne fait rien
+            	  if (event.getSim().isMatingAge(event.getYear())) { // sim en age de reproduction
             		  
-            		  Sim x = E.getSim(); //mere
+            		  Sim x = event.getSim(); //mere
             		  Sim y = null; // choisir pere y
             	
-            		  if (!x.isInARelationship(E.getYear()) || RDM.nextDouble() > fidelity){ // partenaire au hasard
+            		  if (!x.isInARelationship(event.getYear()) || RDM.nextDouble() > fidelity){ // partenaire au hasard
             		     
             			  do{
             				  Sim z = random();
-            				  if (z.isMatingAge(E.getYear())) { // isMatingAge() v�rifie si z est de l'age acceptable
-            					  if (x.isInARelationship(E.getYear()) // z accepte si x est infid�le
-            							  || !z.isInARelationship(E.getYear())
+            				  if (z.isMatingAge(event.getYear())) { // isMatingAge() v�rifie si z est de l'age acceptable
+            					  if (x.isInARelationship(event.getYear()) // z accepte si x est infid�le
+            							  || !z.isInARelationship(event.getYear())
             							  || RDM.nextDouble() > fidelity)
             		           {  y = z;}	  
             		        }
             		     } while (y==null);
             		  } 
             		  else{ //partenaire existant
-            		     y = E.getSim().getMate();
+            		     y = event.getSim().getMate();
             		  }
       				  //creation du sim enfant
-      				  sim = new Sim(x,y,E.getYear(),sex());
-      				  Birth(sim,E.getYear());
+            		  addBirthEvent(new Sim(x,y,event.getYear(),randomSex()), 
+      						event.getYear());
             	  }
             	  //nouveau temps de reproduction
-        		  matingTime(E.getSim(),E.getYear()); 
+        		  matingTime(event.getSim(),event.getYear()); 
               }
               
            }
 
         }
+	
+	/**
+	 * Add the birth event
+	 * 
+	 * @param sim
+	 * @param year
+	 */
+	private static void addBirthEvent(Sim sim, double year) {
+		events.add(new Event(year, sim, Event.Type.Birth));	
+	}
+	
+	private static void founderPopulation(int size) {
+        for (int i = 0; i < size; i++){
+        	addBirthEvent(new Sim(randomSex()), year);
+        }
+	}
+	
+	private static boolean printPopulationSize(Event event) {
+  	   if (event.getYear() > year) {
+ 		   System.out.println(year + "\t" + populationSize);
+ 		   year += TIME_SMP_SIZE;
+ 		   if (event.getYear() > maximumTime) return true;
+ 	   }
+  	   return false;
+	}
+	
+	private static void updatePopulation(Event event) {
+		if (event.getSim().getSex()== Sim.Sex.M)
+			males.poll();
+		populationSize--;
+	}
 		private static void death(Sim sim, double year) {
 			
 			double time = ageModel.randomAge(RDM) + year;
       	    sim.setDeath(time);
       	    Event event = new Event(time, sim, Event.Type.Death);
-      	    evenements.add(event);     	    
+      	  events.add(event);     	    
 			
 		}
 		private static void matingTime(Sim sim, double year) {
-			double time = AgeModel.randomWaitingTime(RDM, rate)+ year;
+			double time = AgeModel.randomWaitingTime(RDM, reproductionRate)+ year;
 			Event event = new Event(time, sim, Event.Type.Mating);
-			evenements.add(event);
+			events.add(event);
 			
 		}
-		private static void Birth(Sim sim, double t) {
-			population.add(sim.getSim_ident(),sim);
-			Event event = new Event(t, sim, Event.Type.Birth);
-		   	evenements.add(event);
-		   	
-		}
-		private static Sex sex() {
+
+		private static Sex randomSex() {
 			if (RDM.nextDouble()>0.5) return Sim.Sex.F;
 			else return Sim.Sex.M;
 		}
 		private static Sim random() {
-			int i = RDM.nextInt(min.size());
-			return min.get(i);
+			int i = RDM.nextInt(males.size());
+			return males.get(i);
 		}
+		
+
 
 }
 
