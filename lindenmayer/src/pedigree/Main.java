@@ -1,5 +1,7 @@
 package pedigree;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.PriorityQueue;
@@ -12,17 +14,6 @@ public class Main {
 	// Living male sims... for dating
 	private static Heap<Sim> males;
 	
-	// Living sims… for coalescence
-	private static PriorityQueue<Sim> popForFather;
-	private static PriorityQueue<Sim> popForMother;
-	
-	// Already used ancestors… for coalescence
-	private static HashSet<Sim> ancestors;
-	
-	// The lineage of the ancestors… for coalescence
-	private static ArrayList<String> forefathers;
-	private static ArrayList<String> foremothers;
-
 	private static PriorityQueue<Event> events;
 	private static AgeModel ageModel;
 	private static double reproductionRate;
@@ -40,8 +31,8 @@ public class Main {
 	private static final String FIELD_SEPARATOR = "\t";
 	private static final String YEAR_WORDING = "Year";
 	private static final String POPULATION_WORDING = "Population";
-	private static final String FORFATHER_WORDING = "Forfather";
-	private static final String FOREMOTHER_WORDING = "Formother";
+	private static final String FORFATHER_WORDING = "Forfathers";
+	private static final String FOREMOTHER_WORDING = "Formothers";
 
 	public static void main(String[] args) {
 		int argIdx = 0;
@@ -63,11 +54,11 @@ public class Main {
         	ageScale = Double.parseDouble(args[argIdx++]);
         
         males = new Heap<Sim>();
-        popForFather = new PriorityQueue<Sim>(new birthComparator<Sim>());
-        popForMother = new PriorityQueue<Sim>(new birthComparator<Sim>());
-        ancestors = new HashSet<Sim>();
-        forefathers = new ArrayList<String>();
-        foremothers = new ArrayList<String>();
+        //popForFather = new PriorityQueue<Sim>(new birthComparator<Sim>());
+        //popForMother = new PriorityQueue<Sim>(new birthComparator<Sim>());
+        //ancestors = new HashSet<Sim>();
+        //forefathers = new ArrayList<String>();
+        //foremothers = new ArrayList<String>();
 		events = new PriorityQueue<Event>();
 		ageModel = new AgeModel(accidentRate, deathRate, ageScale);
 		reproductionRate = 2.0/ageModel.expectedParenthoodSpan(Sim.MIN_MATING_AGE_F, Sim.MAX_MATING_AGE_F);
@@ -178,7 +169,7 @@ public class Main {
 		
 		// Sim at reproductive age
 		if (sim.isMatingAge(year)) {
-			Sim x = sim; // Mother
+			Sim x = sim;  // Mother
 			Sim y = null; // Father
 			
 			// Random partner
@@ -191,7 +182,7 @@ public class Main {
 						if (x.isInARelationship(year) 
 								|| !z.isInARelationship(year)
 								|| RDM.nextDouble() > FIDELITY) {
-														y = z;}	  
+									y = z;}	  
 						}
 					}
 				while (y==null);
@@ -247,57 +238,65 @@ public class Main {
 	}
 	
 	private static void coalescence() {
-		getPop();
-
-		int nbMaleFounders = 0;
-		int nbFemaleFounders = 0;
-		Sim sim;
-		Sim parent;
+		// Structures that will contain the entire population for the search of 
+		// male and female coalescence
+		PriorityQueue<Sim> popForFather = 
+				new PriorityQueue<Sim>(new birthComparator<Sim>());
+		PriorityQueue<Sim> popForMother = 
+				new PriorityQueue<Sim>(new birthComparator<Sim>());
 		
-		while(nbFemaleFounders!= popForMother.size() && popForMother.size() != 0) {
-			sim = popForMother.poll();
-			parent = sim.getMother();
-			if (ancestors.contains(parent)) {
-				String s = (int)sim.getBirthTime()+"\t"+popForMother.size(); 
-				foremothers.add(s);
-			} else {
-				if (parent.isFounder()) {
-					nbFemaleFounders++;
-				} else {
-					popForMother.add(parent);
-					ancestors.add(parent);
-				}
-			}
-		}
+		// Structures to save the evolution of coalescences
+		ArrayList<String> forefathers = new ArrayList<String>();
+		ArrayList<String> foremothers = new ArrayList<String>();
+        
+		// We get the population from the list of events
+        getPop(popForFather, popForMother);
+        
+        // Search for coalescence
+        findFounders(popForFather, forefathers, "getMother");
+        findFounders(popForMother, foremothers, "getFather");
 		
-		while(nbMaleFounders!= popForFather.size() && popForFather.size() != 0) {
-			sim = popForFather.poll();
-			parent = sim.getFather();
-			if (ancestors.contains(parent)) {
-				String s = (int)sim.getBirthTime()+"\t"+popForFather.size(); 
-				forefathers.add(s);
-			} else {
-				if (parent.isFounder()) {
-					nbMaleFounders++;
-				} else {
-					popForFather.add(parent);
-					ancestors.add(parent);
-				}
-			}
-		}
-		
-		printAncestors(YEAR_WORDING + FIELD_SEPARATOR + FORFATHER_WORDING,
-				forefathers, nbMaleFounders);
-		printAncestors(YEAR_WORDING + FIELD_SEPARATOR + FOREMOTHER_WORDING,
-				foremothers, nbFemaleFounders);
+        // Output
+		printAncestors(FORFATHER_WORDING, forefathers);
+		printAncestors(FOREMOTHER_WORDING, foremothers);
 
 	}
-	
-	private static void printAncestors(String Wording, ArrayList<String> lineage, 
-			int nbFounder) {
-		System.out.println();
-		System.out.println(Wording);
-		System.out.println("0\t" + nbFounder);
+	private static void findFounders(PriorityQueue<Sim> population,
+			ArrayList<String> forebear, String methodName) {
+		int nbFounders = 0;
+		Sim sim = null;
+		Sim parent = null;
+		Method method = null;
+		HashSet<Sim> ancestors = new HashSet<Sim>(); // Already used ancestors
+
+		
+		while(nbFounders!= population.size() && population.size() != 0) {
+			sim = population.poll();
+			//parent = sim.getMother();
+			try {
+				method = sim.getClass().getMethod(methodName);
+				parent = (Sim) method.invoke(sim);
+			} catch (NoSuchMethodException | SecurityException | 
+					IllegalAccessException | IllegalArgumentException | 
+					InvocationTargetException e) {
+				e.printStackTrace();
+			}
+			if (ancestors.contains(parent)) {
+				String s = (int)sim.getBirthTime()+"\t"+population.size(); 
+				forebear.add(s);
+			} else {
+				if (parent.isFounder()) {
+					nbFounders++;
+				} else {
+					population.add(parent);
+					ancestors.add(parent);
+				}
+			}
+		}
+		forebear.add("0\t" + nbFounders);
+	}
+	private static void printAncestors(String Wording, ArrayList<String> lineage) {
+		System.out.println("\n" + YEAR_WORDING + FIELD_SEPARATOR + Wording);
 		for (int i = lineage.size()-1 ; i > 0; i--) {
 			System.out.println(lineage.get(i));	
 		}
@@ -305,7 +304,8 @@ public class Main {
 	
 	// We collect all the dead events to create a maximum heap of the living,
 	// from the youngest (the biggest year) to the oldest
-	private static void getPop() {
+	private static void getPop(PriorityQueue<Sim> popForFather,
+			PriorityQueue<Sim> popForMother) {
 		int size = events.size();
 		for (int i = 0; i < size; i++) {
 			Event event = events.poll();
