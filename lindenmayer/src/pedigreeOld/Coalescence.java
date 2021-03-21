@@ -1,8 +1,13 @@
-package pedigree;
+package pedigreeOld;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.PriorityQueue;
+
+import pedigree.Event;
+import pedigree.Sim;
+import pedigree.birthComparator;
+import pedigree.Sim.Sex;
 
 public class Coalescence {
 	
