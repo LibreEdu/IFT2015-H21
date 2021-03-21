@@ -18,7 +18,7 @@ public class Main {
 	private static AgeModel ageModel;
 	private static double reproductionRate;
 	private static Random RDM = new Random();
-	private static int populationSize = 0;
+	private static int populationSize;
 	private static int year; // Year counter
 	
 	private static final int DEFAULT_POPULATION_SIZE = 5000;
@@ -37,7 +37,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		int argIdx = 0;
-        int populationSize = DEFAULT_POPULATION_SIZE;
+        populationSize = DEFAULT_POPULATION_SIZE;
         double Tmax = DEFAULT_MAXIMUM_TIME;
         double accidentRate = DEFAULT_ACCIDENT_RATE;
         double deathRate = DEFAULT_DEATH_RATE;
@@ -55,8 +55,8 @@ public class Main {
         if (argIdx < args.length)
         	ageScale = Double.parseDouble(args[argIdx++]);
         
-        males = new Heap<Sim>();
-		events = new PriorityQueue<Event>();
+        males = new Heap<Sim>((int)(populationSize * 1.3));
+		events = new PriorityQueue<Event>(populationSize * 4);
 		ageModel = new AgeModel(accidentRate, deathRate, ageScale);
 		reproductionRate = 2.0/ageModel.expectedParenthoodSpan(Sim.MIN_MATING_AGE_F, Sim.MAX_MATING_AGE_F);
 		
@@ -126,7 +126,7 @@ public class Main {
 	 */
 	private static boolean printPopulationSize(Double year, Double Tmax) {
   	   if (year > Main.year) {
- 		  System.out.println(Main.year + FIELD_SEPARATOR + populationSize);
+ 		  //System.out.println(Main.year + FIELD_SEPARATOR + populationSize);
  		  Main.year += TIME_SMP_SIZE;
  		   if (year > Tmax)
  			   return true;
@@ -166,6 +166,8 @@ public class Main {
 	 * 
 	 * @param sim Female who will mate
 	 * @param year Current date
+	 * 
+	 * https://ift2015h21.wordpress.com/2021/02/24/projet-2-nos-ancetres-communs/
 	 */
 	private static void updatePopulationByMating(Sim sim, Double year) {
 		// The sim is dead
@@ -251,13 +253,13 @@ public class Main {
 		// Structures that will contain the entire population for the search of 
 		// male and female coalescence
 		PriorityQueue<Sim> popForFather = 
-				new PriorityQueue<Sim>(new birthComparator<Sim>());
+				new PriorityQueue<Sim>((int)(populationSize * 3.8), new birthComparator<Sim>());
 		PriorityQueue<Sim> popForMother = 
-				new PriorityQueue<Sim>(new birthComparator<Sim>());
+				new PriorityQueue<Sim>((int)(populationSize * 3.8), new birthComparator<Sim>());
 		
 		// Structures to save the evolution of coalescences
-		ArrayList<String> forefathers = new ArrayList<String>();
-		ArrayList<String> foremothers = new ArrayList<String>();
+		ArrayList<String> forefathers = new ArrayList<String>((int)(populationSize * 3.8));
+		ArrayList<String> foremothers = new ArrayList<String>((int)(populationSize * 3.8));
         
 		// We get the population from the list of events
         getPop(popForFather, popForMother);
@@ -265,7 +267,7 @@ public class Main {
         // Search for coalescence
         findFounders(popForFather, forefathers, "getMother");
         findFounders(popForMother, foremothers, "getFather");
-		
+        
         // Output
 		printAncestors(FORFATHER_LABEL, forefathers);
 		printAncestors(FOREMOTHER_LABEL, foremothers);
@@ -337,7 +339,7 @@ public class Main {
 	private static void printAncestors(String Label, ArrayList<String> lineage) {
 		System.out.println("\n" + YEAR_LABEL + FIELD_SEPARATOR + Label);
 		for (int i = lineage.size()-1 ; i > 0; i--) {
-			System.out.println(lineage.get(i));	
+			//System.out.println(lineage.get(i));	
 		}
 	}
 	
