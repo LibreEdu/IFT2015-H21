@@ -66,9 +66,19 @@ public class Coalescence {
 		allSims.add(f2);
 		
 		//System.out.println(f2.getSim_ident());
+		fondateur = 0
 		
+		for(int i = 0; i < 100; i++) {
+			jeune = récupérer(poll) le plus jeune
+			père = jeune.père
+			Si père dans set
+				ajouter dans tableau (annép, size)
+			Sinon
+				ajouter père set
+				si père = fondateur alors fondateur++
+		}
 		
-		
+		fondateur != living.size
 		
 	}
 	
