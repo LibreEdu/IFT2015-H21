@@ -13,14 +13,14 @@ public class Main {
 	private static Heap<Sim> males;
 	
 	// Living sims... for coalescence
-	private static PriorityQueue<Sim> population;
-	private static PriorityQueue<Sim> pop;
+	private static PriorityQueue<Sim> popForFather;
+	private static PriorityQueue<Sim> popForMother;
 	
 	// The ancestors... for coalescence
 	private static HashSet<Sim> forebear;
 	
-	private static ArrayList<String> lineagesM;
-	private static ArrayList<String> lineagesF;
+	private static ArrayList<String> forfather;
+	private static ArrayList<String> foremother;
 
 	private static PriorityQueue<Event> events;
 	private static AgeModel ageModel;
@@ -58,17 +58,18 @@ public class Main {
         	age_scale = Double.parseDouble(args[arg_idx++]);
         
         males = new Heap<Sim>();
-        population = new PriorityQueue<Sim>(new birthComparator<Sim>());
-        pop = new PriorityQueue<Sim>(new birthComparator<Sim>());
+        popForFather = new PriorityQueue<Sim>(new birthComparator<Sim>());
+        popForMother = new PriorityQueue<Sim>(new birthComparator<Sim>());
         forebear = new HashSet<Sim>();
+        forfather = new ArrayList<String>();
+        foremother = new ArrayList<String>();
 		events = new PriorityQueue<Event>();
 		ageModel = new AgeModel(accident_rate, death_rate, age_scale);
 		reproductionRate = 2.0/ageModel.expectedParenthoodSpan(Sim.MIN_MATING_AGE_F, Sim.MAX_MATING_AGE_F);
 		
 		System.out.println("Annee\ttaille de la population");
 		simulate(foundingPopulation, maximumTime);
-		getPop();
-		coal("getFather",population,pop);
+		coalescence();
 	}   
 	
 	static void simulate(int n, double Tmax){
@@ -236,67 +237,66 @@ public class Main {
 		return males.get(RDM.nextInt(males.size()));
 	}
 	
-	private static void coal(String string, PriorityQueue<Sim> pop, PriorityQueue<Sim> population) {
-		lineagesM =new ArrayList<String>();
-		lineagesF =new ArrayList<String>();
+	private static void coalescence() {
+		getPop();
+
 		int founderM = 0;
 		int founderF = 0;
 		Sim kid;
 		Sim parent;
 		
-		while(founderM != pop.size() && founderF != population.size()) {
-			kid = pop.poll();
-			if(founderM != pop.size()) {
+		while(founderM != popForMother.size() && founderF != popForFather.size()) {
+			kid = popForMother.poll();
+			if(founderM != popForMother.size()) {
 				parent = kid.getFather();
 				if (forebear.contains(parent)) {
-					String s = (int)kid.getBirthTime()+"\t"+pop.size(); 
-					lineagesM.add(s);
+					String s = (int)kid.getBirthTime()+"\t"+popForMother.size(); 
+					forfather.add(s);
 				}
 				else {
 					if (parent.isFounder()) {
 						founderM++;
 					}
-					else pop.add(parent);
+					else popForMother.add(parent);
 					forebear.add(parent);
 				}
 			}
-			if(founderF != population.size()) {
+			if(founderF != popForFather.size()) {
 				parent = kid.getMother();
 				if (forebear.contains(parent)) {
-					String s = (int)kid.getBirthTime()+"\t"+pop.size();
-					lineagesF.add(s);
+					String s = (int)kid.getBirthTime()+"\t"+popForMother.size();
+					foremother.add(s);
 				}
 				else {
 					if (parent.isFounder()) founderF++;
-					else population.add(parent);
+					else popForFather.add(parent);
 					forebear.add(parent);
 				}
 			}
 		}
 		
 		System.out.println("\nAnnee\tAieux");
-		for ( int i =lineagesM.size()-1 ; i>0;i--) {
-			if (i==lineagesM.size()-1) System.out.println("0"+"\t"+founderM);
-			System.out.println(lineagesM.get(i));
+		for ( int i =forfather.size()-1 ; i>0;i--) {
+			if (i==forfather.size()-1) System.out.println("0"+"\t"+founderM);
+			System.out.println(forfather.get(i));
 			
 		}
 		System.out.println("\nAnnee\tAieules");
-		for ( int i =lineagesF.size()-1 ; i>0;i--) {
-			if (i==lineagesF.size()-1) System.out.println("0"+"\t"+founderF);
-			System.out.println(lineagesF.get(i));	
+		for ( int i =foremother.size()-1 ; i>0;i--) {
+			if (i==foremother.size()-1) System.out.println("0"+"\t"+founderF);
+			System.out.println(foremother.get(i));	
 		}
 	}
 	
 	// We collect all the dead events to create a maximum heap of the living,
 	// from the youngest (the biggest year) to the oldest
 	private static void getPop() {
-
 		int size = events.size();
 		for (int i = 0; i < size; i++) {
 			Event event = events.poll();
 			if (event.getType() ==  Event.Type.Death) {
-				population.add(event.getSim());
-				pop.add(event.getSim());
+				popForFather.add(event.getSim());
+				popForMother.add(event.getSim());
 			}			
 		}
 		
