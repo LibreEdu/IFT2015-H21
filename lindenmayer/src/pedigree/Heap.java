@@ -137,9 +137,7 @@ public class Heap<E extends Comparable<E>>
 			p = i>>1;
 		}
 		
-		// We insert the sim at his position
-		System.out.println("i = " + i);
-		System.out.println("size = " + heap.size());
+		// We insert the element at his position	
 		if(i<heap.size()) {
 			heap.set(i, e);
 		} else {
