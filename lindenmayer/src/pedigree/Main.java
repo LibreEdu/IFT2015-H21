@@ -287,7 +287,7 @@ public class Main {
 		printAncestors(YEAR_WORDING + FIELD_SEPARATOR + FORFATHER_WORDING,
 				forfathers, founderM);
 		printAncestors(YEAR_WORDING + FIELD_SEPARATOR + FOREMOTHER_WORDING,
-				foremothers, founderM);
+				foremothers, founderF);
 
 	}
 	
