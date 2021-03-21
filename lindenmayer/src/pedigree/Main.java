@@ -13,7 +13,7 @@ public class Main {
 	
 	// Living male sims... for dating
 	private static Heap<Sim> males;
-	
+
 	private static PriorityQueue<Event> events;
 	private static AgeModel ageModel;
 	private static double reproductionRate;
@@ -30,10 +30,10 @@ public class Main {
 	private static final int TIME_SMP_SIZE = 100;
 	private static final int INITIAL_YEAR = 0;
 	private static final String FIELD_SEPARATOR = "\t";
-	private static final String YEAR_WORDING = "Year";
-	private static final String POPULATION_WORDING = "Population";
-	private static final String FORFATHER_WORDING = "Forfathers";
-	private static final String FOREMOTHER_WORDING = "Formothers";
+	private static final String YEAR_LABEL = "Year";
+	private static final String POPULATION_LABEL = "Population";
+	private static final String FORFATHER_LABEL = "Forfathers";
+	private static final String FOREMOTHER_LABEL = "Formothers";
 
 	public static void main(String[] args) {
 		int argIdx = 0;
@@ -65,7 +65,7 @@ public class Main {
 	}   
 	
 	static void simulate(int n, double Tmax){
-		System.out.println(YEAR_WORDING + FIELD_SEPARATOR + POPULATION_WORDING);
+		System.out.println(YEAR_LABEL + FIELD_SEPARATOR + POPULATION_LABEL);
 		
 		// Creation of the initial population
 		creation(n);
@@ -195,9 +195,10 @@ public class Main {
 	}
 	
 	/**
+	 * Calculation of the reproduction date
 	 * 
-	 * @param sim
-	 * @param year
+	 * @param sim Female who will reproduce
+	 * @param year Current date
 	 */
 	private static void mating(Sim sim, double year) {
 		double matingDate = year + 
@@ -206,9 +207,10 @@ public class Main {
 	}
 	
 	/**
+	 * Planning for death
 	 * 
-	 * @param sim
-	 * @param year
+	 * @param sim Sim who will die
+	 * @param year Current date
 	 */
 	private static void setDeath(Sim sim, double year) {
 		double deathDate = year + ageModel.randomAge(RDM);
@@ -257,8 +259,8 @@ public class Main {
         findFounders(popForMother, foremothers, "getFather");
 		
         // Output
-		printAncestors(FORFATHER_WORDING, forefathers);
-		printAncestors(FOREMOTHER_WORDING, foremothers);
+		printAncestors(FORFATHER_LABEL, forefathers);
+		printAncestors(FOREMOTHER_LABEL, foremothers);
 
 	}
 	
@@ -318,21 +320,23 @@ public class Main {
 	}
 	
 	/**
+	 * Print the lineage of the ancestors
 	 * 
-	 * @param Wording
+	 * @param Label Column labels
 	 * @param lineage
 	 */
-	private static void printAncestors(String Wording, ArrayList<String> lineage) {
-		System.out.println("\n" + YEAR_WORDING + FIELD_SEPARATOR + Wording);
+	private static void printAncestors(String Label, ArrayList<String> lineage) {
+		System.out.println("\n" + YEAR_LABEL + FIELD_SEPARATOR + Label);
 		for (int i = lineage.size()-1 ; i > 0; i--) {
 			System.out.println(lineage.get(i));	
 		}
 	}
 	
 	/**
+	 * Recover the population from the death events
 	 * 
-	 * @param popForFather
-	 * @param popForMother
+	 * @param popForFather The population that will allow to find the forefathers.
+	 * @param popForMother The population that will make it possible to find the foremothers.
 	 */
 	private static void getPop(PriorityQueue<Sim> popForFather, PriorityQueue<Sim> popForMother) {
 		int size = events.size();
@@ -345,6 +349,5 @@ public class Main {
 		}
 		
 	}
-
 
 }
