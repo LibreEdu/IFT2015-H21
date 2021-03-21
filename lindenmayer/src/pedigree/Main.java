@@ -254,40 +254,42 @@ public class Main {
 		Sim kid;
 		Sim parent;
 		
-		while(founderM != popForMother.size() && founderF != popForFather.size()) {
+		while(founderM!= popForMother.size() && popForMother.size() != 0) {
 			kid = popForMother.poll();
-			if(founderM != popForMother.size()) {
-				parent = kid.getFather();
-				if (ancestors.contains(parent)) {
-					String s = (int)kid.getBirthTime()+"\t"+popForMother.size(); 
-					forfathers.add(s);
-				}
-				else {
-					if (parent.isFounder()) {
-						founderM++;
-					}
-					else popForMother.add(parent);
+			parent = kid.getMother();
+			if (ancestors.contains(parent)) {
+				String s = (int)kid.getBirthTime()+"\t"+popForMother.size(); 
+				foremothers.add(s);
+			} else {
+				if (parent.isFounder()) {
+					founderM++;
+				} else {
+					popForMother.add(parent);
 					ancestors.add(parent);
 				}
 			}
-			if(founderF != popForFather.size()) {
-				parent = kid.getMother();
-				if (ancestors.contains(parent)) {
-					String s = (int)kid.getBirthTime()+"\t"+popForMother.size();
-					foremothers.add(s);
-				}
-				else {
-					if (parent.isFounder()) founderF++;
-					else popForFather.add(parent);
+		}
+		
+		while(founderF!= popForFather.size() && popForFather.size() != 0) {
+			kid = popForFather.poll();
+			parent = kid.getMother();
+			if (ancestors.contains(parent)) {
+				String s = (int)kid.getBirthTime()+"\t"+popForFather.size(); 
+				forfathers.add(s);
+			} else {
+				if (parent.isFounder()) {
+					founderF++;
+				} else {
+					popForFather.add(parent);
 					ancestors.add(parent);
 				}
 			}
 		}
 		
 		printAncestors(YEAR_WORDING + FIELD_SEPARATOR + FORFATHER_WORDING,
-				forfathers, founderM);
+				forfathers, founderF);
 		printAncestors(YEAR_WORDING + FIELD_SEPARATOR + FOREMOTHER_WORDING,
-				foremothers, founderF);
+				foremothers, founderM);
 
 	}
 	
