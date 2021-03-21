@@ -20,7 +20,7 @@ public class Main {
 	private static HashSet<Sim> ancestors;
 	
 	// The lineage of the ancestors… for coalescence
-	private static ArrayList<String> forfathers;
+	private static ArrayList<String> forefathers;
 	private static ArrayList<String> foremothers;
 
 	private static PriorityQueue<Event> events;
@@ -66,7 +66,7 @@ public class Main {
         popForFather = new PriorityQueue<Sim>(new birthComparator<Sim>());
         popForMother = new PriorityQueue<Sim>(new birthComparator<Sim>());
         ancestors = new HashSet<Sim>();
-        forfathers = new ArrayList<String>();
+        forefathers = new ArrayList<String>();
         foremothers = new ArrayList<String>();
 		events = new PriorityQueue<Event>();
 		ageModel = new AgeModel(accidentRate, deathRate, ageScale);
@@ -249,20 +249,20 @@ public class Main {
 	private static void coalescence() {
 		getPop();
 
-		int founderM = 0;
-		int founderF = 0;
-		Sim kid;
+		int nbMaleFounders = 0;
+		int nbFemaleFounders = 0;
+		Sim sim;
 		Sim parent;
 		
-		while(founderM!= popForMother.size() && popForMother.size() != 0) {
-			kid = popForMother.poll();
-			parent = kid.getMother();
+		while(nbFemaleFounders!= popForMother.size() && popForMother.size() != 0) {
+			sim = popForMother.poll();
+			parent = sim.getMother();
 			if (ancestors.contains(parent)) {
-				String s = (int)kid.getBirthTime()+"\t"+popForMother.size(); 
+				String s = (int)sim.getBirthTime()+"\t"+popForMother.size(); 
 				foremothers.add(s);
 			} else {
 				if (parent.isFounder()) {
-					founderM++;
+					nbFemaleFounders++;
 				} else {
 					popForMother.add(parent);
 					ancestors.add(parent);
@@ -270,15 +270,15 @@ public class Main {
 			}
 		}
 		
-		while(founderF!= popForFather.size() && popForFather.size() != 0) {
-			kid = popForFather.poll();
-			parent = kid.getMother();
+		while(nbMaleFounders!= popForFather.size() && popForFather.size() != 0) {
+			sim = popForFather.poll();
+			parent = sim.getFather();
 			if (ancestors.contains(parent)) {
-				String s = (int)kid.getBirthTime()+"\t"+popForFather.size(); 
-				forfathers.add(s);
+				String s = (int)sim.getBirthTime()+"\t"+popForFather.size(); 
+				forefathers.add(s);
 			} else {
 				if (parent.isFounder()) {
-					founderF++;
+					nbMaleFounders++;
 				} else {
 					popForFather.add(parent);
 					ancestors.add(parent);
@@ -287,9 +287,9 @@ public class Main {
 		}
 		
 		printAncestors(YEAR_WORDING + FIELD_SEPARATOR + FORFATHER_WORDING,
-				forfathers, founderF);
+				forefathers, nbMaleFounders);
 		printAncestors(YEAR_WORDING + FIELD_SEPARATOR + FOREMOTHER_WORDING,
-				foremothers, founderM);
+				foremothers, nbFemaleFounders);
 
 	}
 	
