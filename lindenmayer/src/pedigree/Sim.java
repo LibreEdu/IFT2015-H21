@@ -168,6 +168,10 @@ public class Sim implements Comparable<Sim>
         return (mother==null && father==null);
     }
     
+	public boolean isMale() {
+		return getSex() == Sim.Sex.M ? true : false ;
+	}
+    
     private static String getIdentString(Sim sim)
     {
         return sim==null?"":"sim."+sim.sim_ident+"/"+sim.sex;
