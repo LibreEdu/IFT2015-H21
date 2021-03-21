@@ -1,7 +1,6 @@
 package pedigree;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * A heap where it is possible to retrieve an element at a specific index.
@@ -16,11 +15,6 @@ public class Heap<E extends Comparable<E>>
 	private ArrayList<E> heap;
 	private static final int INITIAL_CAPACITY = 10;
 	private static int heapSize;
-	
-	/**
-	  * The comparator we're using, or null for natural ordering.
-	  */
-	Comparator<? super E> comparator;
 	
 	public Heap(int initialCapacity)
 	{
@@ -38,12 +32,6 @@ public class Heap<E extends Comparable<E>>
 	{
 		this(INITIAL_CAPACITY);
 	}
-	
-	public Heap(Comparator<E> comp)
-	{
-		this.comparator=comp;
-	}
-
 	
 	public int size()
 	{
