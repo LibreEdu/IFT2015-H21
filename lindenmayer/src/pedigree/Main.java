@@ -64,6 +64,12 @@ public class Main {
 		coalescence();
 	}   
 	
+	/**
+	 * Simulation of the evolution of the population
+	 * 
+	 * @param n Initial population size
+	 * @param Tmax Year the simulation is stopped
+	 */
 	static void simulate(int n, double Tmax){
 		System.out.println(YEAR_LABEL + FIELD_SEPARATOR + POPULATION_LABEL);
 		
@@ -141,9 +147,10 @@ public class Main {
 	}
 
 	/**
+	 * Update of the population and events, when a new birth occurs
 	 * 
-	 * @param sim
-	 * @param year
+	 * @param sim Sim who is born
+	 * @param year Current date
 	 */
 	private static void updatePopulationByBirth(Sim sim, Double year) {
 		if (sim.isMale())
@@ -155,9 +162,10 @@ public class Main {
 	}
 	
 	/**
+	 * Update of the population and events, when a mate is made
 	 * 
-	 * @param sim
-	 * @param year
+	 * @param sim Female who will mate
+	 * @param year Current date
 	 */
 	private static void updatePopulationByMating(Sim sim, Double year) {
 		// The sim is dead
@@ -186,16 +194,16 @@ public class Main {
 			} else { // existing partner
 				y = sim.getMate();
 			}
-			//creation du sim enfant
+			// creation of the child sim
 			addBirthEvent(new Sim(x,y,year,randomSex()), year);
 		}
 
-		//nouveau temps de reproduction
+		// New date of mating
 		mating(sim, year); 
 	}
 	
 	/**
-	 * Calculation of the reproduction date
+	 * Calculation of the mating date
 	 * 
 	 * @param sim Female who will reproduce
 	 * @param year Current date
@@ -237,7 +245,7 @@ public class Main {
 	}
 	
 	/**
-	 * 
+	 * Calcul des coalescences
 	 */
 	private static void coalescence() {
 		// Structures that will contain the entire population for the search of 
@@ -265,10 +273,11 @@ public class Main {
 	}
 	
 	/**
+	 * Retrouve les fondateurs d’une population
 	 * 
-	 * @param population
-	 * @param forebear
-	 * @param methodName
+	 * @param population End of simulation population
+	 * @param forebear ArrayList of String that will contain the output data
+	 * @param methodName Name of the method that allow to get the parent of a sim
 	 */
 	private static void findFounders(PriorityQueue<Sim> population, ArrayList<String> forebear, String methodName) {
 		// Set of ancestors already present in the population
