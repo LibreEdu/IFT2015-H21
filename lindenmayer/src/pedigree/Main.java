@@ -1,5 +1,8 @@
 package pedigree;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Random;
@@ -13,9 +16,14 @@ public class Main {
 	
 	// Living sims... for coalescence
 	private static PriorityQueue<Sim> population;
+	private static PriorityQueue<Sim> pop;
 	
 	// The ancestors... for coalescence
 	private static HashSet<Sim> forebear;
+	
+	
+	private static ArrayList<String> lineagesM;
+	private static ArrayList<String> lineagesF;
 
 	private static PriorityQueue<Event> events;
 	private static AgeModel ageModel;
@@ -25,8 +33,8 @@ public class Main {
 	private static int year = 0; // Start date of the simulation
 	private static int maximumTime;
 	
-	private static final int DEFAULT_POPULATION_SIZE = 5000;
-	private static final int DEFAULT_MAXIMUM_TIME = 20000;
+	private static final int DEFAULT_POPULATION_SIZE = 500;
+	private static final int DEFAULT_MAXIMUM_TIME = 2000;
     private static final double DEFAULT_ACCIDENT_RATE = 0.01; // 1% chance of dying per year
     private static final double DEFAULT_DEATH_RATE = 12.5;
     private static final double DEFAULT_SCALE = 100.0; // "maximum" age [with death rate 1]
@@ -53,15 +61,85 @@ public class Main {
         	age_scale = Double.parseDouble(args[arg_idx++]);
         
         males = new Heap<Sim>();
-        population = new PriorityQueue<Sim>();
+        population = new PriorityQueue<Sim>(new birthComparator<Sim>());
+        pop = new PriorityQueue<Sim>(new birthComparator<Sim>());
         forebear = new HashSet<Sim>();
 		events = new PriorityQueue<Event>();
 		ageModel = new AgeModel(accident_rate, death_rate, age_scale);
 		reproductionRate = 2.0/ageModel.expectedParenthoodSpan(Sim.MIN_MATING_AGE_F, Sim.MAX_MATING_AGE_F);
 		
+		System.out.println("Annee\ttaille de la population");
 		simulate(foundingPopulation, maximumTime);
+		getPop();
+		coal("getFather",population,pop);
 	}   
 	
+	private static void coal(String string, PriorityQueue<Sim> pop, PriorityQueue<Sim> population) {
+		lineagesM =new ArrayList<String>();
+		lineagesF =new ArrayList<String>();
+		int founderM = 0;
+		int founderF = 0;
+		Sim kid;
+		Sim parent;
+		
+		while(founderM != pop.size() && founderF != population.size()) {
+			kid = pop.poll();
+			if(founderM != pop.size()) {
+				parent = kid.getFather();
+				if (forebear.contains(parent)) {
+					String s = (int)kid.getBirthTime()+"\t"+pop.size(); 
+					lineagesM.add(s);
+				}
+				else {
+					if (parent.isFounder()) {
+						founderM++;
+					}
+					else pop.add(parent);
+					forebear.add(parent);
+				}
+			}
+			if(founderF != population.size()) {
+				parent = kid.getMother();
+				if (forebear.contains(parent)) {
+					String s = (int)kid.getBirthTime()+"\t"+pop.size();
+					lineagesF.add(s);
+				}
+				else {
+					if (parent.isFounder()) founderF++;
+					else population.add(parent);
+					forebear.add(parent);
+				}
+			}
+		}
+		
+		System.out.println("\nAnnee\tAieux");
+		for ( int i =lineagesM.size()-1 ; i>0;i--) {
+			if (i==lineagesM.size()-1) System.out.println("0"+"\t"+founderM);
+			System.out.println(lineagesM.get(i));
+			
+		}
+		System.out.println("\nAnnee\tAieules");
+		for ( int i =lineagesF.size()-1 ; i>0;i--) {
+			if (i==lineagesF.size()-1) System.out.println("0"+"\t"+founderF);
+			System.out.println(lineagesF.get(i));	
+		}
+	}
+	
+	// We collect all the dead events to create a maximum heap of the living,
+	// from the youngest (the biggest year) to the oldest
+	private static void getPop() {
+
+		int size = events.size();
+		for (int i = 0; i < size; i++) {
+			Event event = events.poll();
+			if (event.getType() ==  Event.Type.Death) {
+				population.add(event.getSim());
+				pop.add(event.getSim());
+			}			
+		}
+		
+	}
+
 	static void simulate(int n, double Tmax){
 		founderPopulation(n);
 		Event event;
