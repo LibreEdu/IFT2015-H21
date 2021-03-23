@@ -17,6 +17,10 @@ For the first part, the heap is a min heap, we want the smallest date (of
 death), while for the second part, it is a max heap, we want the biggest date 
 (of birth), in order to have the youngest sim, according to the instructions.
 
+The structures were initialized with default sizes that depend on the size of
+the initial population. To find the ratio, we looked at the size of the 
+structure when the program runs and took the maximum size over 10 trials.
+
 To launch the simulation, just do :
 java -jar pedigree.jar
 
