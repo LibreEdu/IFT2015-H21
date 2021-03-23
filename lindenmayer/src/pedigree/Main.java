@@ -21,8 +21,8 @@ public class Main {
 	private static int populationSize;
 	private static int year; // Year counter
 	
-	private static final int DEFAULT_POPULATION_SIZE = 5000;
-	private static final int DEFAULT_MAXIMUM_TIME = 20000;
+	private static final int DEFAULT_POPULATION_SIZE = 1000;
+	private static final int DEFAULT_MAXIMUM_TIME = 10000;
     private static final double DEFAULT_ACCIDENT_RATE = 0.01; // 1% chance of dying per year
     private static final double DEFAULT_DEATH_RATE = 12.5;
     private static final double DEFAULT_SCALE = 100.0; // "maximum" age [with death rate 1]
@@ -126,7 +126,7 @@ public class Main {
 	 */
 	private static boolean printPopulationSize(Double year, Double Tmax) {
   	   if (year > Main.year) {
- 		  //System.out.println(Main.year + FIELD_SEPARATOR + populationSize);
+ 		  System.out.println(Main.year + FIELD_SEPARATOR + populationSize);
  		  Main.year += TIME_SMP_SIZE;
  		   if (year > Tmax)
  			   return true;
@@ -339,7 +339,7 @@ public class Main {
 	private static void printAncestors(String Label, ArrayList<String> lineage) {
 		System.out.println("\n" + YEAR_LABEL + FIELD_SEPARATOR + Label);
 		for (int i = lineage.size()-1 ; i > 0; i--) {
-			//System.out.println(lineage.get(i));	
+			System.out.println(lineage.get(i));	
 		}
 	}
 	
