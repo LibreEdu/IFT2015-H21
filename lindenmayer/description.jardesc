@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
-    <jar path="lindenmayer/test2/lindenmayer.jar"/>
+    <jar path="/Users/pachot/Documents/Umontreal/Git/IFT2015-H21/pedigree.jar"/>
     <options buildIfNeeded="true" compress="false" descriptionLocation="/lindenmayer/description.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
-    <manifest generateManifest="false" mainClassHandleIdentifier="=lindenmayer/src&lt;lindenmayer{Main.java[Main" manifestLocation="/lindenmayer/META-INF/manifest.mf" manifestVersion="1.0" reuseManifest="false" saveManifest="true" usesManifest="true">
+    <manifest generateManifest="false" manifestLocation="/lindenmayer/META-INF/manifest.mf" manifestVersion="1.0" reuseManifest="false" saveManifest="true" usesManifest="true">
         <sealing sealJar="false">
             <packagesToSeal/>
             <packagesToUnSeal/>
         </sealing>
     </manifest>
-    <selectedElements exportClassFiles="false" exportJavaFiles="true" exportOutputFolder="true">
-        <javaElement handleIdentifier="=lindenmayer/src&lt;lindenmayerTest"/>
-        <file path="/lindenmayer/test2/buisson.json"/>
+    <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <folder path="/lindenmayer/result"/>
         <file path="/lindenmayer/readme.txt"/>
-        <file path="/lindenmayer/test2/hexamaze.json"/>
-        <file path="/lindenmayer/test2/buissonScreen.json"/>
-        <folder path="/lindenmayer/org"/>
-        <file path="/lindenmayer/test2/lindenmayer.sh"/>
-        <file path="/lindenmayer/test2/sierpinski.json"/>
-        <javaElement handleIdentifier="=lindenmayer/src&lt;lindenmayer"/>
-        <file path="/lindenmayer/test2/sierpinskiScreen.json"/>
-        <file path="/lindenmayer/test2/herbe.json"/>
-        <file path="/lindenmayer/test2/herbeScreen.json"/>
+        <javaElement handleIdentifier="=lindenmayer/src&lt;pedigree"/>
+        <folder path="/lindenmayer/META-INF"/>
+        <file path="/lindenmayer/src/.DS_Store"/>
     </selectedElements>
 </jardesc>
