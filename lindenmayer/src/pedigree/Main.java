@@ -265,8 +265,8 @@ public class Main {
         getPop(popForFather, popForMother);
         
         // Search for coalescence
-        findFounders(popForFather, forefathers, "getMother");
-        findFounders(popForMother, foremothers, "getFather");
+        findFounders(popForFather, forefathers, "getFather");
+        findFounders(popForMother, foremothers, "getMother");
         
         // Output
 		printAncestors(FORFATHER_LABEL, forefathers);
