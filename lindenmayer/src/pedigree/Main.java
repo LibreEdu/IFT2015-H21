@@ -48,6 +48,8 @@ public class Main {
         	populationSize = Integer.parseInt(args[argIdx++]);
         if (argIdx < args.length)
         	Tmax = Integer.parseInt(args[argIdx++]);
+        else
+        	Tmax = populationSize * 10;
         if (argIdx < args.length)
         	accidentRate = Double.parseDouble(args[argIdx++]);
         if (argIdx < args.length)
