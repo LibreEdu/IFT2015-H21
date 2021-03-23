@@ -39,9 +39,6 @@ The default values of these values are :
   years)
 - maximum age: 100
 
-If there is only one parameter (the population), then the duration of the
-simulation corresponds to ten times the size of the population.
-
 For the output, we have for the first part an output in the form :
 Year Population
 
