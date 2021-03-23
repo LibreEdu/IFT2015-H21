@@ -255,9 +255,9 @@ public class Main {
 		// Structures that will contain the entire population for the search of 
 		// male and female coalescence
 		PriorityQueue<Sim> popForFather = 
-				new PriorityQueue<Sim>((int)(populationSize * 3.8), new birthComparator<Sim>());
+				new PriorityQueue<Sim>((int)(populationSize * 3.8), new BirthComparator<Sim>());
 		PriorityQueue<Sim> popForMother = 
-				new PriorityQueue<Sim>((int)(populationSize * 3.8), new birthComparator<Sim>());
+				new PriorityQueue<Sim>((int)(populationSize * 3.8), new BirthComparator<Sim>());
 		
 		// Structures to save the evolution of coalescences
 		ArrayList<String> forefathers = new ArrayList<String>((int)(populationSize * 3.8));
