@@ -189,9 +189,12 @@ public class Main {
 						if (x.isInARelationship(year) 
 								|| !z.isInARelationship(year)
 								|| RDM.nextDouble() > FIDELITY) {
-									y = z;}	  
+									y = z;
+									x.setMate(y);
+									y.setMate(x);
 						}
 					}
+				}
 				while (y==null);
 			} else { // existing partner
 				y = sim.getMate();

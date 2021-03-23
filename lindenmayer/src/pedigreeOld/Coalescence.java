@@ -35,6 +35,7 @@ public class Coalescence {
 			System.out.println(living.poll().getBirthTime());			
 		}
 		*/
+		/*
 		for(int i=0;i<10;i++) {
 			Sim m1 = new Sim(null, null, 0, Sim.Sex.M);
 			allSims.add(m1);
