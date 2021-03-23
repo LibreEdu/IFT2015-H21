@@ -18,8 +18,9 @@ public class Main {
 	private static AgeModel ageModel;
 	private static double reproductionRate;
 	private static Random RDM = new Random();
-	private static int populationSize;
-	private static int year; // Year counter
+	private static int populationSize;    // Initial population size
+	private static int populationCounter; // To count the number of sims
+	private static int year;              // Year counter
 	
 	private static final int DEFAULT_POPULATION_SIZE = 1000;
 	private static final int DEFAULT_MAXIMUM_TIME = 10000;
@@ -126,7 +127,7 @@ public class Main {
 	 */
 	private static boolean printPopulationSize(Double year, Double Tmax) {
   	   if (year > Main.year) {
- 		  System.out.println(Main.year + FIELD_SEPARATOR + populationSize);
+ 		  System.out.println(Main.year + FIELD_SEPARATOR + populationCounter);
  		  Main.year += TIME_SMP_SIZE;
  		   if (year > Tmax)
  			   return true;
@@ -143,7 +144,7 @@ public class Main {
 	private static void updatePopulationByDeath(Sim sim) {
 		if (sim.isMale())
 			males.poll(); // We remove the male from the heap.
-		populationSize--;
+		populationCounter--;
 	}
 
 	/**
@@ -158,7 +159,7 @@ public class Main {
 		else
 			mating(sim, year); // [n2]
 		setDeath(sim, year);   // [n1]
-		populationSize++;
+		populationCounter++;
 	}
 	
 	/**
