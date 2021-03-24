@@ -333,11 +333,13 @@ public class Main {
 				forebear.add((int)sim.getBirthTime() + FIELD_SEPARATOR
 						+ population.size());
 			} else {
-				if (parent.isFounder()) {
-					nbFounders++;
-				} else {
-					population.add(parent);
-					ancestors.add(parent);
+				if (parent != null) {
+					if (parent.isFounder()) {
+						nbFounders++;
+					} else {
+						population.add(parent);
+						ancestors.add(parent);
+					}
 				}
 			}
 		}
