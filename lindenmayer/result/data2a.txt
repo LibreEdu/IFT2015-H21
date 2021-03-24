@@ -476,7 +476,3 @@ Year	Population
 47400	78
 47500	25
 47600	4
-
-Year	Forefathers
-
-Year	Foremothers
