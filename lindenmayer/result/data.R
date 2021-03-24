@@ -7,4 +7,4 @@ for (i in seq(1,4)) {
   data3 <- read.delim(paste(directory, "/data", i, "c.txt", sep=""))
   source("./graph.R")
 }
-dev.off()
+invisible(dev.off())
