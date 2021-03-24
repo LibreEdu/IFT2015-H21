@@ -12,6 +12,8 @@ PriorityQueue was initialized from the death events at the end of the
 simulation. Knowing that the death events are generated during the birth event,
 they are a reflection of the living population at a time t. This allowed us to
 simulate the first part without having to manage the population of female sims.
+For this part, it was necessary to "start with all men in the current 
+population." The men were considered to be the males, not the humans.
 
 For the first part, the heap is a min heap, we want the smallest date (of 
 death), while for the second part, it is a max heap, we want the biggest date 
@@ -46,4 +48,8 @@ Then for the second part, the output is in the form :
 Year Forfathers
 then :
 Year Formothers
+ 
+ In the result directory, there is a shell script (pedigree.sh) that generates
+ the data in the data subdirectory and the graphs in the plot.pdf file. We run a
+ simulation for a population of 1,000 sims over 10,000 years.
  
