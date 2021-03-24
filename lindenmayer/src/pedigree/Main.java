@@ -33,8 +33,8 @@ public class Main {
 	private static final String FIELD_SEPARATOR = "\t";
 	private static final String YEAR_LABEL = "Year";
 	private static final String POPULATION_LABEL = "Population";
-	private static final String FORFATHER_LABEL = "Forfathers";
-	private static final String FOREMOTHER_LABEL = "Formothers";
+	private static final String FORFATHER_LABEL = "Forefathers";
+	private static final String FOREMOTHER_LABEL = "Foremothers";
 
 	public static void main(String[] args) {
 		int argIdx = 0;
@@ -358,8 +358,10 @@ public class Main {
 		for (int i = 0; i < size; i++) {
 			Event event = events.poll();
 			if (event.getType() ==  Event.Type.Death) {
-				popForFather.add(event.getSim());
-				popForMother.add(event.getSim());
+				if (event.getSim().getSex() == Sim.Sex.M)
+					popForFather.add(event.getSim());
+				else
+					popForMother.add(event.getSim());
 			}			
 		}
 		
