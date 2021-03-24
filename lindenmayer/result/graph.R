@@ -22,4 +22,4 @@ lines(x1[order(x1)], y1[order(x1)], xlim=range(x1), ylim=range(y1), lwd=1, col=c
 lines(x2[order(x2)], y2[order(x2)], xlim=range(x2), ylim=range(y2), lwd=1, col=color2)
 lines(x3[order(x3)], y3[order(x3)], xlim=range(x3), ylim=range(y3), lwd=1, col=color3)
 
-legend(500, 500, legend=c("Population size", "Forefathers", "Foremothers"), col=c(color1, color2, color3), lty=1:2, cex=0.5)
+legend("left", legend=c("Population size", "Forefathers", "Foremothers"), col=c(color1, color2, color3), lty=1:2, cex=0.5)
