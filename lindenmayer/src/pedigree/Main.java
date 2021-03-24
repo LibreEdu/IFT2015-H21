@@ -24,9 +24,9 @@ public class Main {
 	
 	private static final int DEFAULT_POPULATION_SIZE = 1000;
 	private static final int DEFAULT_MAXIMUM_TIME = 10000;
-    private static final double DEFAULT_ACCIDENT_RATE = 0.01; // 1% chance of dying per year
-    private static final double DEFAULT_DEATH_RATE = 12.5;
-    private static final double DEFAULT_SCALE = 100.0; // "maximum" age [with death rate 1]
+	private static final double DEFAULT_ACCIDENT_RATE = 0.01; // 1% chance of dying per year
+	private static final double DEFAULT_DEATH_RATE = 12.5;
+	private static final double DEFAULT_SCALE = 100.0; // "maximum" age [with death rate 1]
 	private static final double FIDELITY = 0.9;
 	private static final int TIME_SMP_SIZE = 100;
 	private static final int INITIAL_YEAR = 0;
@@ -38,25 +38,25 @@ public class Main {
 
 	public static void main(String[] args) {
 		int argIdx = 0;
-        populationSize = DEFAULT_POPULATION_SIZE;
-        double Tmax = DEFAULT_MAXIMUM_TIME;
-        double accidentRate = DEFAULT_ACCIDENT_RATE;
-        double deathRate = DEFAULT_DEATH_RATE;
-        double ageScale = DEFAULT_SCALE;
-        year = INITIAL_YEAR;
+		populationSize = DEFAULT_POPULATION_SIZE;
+		double Tmax = DEFAULT_MAXIMUM_TIME;
+		double accidentRate = DEFAULT_ACCIDENT_RATE;
+		double deathRate = DEFAULT_DEATH_RATE;
+		double ageScale = DEFAULT_SCALE;
+		year = INITIAL_YEAR;
         
-        if (argIdx < args.length)
-        	populationSize = Integer.parseInt(args[argIdx++]);
-        if (argIdx < args.length)
-        	Tmax = Integer.parseInt(args[argIdx++]);
-        if (argIdx < args.length)
-        	accidentRate = Double.parseDouble(args[argIdx++]);
-        if (argIdx < args.length)
-        	deathRate = Double.parseDouble(args[argIdx++]);
-        if (argIdx < args.length)
-        	ageScale = Double.parseDouble(args[argIdx++]);
+	if (argIdx < args.length)
+		populationSize = Integer.parseInt(args[argIdx++]);
+	if (argIdx < args.length)
+		Tmax = Integer.parseInt(args[argIdx++]);
+	if (argIdx < args.length)
+		accidentRate = Double.parseDouble(args[argIdx++]);
+	if (argIdx < args.length)
+		deathRate = Double.parseDouble(args[argIdx++]);
+	if (argIdx < args.length)
+		ageScale = Double.parseDouble(args[argIdx++]);
         
-        males = new Heap<Sim>((int)(populationSize * 1.3));
+		males = new Heap<Sim>((int)(populationSize * 1.3));
 		events = new PriorityQueue<Event>(populationSize * 4);
 		ageModel = new AgeModel(accidentRate, deathRate, ageScale);
 		reproductionRate = 2.0/ageModel.expectedParenthoodSpan(Sim.MIN_MATING_AGE_F, Sim.MAX_MATING_AGE_F);
@@ -113,9 +113,9 @@ public class Main {
 	 * @param size Initial population size
 	 */
 	private static void creation(int size) {
-        for (int i = 0; i < size; i++){
-        	addBirthEvent(new Sim(randomSex()), year);
-        }
+		for (int i = 0; i < size; i++){
+			addBirthEvent(new Sim(randomSex()), year);
+		}
 	}
 	
 	/**
@@ -126,13 +126,13 @@ public class Main {
 	 * @return True if the maximum time has been exceeded, false otherwise
 	 */
 	private static boolean printPopulationSize(Double year, Double Tmax) {
-  	   if (year > Main.year) {
- 		  System.out.println(Main.year + FIELD_SEPARATOR + populationCounter);
- 		  Main.year += TIME_SMP_SIZE;
- 		   if (year > Tmax)
- 			   return true;
- 	   }
-  	   return false;
+		if (year > Main.year) {
+			System.out.println(Main.year + FIELD_SEPARATOR + populationCounter);
+			Main.year += TIME_SMP_SIZE;
+			if (year > Tmax)
+				return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -266,13 +266,13 @@ public class Main {
 		ArrayList<String> foremothers = new ArrayList<String>((int)(populationSize * 3.8));
         
 		// We get the population from the list of events
-        getPop(popForFather, popForMother);
-        
-        // Search for coalescence
-        findFounders(popForFather, forefathers, "getFather");
-        findFounders(popForMother, foremothers, "getMother");
-        
-        // Output
+		getPop(popForFather, popForMother);
+		
+		// Search for coalescence
+		findFounders(popForFather, forefathers, "getFather");
+		findFounders(popForMother, foremothers, "getMother");
+		
+		// Output
 		printAncestors(FORFATHER_LABEL, forefathers);
 		printAncestors(FOREMOTHER_LABEL, foremothers);
 
@@ -343,7 +343,7 @@ public class Main {
 	private static void printAncestors(String Label, ArrayList<String> lineage) {
 		System.out.println("\n" + YEAR_LABEL + FIELD_SEPARATOR + Label);
 		for (int i = lineage.size()-1 ; i > 0; i--) {
-			System.out.println(lineage.get(i));	
+			System.out.println(lineage.get(i));
 		}
 	}
 	
@@ -362,7 +362,7 @@ public class Main {
 					popForFather.add(event.getSim());
 				else
 					popForMother.add(event.getSim());
-			}			
+			}
 		}
 		
 	}
