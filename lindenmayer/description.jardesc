@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
-    <jar path="/Users/pachot/Documents/Umontreal/Git/IFT2015-H21/pedigree.jar"/>
+    <jar path="lindenmayer/result/pedigree.jar"/>
     <options buildIfNeeded="true" compress="false" descriptionLocation="/lindenmayer/description.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
