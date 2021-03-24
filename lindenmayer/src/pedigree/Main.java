@@ -44,7 +44,7 @@ public class Main {
 		double deathRate = DEFAULT_DEATH_RATE;
 		double ageScale = DEFAULT_SCALE;
 		year = INITIAL_YEAR;
-        
+		
 	if (argIdx < args.length)
 		populationSize = Integer.parseInt(args[argIdx++]);
 	if (argIdx < args.length)
@@ -55,7 +55,7 @@ public class Main {
 		deathRate = Double.parseDouble(args[argIdx++]);
 	if (argIdx < args.length)
 		ageScale = Double.parseDouble(args[argIdx++]);
-        
+		
 		males = new Heap<Sim>((int)(populationSize * 1.3));
 		events = new PriorityQueue<Event>(populationSize * 4);
 		ageModel = new AgeModel(accidentRate, deathRate, ageScale);
@@ -63,7 +63,7 @@ public class Main {
 		
 		simulate(populationSize, Tmax);
 		coalescence();
-	}   
+	}
 	
 	/**
 	 * Simulation of the evolution of the population
@@ -175,15 +175,26 @@ public class Main {
 		if (year > sim.getDeathTime())
 			return;
 		
+		// There are no more males
+		if (males.size() == 0) {
+			return;	
+		}
+		
 		// Sim at reproductive age
 		if (sim.isMatingAge(year)) {
-			Sim x = sim;  // Mother
-			Sim y = null; // Father
+			Sim x = sim;	// Mother
+			Sim y = null;	// Father
+			Sim z;			// Partner
 			
 			// Random partner
 			if (!x.isInARelationship(year) || RDM.nextDouble() > FIDELITY){ // [p2]
+				
+				// When the population is low (high accident rate), there may be
+				// no potential candidates!
+				int stop = populationCounter;
+				
 				do {
-					Sim z = random();
+					z = random();
 					// isMatingAge() check if z is of acceptable age
 					if (z.isMatingAge(year)) { 
 						// z accepts that x is unfaithful
@@ -195,8 +206,9 @@ public class Main {
 									y.setMate(x);
 						}
 					}
+					stop--;
 				}
-				while (y==null);
+				while (y == null && stop > 0);
 			} else { // existing partner
 				y = sim.getMate();
 			}
@@ -229,7 +241,7 @@ public class Main {
 	private static void setDeath(Sim sim, double year) {
 		double deathDate = year + ageModel.randomAge(RDM);
 		sim.setDeath(deathDate);
-		events.add(new Event(deathDate, sim, Event.Type.Death));	
+		events.add(new Event(deathDate, sim, Event.Type.Death));
 	}
 
 	/**
@@ -264,7 +276,7 @@ public class Main {
 		// Structures to save the evolution of coalescences
 		ArrayList<String> forefathers = new ArrayList<String>((int)(populationSize * 3.8));
 		ArrayList<String> foremothers = new ArrayList<String>((int)(populationSize * 3.8));
-        
+		
 		// We get the population from the list of events
 		getPop(popForFather, popForMother);
 		
