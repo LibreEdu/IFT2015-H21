@@ -213,7 +213,9 @@ public class Main {
 				y = sim.getMate();
 			}
 			// creation of the child sim
-			addBirthEvent(new Sim(x,y,year,randomSex()), year);
+			if (y != null) { // We found a father
+				addBirthEvent(new Sim(x,y,year,randomSex()), year);
+			}
 		}
 
 		// New date of mating
@@ -311,7 +313,7 @@ public class Main {
 		Method method = null;
 		
 		// As long as the population is not reduced to its founders
-		while(nbFounders != population.size() && population.size() != 0) {
+		while(population.size() != 0) {
 			
 			// Get the youngest sim
 			sim = population.poll();
@@ -333,13 +335,11 @@ public class Main {
 				forebear.add((int)sim.getBirthTime() + FIELD_SEPARATOR
 						+ population.size());
 			} else {
-				if (parent != null) {
-					if (parent.isFounder()) {
-						nbFounders++;
-					} else {
-						population.add(parent);
-						ancestors.add(parent);
-					}
+				ancestors.add(parent);
+				if (parent.isFounder()) {
+					nbFounders++;
+				} else {
+					population.add(parent);
 				}
 			}
 		}
