@@ -333,7 +333,7 @@ public class Main {
 			// population just decreased by 1, we save the information
 			if (ancestors.contains(parent)) {
 				forebear.add((int)sim.getBirthTime() + FIELD_SEPARATOR
-						+ population.size());
+						+ (population.size() + nbFounders));
 			} else {
 				ancestors.add(parent);
 				if (parent.isFounder()) {
