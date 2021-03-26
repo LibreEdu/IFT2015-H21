@@ -11,10 +11,12 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
-        <folder path="/lindenmayer/result"/>
+        <file path="/lindenmayer/result/data.R"/>
+        <file path="/lindenmayer/result/graph.R"/>
         <file path="/lindenmayer/readme.txt"/>
+        <file path="/lindenmayer/result/pedigree.sh"/>
+        <file path="/lindenmayer/result/plot.pdf"/>
         <javaElement handleIdentifier="=lindenmayer/src&lt;pedigree"/>
         <folder path="/lindenmayer/META-INF"/>
-        <file path="/lindenmayer/src/.DS_Store"/>
     </selectedElements>
 </jardesc>
