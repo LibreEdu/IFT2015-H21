@@ -190,7 +190,7 @@ public class Main {
 			if (!x.isInARelationship(year) || RDM.nextDouble() > FIDELITY){ // [p2]
 				
 				// When the population is low (high accident rate), there may be
-				// no potential candidates!
+				// no potential candidates! They are all too young !
 				int stop = populationCounter;
 				
 				do {
@@ -312,6 +312,10 @@ public class Main {
 		Sim parent = null;
 		Method method = null;
 		
+		// If there is only one parent left, the coalescence stops, the initial
+		// founding population is not printed
+		boolean printYear0 = true;
+		
 		// As long as the population is not reduced to its founders
 		while(population.size() != 0) {
 			
@@ -337,15 +341,24 @@ public class Main {
 			} else {
 				ancestors.add(parent);
 				if (parent.isFounder()) {
+					// We don't add the founders to the population
 					nbFounders++;
 				} else {
 					population.add(parent);
 				}
 			}
+			
+			// If at year x there is only 1 parent, and it is not a founder, we 
+			// don’t print the number of founders at year 0
+			if (population.size() == 1 && nbFounders == 0) {
+				printYear0 = false;
+			}
 		}
 		
-		// Number of founders at the origin of the population
-		forebear.add(INITIAL_YEAR + FIELD_SEPARATOR + nbFounders);
+		// Number of founders at the origin of the population (year = 0)
+		if (printYear0 == true) {
+			forebear.add(INITIAL_YEAR + FIELD_SEPARATOR + nbFounders);			
+		}
 	}
 	
 	/**
