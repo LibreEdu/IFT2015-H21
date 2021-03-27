@@ -13,10 +13,27 @@
     <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
         <file path="/lindenmayer/result/data.R"/>
         <file path="/lindenmayer/result/graph.R"/>
+        <file path="/lindenmayer/result/data/data2.txt"/>
         <file path="/lindenmayer/readme.txt"/>
+        <file path="/lindenmayer/result/data/data4a.txt"/>
+        <file path="/lindenmayer/result/data/data3a.txt"/>
+        <file path="/lindenmayer/result/data/data4.txt"/>
+        <file path="/lindenmayer/result/data/data4c.txt"/>
+        <file path="/lindenmayer/result/data/data3c.txt"/>
+        <file path="/lindenmayer/result/data/data2a.txt"/>
+        <file path="/lindenmayer/result/data/data1a.txt"/>
+        <file path="/lindenmayer/result/data/data2c.txt"/>
+        <folder path="/lindenmayer/META-INF"/>
+        <javaElement handleIdentifier="=lindenmayer/src&lt;pedigree"/>
+        <file path="/lindenmayer/result/data/data1c.txt"/>
+        <file path="/lindenmayer/result/data/data1.txt"/>
         <file path="/lindenmayer/result/pedigree.sh"/>
         <file path="/lindenmayer/result/plot.pdf"/>
-        <javaElement handleIdentifier="=lindenmayer/src&lt;pedigree"/>
-        <folder path="/lindenmayer/META-INF"/>
+        <file path="/lindenmayer/result/data/data4b.txt"/>
+        <file path="/lindenmayer/result/data/data3.txt"/>
+        <file path="/lindenmayer/result/data/data3b.txt"/>
+        <file path="/lindenmayer/result/data/data2b.txt"/>
+        <file path="/lindenmayer/result/pedigree.jar"/>
+        <file path="/lindenmayer/result/data/data1b.txt"/>
     </selectedElements>
 </jardesc>
